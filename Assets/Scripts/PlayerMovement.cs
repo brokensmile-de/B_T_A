@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
 //Author:Adrian Zimmer
 //Description: Movementscript für Player bei dem die Kamera immer im gleichen winkel bleiben sollte und W/A/S/D kamera relativ funktionieren
@@ -8,7 +9,8 @@ using UnityEngine;
 //Last edited:
 //Edited by:
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : NetworkBehaviour
+{
 
     public float speed;
     public float rotateSpeed;
@@ -22,12 +24,22 @@ public class PlayerMovement : MonoBehaviour {
         controller = GetComponent<CharacterController>();
     }
 
+    public override void OnStartLocalPlayer()
+    {
+        GetComponent<MeshRenderer>().material.color = Color.green;
+    }
+
     private Ray ray = new Ray(Vector3.zero, Vector3.down);
     private RaycastHit hit;
     private Vector3 moveDirection = Vector3.zero;
 
     void Update()
     {
+        if (!isLocalPlayer)
+        {
+            return;
+        }
+
         CalcRotationToMouse();  //spieler in richtung Maus rotieren
         DoMovement();
         AlignToGround();        //rotiere Player parallel zur oberfläche auf der er steht 
