@@ -24,7 +24,6 @@ public class PlayerMovement : MonoBehaviour {
 
     private Ray ray = new Ray(Vector3.zero, Vector3.down);
     private RaycastHit hit;
-    private float facing = 0;
     private Vector3 moveDirection = Vector3.zero;
 
     void Update()
