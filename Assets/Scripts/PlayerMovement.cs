@@ -8,7 +8,7 @@ using UnityEngine;
 //Last edited:
 //Edited by:
 
-public class PlayerMovement1 : MonoBehaviour {
+public class PlayerMovement : MonoBehaviour {
 
     public float speed;
     public float rotateSpeed;
