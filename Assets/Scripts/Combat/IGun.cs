@@ -1,13 +1,12 @@
 ﻿using System;
 
-namespace AssemblyCSharp
+namespace Combat
 {
 	public interface IGun
 	{
-		void Shoot();
-
+		void Shoot(Boolean autofire);
+	    void Update();
 		WeaponTemplate GetGunTemplate();
-
 	}
 }
 
