@@ -32,12 +32,6 @@ public class PlayerMovement : MonoBehaviour {
         CalcRotationToMouse();  //spieler in richtung Maus rotieren
         DoMovement();
         AlignToGround();        //rotiere Player parallel zur oberfläche auf der er steht 
-		if (Input.GetMouseButtonDown (0)) {
-			gun.isFiring = true;
-		}
-		if (Input.GetMouseButtonUp(0)){
-			gun.isFiring = false;
-		}
     }
 
     private void DoMovement()
@@ -93,9 +87,6 @@ public class PlayerMovement : MonoBehaviour {
             transform.rotation = fixedTargetRotation;
         }
     }
-	void OnTriggerEnter(Collider other){
-
-	}
 
 }
 
