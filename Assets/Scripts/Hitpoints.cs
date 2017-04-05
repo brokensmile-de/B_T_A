@@ -114,6 +114,12 @@ public class Hitpoints : MonoBehaviour {
         ApplyDamage(5, null);
     }
 
+    // for debugging
+    public void SignOfLife()
+    {
+        Debug.Log("I'm there!");
+    }
+
     public void HealTest()
     {
         ApplyHeal(5, this.gameObject);
@@ -146,5 +152,17 @@ public class Hitpoints : MonoBehaviour {
             this.source = damageSource;
             this.currentHitpoints = currentHitpoints;
         }
+    }
+
+
+    //edit 05.04.2017 for setting up references during runtime
+    public void setHealthReference(GameObject t)
+    {
+        hitpointsText=t.GetComponent<Text>();         
+    }
+
+    public void setShieldReference(GameObject s)
+    {
+        shieldText=s.GetComponent<Text>();
     }
 }

@@ -1,23 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class CameraLock : MonoBehaviour {
+public class CameraFollow : MonoBehaviour
+{
 
-    public GameObject player;
-    public Vector3 offset;
+    public GameObject player;       
+    public Vector3 offset;         
 
-
+    
     void Start()
     {
-        offset = new Vector3(0, 20, -15);
+        offset = new Vector3(0,20,-15);
     }
 
     // LateUpdate um jittering zu verhindern (jittering mit Update taucht nur bei Hinzufügen einer NetworkIdentity auf, 2 Stunden dran verzweifelt)
     void LateUpdate()
     {
-
-        if (player == null)
+        
+        if(player== null)
         {
             return;
         }
@@ -31,3 +31,5 @@ public class CameraLock : MonoBehaviour {
         player = target;
     }
 }
+
+
