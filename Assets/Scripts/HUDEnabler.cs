@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 //Weist dem Lokalen Player Character während der runtime die Kamera zu
 public class HUDEnabler : NetworkBehaviour
 {
-    private GameObject hudCanvas;
+    public GameObject hudCanvas;
     
 
     void Start()
@@ -15,8 +15,7 @@ public class HUDEnabler : NetworkBehaviour
         //damit tritt das Script nur beim local player in Kraft( Ansonsten würde es die anderen Player auch beeinflussen)
         if (!isLocalPlayer)
         {
-
-            GameObject.FindWithTag("LocalHUD").active = false;
+            hudCanvas.active = false;
             return;
         }
 
