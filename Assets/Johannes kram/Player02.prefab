@@ -400,9 +400,9 @@ MonoBehaviour:
   rotateSpeed: 300
   jumpSpeed: 25
   gravity: 90
-  dashSpeed: 0
-  maxDashes: 0
-  dashChargeCooldown: 0
+  dashSpeed: 70
+  maxDashes: 2
+  dashChargeCooldown: 1
 --- !u!114 &114464708400417992
 MonoBehaviour:
   m_ObjectHideFlags: 1
