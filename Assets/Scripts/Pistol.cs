@@ -7,9 +7,9 @@ namespace AssemblyCSharp
 		public Pistol ()
 		{
 			BulletSpeed = 20f;
-			TimeBetweenShots = 0.5f;
+			TimeBetweenShots = 0.05f;
 			ShotCounter = TimeBetweenShots;
-			MaxBulletDistance = 50f;
+			MaxBulletDistance = 20f;
 
 		}
 	}

@@ -21,6 +21,12 @@ namespace AssemblyCSharp
 		}
 			
 		void OnTriggerEnter(Collider other){
+			if (other.gameObject.CompareTag ("Pistol")) {
+				Debug.Log ("Pistol picked");
+				gun.ChangeGun (0);
+				Destroy (other.gameObject);
+			}
+			// add new guns here
 
 		}
 	}

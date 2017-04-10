@@ -29,6 +29,7 @@ namespace AssemblyCSharp
 				shotCounter = myTemp.TimeBetweenShots;
 				BulletController newBullet = GameObject.Instantiate (gunController.bullet, gunController.firePoint.position, gunController.firePoint.rotation) as BulletController;
 				newBullet.speed = myTemp.BulletSpeed;
+				newBullet.maxDistance = myTemp.MaxBulletDistance;
 			}
 
 			
