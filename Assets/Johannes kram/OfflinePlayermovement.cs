@@ -25,9 +25,9 @@ public class OfflinePlayermovement : NetworkBehaviour
         controller = GetComponent<CharacterController>();
     }
 
-    private Ray ray = new Ray(Vector3.zero, Vector3.down);
+    //private Ray ray = new Ray(Vector3.zero, Vector3.down);
     private RaycastHit hit;
-    private float facing = 0;
+    //private float facing = 0;
     private Vector3 moveDirection = Vector3.zero;
 
     void Update()
