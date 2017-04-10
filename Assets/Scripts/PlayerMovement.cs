@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -6,8 +7,8 @@ using UnityEngine.Networking;
 //Author:Adrian Zimmer
 //Description: Movementscript für Player bei dem die Kamera immer im gleichen winkel bleiben sollte und W/A/S/D kamera relativ funktionieren
 //Date Created: 27.03.2017
-//Last edited: 02.04.2017
-//Edited by: Johannes R
+//Last edited: 05.04.2017
+//Edited by: Adrian Zimmer
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -16,19 +17,26 @@ public class PlayerMovement : NetworkBehaviour
     public float rotateSpeed;
     public float jumpSpeed;
     public float gravity;
+    public float dashSpeed;
 
+    public float maxDashes;             //Maximale anzahl an dash charges
+    public float dashChargeCooldown;    //Cooldown für einen Charge restore
+    private float dashes;               //Wieviele dashes kann man noch usen
+    private bool isDashing;             //Gibt an ob der spieler gerade am Dashen ist
+    private bool restoringDashes;       //Gibt an ob ein dash charge gerade am laden ist um doppelte aufladungen zu verhindern
 
     private CharacterController controller;
 
     public void Start()
     {
         controller = GetComponent<CharacterController>();
+        dashes = maxDashes;
     }
 
-    private Ray ray = new Ray(Vector3.zero, Vector3.down);
-    private RaycastHit hit;
-    private float facing = 0;
-    private Vector3 moveDirection = Vector3.zero;
+    public override void OnStartLocalPlayer()
+    {
+        GetComponent<MeshRenderer>().material.color = Color.green;
+    }
 
     void Update()
     {
@@ -36,12 +44,18 @@ public class PlayerMovement : NetworkBehaviour
         {
             return;
         }
+        if(dashes < maxDashes && !restoringDashes)
+        {
+            restoringDashes = true;
+            Invoke("IncreaseDashCount", dashChargeCooldown);
+        }
 
         CalcRotationToMouse();  //spieler in richtung Maus rotieren
         DoMovement();
-        //AlignToGround();        //rotiere Player parallel zur oberfläche auf der er steht 
+        AlignToGround();        //rotiere Player parallel zur oberfläche auf der er steht 
     }
 
+    private Vector3 moveDirection = Vector3.zero;
     private void DoMovement()
     {
         if (controller.isGrounded)
@@ -50,75 +64,62 @@ public class PlayerMovement : NetworkBehaviour
             Vector3 forward = Vector3.forward * Input.GetAxis("Vertical");
             Vector3 right = Vector3.right * Input.GetAxis("Horizontal");
 
-            //Kombiniere beide
-            moveDirection = forward + right;
+            if(!isDashing)
+            {
+                //Kombiniere beide
+                moveDirection = forward + right;
+            }
 
-            //verrechne mit movementspeed
-            moveDirection *= speed * 100 * Time.smoothDeltaTime;
+            if (Input.GetButtonDown("Jump") && dashes >= 1 && !isDashing)
+            {
+                isDashing = true;
+                dashes --;
 
-            if (Input.GetButton("Jump"))
-                moveDirection.y = jumpSpeed;
+                StartCoroutine(Dash());
+            }
+
+            if(!isDashing)
+            {
+                //verrechne mit movementspeed
+                moveDirection *= speed;
+            }    
         }
-
         //subtrahiere gravity
         moveDirection.y -= gravity * Time.deltaTime;
         //apply movement
         controller.Move(moveDirection * Time.deltaTime);
     }
 
+    private void IncreaseDashCount()
+    {
+        dashes++;
+        restoringDashes = false;
+    }
 
+    private IEnumerator Dash()
+    {
+        moveDirection.x = moveDirection.x * dashSpeed;
+        moveDirection.z = moveDirection.z * dashSpeed;
+        yield return new WaitForSeconds(0.2f);
 
+        isDashing = false;
+    }
 
-    //edit: überarbeitete Version ohne Generierung von neuem Plane pro Update cycle
+    private Vector3 lookVector;
     private void CalcRotationToMouse()
     {
-
-        //Debug.Log("dont forget to minimize when testing multiplayer on one machine!  Time: "+Time.time+" Input mousepos: "+ Input.mousePosition);
         //berechne Vektor der von der Playerposition aus auf die Mausposition zeigt (Screenspace)
-        Vector3 lookVector = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
+        lookVector = Input.mousePosition - Camera.main.WorldToScreenPoint(transform.position);
         //normalisieren des Vektors um Werte minimal zu halten
         lookVector.Normalize();
         //Winkel zwischen X-Achse und neuem Vektor (im Screenspace)
         float newRotation = Mathf.Atan2(lookVector.x, lookVector.y) * Mathf.Rad2Deg;
 
-
         transform.rotation = Quaternion.Euler(0f, newRotation, 0f);
     }
 
-
-
-
-
-    public override void OnStartLocalPlayer()
-    {
-        GetComponent<MeshRenderer>().material.color = Color.green;
-    }
-
-
-    //Version mit Raycast und Plane
-    /*
-    private void CalcRotationToMouse()
-    {
-        //berechne mouse to screen ray
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-        //ebene die parallel zur spieler position verläuft
-        Plane playerPlane = new Plane(Vector3.up, transform.position);
-
-        float hitdist = 0.0f;
-        if (playerPlane.Raycast(mouseRay, out hitdist))
-        {
-            Vector3 targetPoint = mouseRay.GetPoint(hitdist);
-            //rotation zur maus berechnen
-            Quaternion targetRotation = Quaternion.LookRotation(targetPoint - transform.position);
-            //x und z rotations werte auf 0 setzen(just in case)
-            Quaternion fixedTargetRotation = Quaternion.Euler(new Vector3(0, targetRotation.eulerAngles.y, 0));
-            transform.rotation = fixedTargetRotation;
-        }
-    }
-
-
-
+    private Ray ray = new Ray(Vector3.zero, Vector3.down);
+    private RaycastHit hit;
     private void AlignToGround()
     {
         ray.origin = transform.position;
@@ -128,6 +129,6 @@ public class PlayerMovement : NetworkBehaviour
             transform.rotation = grndTilt * transform.rotation;
         }
     }
-    */
+
 }
 

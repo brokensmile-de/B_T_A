@@ -400,6 +400,9 @@ MonoBehaviour:
   rotateSpeed: 300
   jumpSpeed: 25
   gravity: 90
+  dashSpeed: 70
+  maxDashes: 2
+  dashChargeCooldown: 1
 --- !u!114 &114464708400417992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d98ada07ad457e94daa1b12c2add6520, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hudCanvas: {fileID: 0}
 --- !u!114 &114475477448427080
 MonoBehaviour:
   m_ObjectHideFlags: 1
