@@ -9,7 +9,7 @@ using UnityEngine.Networking;
 //Last edited: 02.04.2017
 //Edited by: Johannes R
 
-public class PlayerMovement : NetworkBehaviour
+public class OfflinePlayermovement : NetworkBehaviour
 {
 
     public float speed;
@@ -32,10 +32,7 @@ public class PlayerMovement : NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
+        
 
         CalcRotationToMouse();  //spieler in richtung Maus rotieren
         DoMovement();
@@ -130,4 +127,3 @@ public class PlayerMovement : NetworkBehaviour
     }
     */
 }
-
