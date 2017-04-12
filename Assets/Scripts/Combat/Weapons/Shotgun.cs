@@ -7,6 +7,7 @@
 		    BulletsPerShot = 10;
 		    BulletBaseSpread = 60.0f;
 		    BulletMaxSpread = BulletBaseSpread;
+            //AutoFire = true;
 		}
 
 	    public override IGun CreateGun(GunController controller)

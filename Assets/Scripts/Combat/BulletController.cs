@@ -16,7 +16,13 @@ namespace AssemblyCSharp
 
 	    }
 
-	    void Update ()
+        void OnCollisionEnter(Collision collision)
+        {
+            Destroy(gameObject);
+        }
+
+
+        void Update ()
 	    {
 	        var vec = Vector3.forward * Speed * Time.deltaTime;
 			transform.Translate (vec);

@@ -5,7 +5,7 @@
 		public Pistol ()
 		{
 		    Cooldown = 0.5f;
-		    BulletSpeed = 20f;
+		    BulletSpeed = 100f;
 		    MaxShotDistance = 50f;
 		}
 
