@@ -8,38 +8,31 @@ namespace Combat
 {
 	public class ProjectileGun : BaseGun
 	{
-	    public ProjectileWeaponTemplate ProjectileWeaponTemplate { get; private set; }
-
 	    private float _curSpread;
 
-	    public ProjectileGun(WeaponTemplate wp, GunController gc) : base(wp, gc)
+	    public ProjectileGun(WeaponController wp, GunController gc) : base(wp, gc)
 	    {
-	        if (!(wp is ProjectileWeaponTemplate))
-	        {
-	            throw new ArgumentException("Trying to intialize a ProjectileWeapon with a non ProjectileWeapon Template");
-	        }
-	        ProjectileWeaponTemplate = (ProjectileWeaponTemplate) wp;
-	        _curSpread = ProjectileWeaponTemplate.BulletBaseSpread;
+	        Reset();
 	    }
 
 	    protected override void Reset()
 	    {
-	        _curSpread = ProjectileWeaponTemplate.BulletBaseSpread;
+	        _curSpread = WeaponController.BulletBaseSpread;
 	    }
 
 	    protected override void Shoot()
 	    {
-	        if (ProjectileWeaponTemplate.BulletsPerShot > 1)
+	        if (WeaponController.BulletsPerShot > 1)
 	        {
 	            // Multiple bullets per shot e.g. Shotgun
-	            var bulletDistance = _curSpread / ProjectileWeaponTemplate.BulletsPerShot;
+	            var bulletDistance = _curSpread / WeaponController.BulletsPerShot;
 	            var rotation = GunController.FirePoint.rotation * Quaternion.Euler(0f, -_curSpread/2, 0f);
-	            for (int i = 0; i < ProjectileWeaponTemplate.BulletsPerShot; i++)
+	            for (int i = 0; i < WeaponController.BulletsPerShot; i++)
 	            {
-	                var newBullet = Object.Instantiate (GunController.Bullet, GunController.FirePoint.position, rotation);
+	                var newBullet = Object.Instantiate (WeaponController.Bullet, GunController.FirePoint.position, rotation);
 	                var bulletController = newBullet.GetComponent<BulletController>();
-	                bulletController.Speed = ProjectileWeaponTemplate.BulletSpeed;
-	                bulletController.MaxDistance = ProjectileWeaponTemplate.MaxShotDistance;
+	                bulletController.Speed = WeaponController.BulletSpeed;
+	                bulletController.MaxDistance = WeaponController.MaxShotDistance;
 
 	                rotation *= Quaternion.Euler(0f, bulletDistance, 0f);
 	            }
@@ -49,12 +42,12 @@ namespace Combat
 	            // Single bullet per shot
 	            var spread = Random.Range(-_curSpread/2, _curSpread/2);
 	            var rotation = GunController.FirePoint.rotation * Quaternion.Euler(0f, spread, 0f);
-	            var newBullet = Object.Instantiate (GunController.Bullet, GunController.FirePoint.position, rotation);
+	            var newBullet = Object.Instantiate (WeaponController.Bullet, GunController.FirePoint.position, rotation);
 	            var bulletController = newBullet.GetComponent<BulletController>();
-	            bulletController.Speed = ProjectileWeaponTemplate.BulletSpeed;
-	            bulletController.MaxDistance = ProjectileWeaponTemplate.MaxShotDistance;
+	            bulletController.Speed = WeaponController.BulletSpeed;
+	            bulletController.MaxDistance = WeaponController.MaxShotDistance;
 	        }
-	        _curSpread = Math.Min(ProjectileWeaponTemplate.BulletSpreadIncrease + _curSpread, ProjectileWeaponTemplate.BulletMaxSpread);
+	        _curSpread = Math.Min(WeaponController.BulletSpreadIncrease + _curSpread, WeaponController.BulletMaxSpread);
 
 	    }
 	}

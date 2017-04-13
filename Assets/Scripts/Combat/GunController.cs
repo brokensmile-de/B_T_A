@@ -11,11 +11,11 @@ namespace Combat
 	    public IGun CurrentGun { get; private set; }
 
 	    [SerializeField]
-	    private Transform _bullet;
-	    public Transform Bullet
+	    private WeaponController[] _weaponst;
+	    public WeaponController[] Weapons
 	    {
-	        get { return _bullet; }
-	        set { _bullet = value; }
+	        get { return _weaponst; }
+	        set { _weaponst = value; }
 	    }
 
 	    void Update ()
@@ -30,32 +30,25 @@ namespace Combat
 	            }
 	        }
 
-	        // Temporarily switch weapons using Number Keys
-	        if (Input.GetKeyDown("1"))
+	        for (var i = 1; i <= 9; i++)
 	        {
-	            ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
-	        }
-	        else if (Input.GetKeyDown("2"))
-	        {
-	            ChangeGun(Weapons.Templates.Shotgun.CreateGun(this));
-	        }
-	        else if (Input.GetKeyDown("3"))
-	        {
-	            ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
-	        }
-	        else if (Input.GetKeyDown("4"))
-	        {
-	            ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
+	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
+	            {
+	                ChangeGun(Weapons[i - 1]);
+	            }
 	        }
 	    }
 
-	    void Start ()
+	    public void ChangeGun(WeaponController weapon)
 	    {
-	        ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
-	    }
+	        IGun gun = null;
 
-	    public void ChangeGun(IGun gun)
-	    {
+	        switch (weapon.WeaponType)
+	        {
+	            case WeaponType.Projectile: gun = new ProjectileGun(weapon, this); break;
+	            case WeaponType.HitScan: gun = new HitscanGun(weapon, this); break;
+	        }
+
 	        CurrentGun = gun;
 	        FirePoint = transform.Find("FirePoint");
 	        GunHolder = transform.Find("GunHolder");
