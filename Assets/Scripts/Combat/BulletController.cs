@@ -6,6 +6,8 @@ namespace AssemblyCSharp
 {
 	public class BulletController : MonoBehaviour
 	{
+
+        public int Damage;
 		public float Speed { get; set; }
 	    public float MaxDistance { get; set; }
 
@@ -18,21 +20,38 @@ namespace AssemblyCSharp
 
         void OnCollisionEnter(Collision collision)
         {
+
+            
+
+            GameObject hit = collision.gameObject;
+            Hitpoints health = hit.GetComponent<Hitpoints>();
+
+           
+
+            if (health != null)
+            {
+                health.ApplyDamage(Damage, this.gameObject);
+              
+            }
+
+
             Destroy(gameObject);
         }
 
 
-        void Update ()
-	    {
-	        var vec = Vector3.forward * Speed * Time.deltaTime;
-			transform.Translate (vec);
-	        _distanceTravelled += vec.magnitude;
+        //rigidbody and time to live make own update method currently obsolete
 
-	        if (_distanceTravelled > MaxDistance)
-	        {
-	            Destroy(gameObject);
-	        }
-	    }
+      //     void Update ()
+	  //  {
+	  //      var vec = Vector3.forward * Speed * Time.deltaTime;
+			//transform.Translate (vec);
+	  //      _distanceTravelled += vec.magnitude;
+
+	  //      if (_distanceTravelled > MaxDistance)
+	  //      {
+	  //          Destroy(gameObject);
+	  //      }
+	  //  }
 
 	}
 }
