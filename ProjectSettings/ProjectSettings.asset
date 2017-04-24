@@ -74,7 +74,7 @@ PlayerSettings:
   usePlayerLog: 1
   bakeCollisionMeshes: 0
   forceSingleInstance: 0
-  resizableWindow: 0
+  resizableWindow: 1
   useMacAppStoreValidation: 0
   gpuSkinning: 0
   graphicsJobs: 0
@@ -526,9 +526,9 @@ PlayerSettings:
     Game_Performance: 0
     Hub: 0
     Purchasing: 0
-    UNet: 0
+    UNet: 1
     Unity_Ads: 0
-  cloudProjectId: 
-  projectName: 
-  organizationId: 
+  cloudProjectId: cc64649c-e3bc-41ee-ab30-7cf05a982cf4
+  projectName: Projekt X
+  organizationId: vakiba
   cloudEnabled: 0
