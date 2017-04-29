@@ -16,7 +16,12 @@ public class GridController : MonoBehaviour
         }
         else
         {
-            player = GameObject.Find("Player(Clone)").transform;
+            var playerObject = GameObject.Find("Player(Clone)");
+            if (playerObject != null)
+            {
+                player = playerObject.transform;
+            }
+
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using AssemblyCSharp;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -7,20 +6,41 @@ namespace Combat
 {
 	public class GunController : NetworkBehaviour
 	{
-        public Transform FirePoint;
-        public Transform GunHolder;
+	    public IGun CurrentGun { get; private set; }
 
-        public IGun CurrentGun { get; private set; }
+	    [SerializeField]
+	    private Transform _firePoint;
+	    public Transform FirePoint
+	    {
+	        get { return _firePoint; }
+	        set { _firePoint = value; }
+	    }
 
-        [SerializeField]
-        private GameObject _bullet;
-        public GameObject Bullet
-        {
-            get { return _bullet; }
-            set { _bullet = value; }
-        }
+	    [SerializeField]
+	    private Transform _gunHolder;
+	    public Transform GunHolder
+	    {
+	        get { return _gunHolder; }
+	        set { _gunHolder = value; }
+	    }
 
-        void Update ()
+	    [SerializeField]
+	    private GameObject _bullet;
+	    public GameObject Bullet
+	    {
+	        get { return _bullet; }
+	        set { _bullet = value; }
+	    }
+
+	    [SerializeField]
+	    private WeaponController[] _weapons;
+	    public WeaponController[] Weapons
+	    {
+	        get { return _weapons; }
+	        set { _weapons = value; }
+	    }
+
+	    public void Update()
 	    {
             if (!isLocalPlayer)
             {
@@ -34,70 +54,41 @@ namespace Combat
 	            if (Input.GetMouseButton(0))
 	            {
 	                CurrentGun.Shoot(!Input.GetMouseButtonDown(0));
-                    //CmdFire();
 	            }
 	        }
 
-	        // Temporarily switch weapons using Number Keys
-	        if (Input.GetKeyDown("1"))
+	        for (var i = 1; i <= 9; i++)
 	        {
-	            ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
-	        }
-	        else if (Input.GetKeyDown("2"))
-	        {
-	            ChangeGun(Weapons.Templates.Shotgun.CreateGun(this));
-	        }
-	        else if (Input.GetKeyDown("3"))
-	        {
-	            ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
-	        }
-	        else if (Input.GetKeyDown("4"))
-	        {
-	            ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
+	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
+	            {
+	                ChangeGun(Weapons[i - 1]);
+	            }
 	        }
 	    }
 
 
-        [Command]
+	    [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
-        {
-            
-
-
-            var newBullet = GameObject.Instantiate(Bullet, FirePoint.position, rotation);
-
-            Debug.Log(newBullet + " newBullet");
+	    {
+            var newBullet = Instantiate(_bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
 
-
-            //var bulletController = newBullet.GetComponent<BulletController>();
-            //bulletController.MaxDistance =maxDistance;
-
-
             NetworkServer.Spawn(newBullet);
 
-            Destroy(newBullet, 2f);
+            Destroy(newBullet, maxDistance / speed);
         }
 
-	    void Start ()
+	    private void ChangeGun(WeaponController weaponController)
 	    {
+	        IGun gun = null;
 
-            if (!isLocalPlayer)
-            {
-                return;
-            }
-
-            ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
-	    }
-
-	    public void ChangeGun(IGun gun)
-	    {
+	        switch (weaponController.WeaponType)
+	        {
+	            case WeaponType.Projectile: gun = new ProjectileGun(weaponController, this); break;
+	            case WeaponType.HitScan: gun = new HitscanGun(weaponController, this); break;
+	        }
 	        CurrentGun = gun;
-
-            //direct assignment saves headaches
-	        //FirePoint = transform.Find("FirePoint");
-	        //GunHolder = transform.Find("GunHolder");
 	    }
 	}
 }
