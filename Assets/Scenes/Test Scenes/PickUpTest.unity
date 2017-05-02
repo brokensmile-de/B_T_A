@@ -337,6 +337,7 @@ GameObject:
   - component: {fileID: 1097390861}
   - component: {fileID: 1097390860}
   - component: {fileID: 1097390863}
+  - component: {fileID: 1097390864}
   m_Layer: 0
   m_Name: CollisionDetector
   m_TagString: Untagged
@@ -351,8 +352,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1097390858}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00003552437, y: 0.9025409, z: 0.0037181377}
-  m_LocalScale: {x: 1.35, y: 1.7874999, z: 1.5432645}
+  m_LocalPosition: {x: -0.00003552437, y: 0.9025409, z: 0.38}
+  m_LocalScale: {x: 1.35, y: 1.7874999, z: 1.330815}
   m_Children: []
   m_Father: {fileID: 1163643516}
   m_RootOrder: 2
@@ -420,6 +421,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gun: {fileID: 1163643517}
+--- !u!114 &1097390864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1097390858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9c26ee607884609855efb5ccce4cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  punchTime: 0.5
+  player: {fileID: 1163643513}
 --- !u!1 &1163643512 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100000, guid: 52d40ea74012c4541a71431302382320, type: 3}

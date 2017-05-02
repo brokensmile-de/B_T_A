@@ -55,7 +55,7 @@ public class TEST_Player : MonoBehaviour {
 			Vector3 pointToLook = cameraRay.GetPoint(rayLength);
 			transform.LookAt (new Vector3(pointToLook.x, transform.position.y, pointToLook.z));
 		}
-		if (Input.GetMouseButtonDown(0)) {
+		if (!Fire && Input.GetMouseButtonDown(0)) {
 			anim.SetBool ("isFiring", true);
 			Fire = true;
 		}
@@ -77,4 +77,11 @@ public class TEST_Player : MonoBehaviour {
 
 				myrid.velocity = moveSpeed;
 			}
+	public void Punch(){
+		anim.SetBool ("isPunching", true);
+	}
+
+	public void stopPunch(){
+		anim.SetBool ("isPunching", false);
+	}
 }
