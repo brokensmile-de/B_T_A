@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33485861910148034}
   - component: {fileID: 65182251247582648}
   - component: {fileID: 23059343672781972}
-  - component: {fileID: 114171794131486852}
   m_Layer: 0
   m_Name: Gun_PickUp
   m_TagString: Gun
@@ -89,19 +88,8 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1384024592672358}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114171794131486852
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1384024592672358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395b2ab91cab546bab26072a662f1cfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

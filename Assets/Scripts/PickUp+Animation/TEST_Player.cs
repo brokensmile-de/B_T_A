@@ -71,10 +71,7 @@ public class TEST_Player : MonoBehaviour {
 		}
 
 
-		//Komponent für pickUpSystem HIER
-	void OnTriggerEnter(Collider other){
-		Debug.Log ("Collision");
-	}
+		
 
 			void FixedUpdate(){
 
