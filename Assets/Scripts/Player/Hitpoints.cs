@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
 //Author: Adrian Zimmer
 //Description: Hitpoints + Shield script. Zur benutzung: auf dem Script Applydamage(amount,schadensQuelle als gameobjekt) aufrufen
@@ -10,43 +11,72 @@ using UnityEngine.UI;
 //Last edited:
 //Edited by:
 
-public class Hitpoints : MonoBehaviour {
-
+public class Hitpoints : NetworkBehaviour
+{
     [Header("Parameter")]
-    public int maxHitpoints;
-    public int maxShield;
+    public const int maxHitpoints = 100;
+    public const int maxShield = 100;
     public float timeTilShieldRestore;  //Zeit die man keinen damage bekommen darf bis das Schild sich wieder auflädt
     public AudioClip hitSound;
-
     [Header("Refferenzen")]
     public Text hitpointsText;          //Hud Text Hp
     public Text shieldText;             //Hud Text Shield
 
-    private int hitpoints;
-    private int shield;
+    private NetworkStartPosition[] spawnPoints;
+    [SyncVar(hook = "OnChangeHealth")]
+    public int hitpoints = maxHitpoints;
+    [SyncVar(hook = "OnChangeShield")]
+    public int shield = maxShield;
     private AudioSource audioSource;
     private float lastHitTimestamp;      //Zeitpunkt zu dem man das letzte mal schaden bekommen + cooldown
     private bool restoringShield;        //gibt an ob das shield gerade am aufladen ist
 
-	void Start ()
+    void Start()
     {
         hitpoints = maxHitpoints;
         shield = maxShield;
-        audioSource = GetComponent<AudioSource>();
-	}
+        if (isLocalPlayer)
+        {
+            spawnPoints = FindObjectsOfType<NetworkStartPosition>();
+            GameObject hudCanvas = GameObject.Find("HudCanvas");
+            hitpointsText = hudCanvas.transform.Find("HealthUI/Hitpoints").GetComponent<Text>();
+            shieldText = hudCanvas.transform.Find("HealthUI/Shield").GetComponent<Text>();
+        }
+        hitpoints = maxHitpoints;
+        shield = maxShield;
+    }
 
     public void Update()
     {
-        //Wenn man länger nicht gehittet wurde und das schild nicht schon voll oder bereits am aufladen ist
-        if(lastHitTimestamp < Time.time && shield < maxShield && !restoringShield)
+        if (!isServer)
+            return;
+
+        if (lastHitTimestamp < Time.time && shield < maxShield && !restoringShield)
         {
             StartCoroutine(RestoreShield());
         }
     }
 
-    public event EventHandler<HitpointsEventArgs> HitEvent;
-    protected virtual void OnHitEvent(int amount, GameObject damageSource)
+    public void Heal(int amount)
     {
+        if (!isServer)
+            return;
+
+        if (hitpoints + amount <= maxHitpoints)
+        {
+            hitpoints += amount;
+        }
+        else
+        {
+            hitpoints = maxHitpoints;
+        }
+
+    }
+    public void TakeDamage(int amount)
+    {
+        if (!isServer)
+            return;
+
         lastHitTimestamp = Time.time + timeTilShieldRestore;
 
         //Schild+damage abzugsberechnungen
@@ -59,72 +89,61 @@ public class Hitpoints : MonoBehaviour {
                 hitpoints = 0;
 
             shield = 0;
-        }else
+        }
+        else
         {
             shield -= amount;
         }
 
-        //GUI Text setzen
-        if (hitpointsText)
-            hitpointsText.text = ""+hitpoints;
-        if(shieldText)
-            shieldText.text = "" + shield;
 
-        //Hit sound abspielen
         if (audioSource != null)
             audioSource.PlayOneShot(hitSound);
 
-        //HitEvent message senden
-        if (HitEvent != null)
-            HitEvent(this, new HitpointsEventArgs(hitpoints,shield, damageSource));
-    }
-
-    public event EventHandler<HitpointsEventArgs> HealEvent;
-    protected virtual void OnHealEvent(int amount, GameObject healSource)
-    {
-        if (hitpoints + amount <= maxHitpoints)
-        {
-            hitpoints += amount;
-        }
-        else
+        if (hitpoints <= 0)
         {
             hitpoints = maxHitpoints;
+            shield = maxShield;
+
+            // called on the Server, invoked on the Clients
+            RpcRespawn();
         }
+    }
 
+
+    [ClientRpc]
+    private void RpcRespawn()
+    {
+        if (isLocalPlayer)
+        {
+            // Set the spawn point to origin as a default value
+            Vector3 spawnPoint = Vector3.zero;
+
+            // If there is a spawn point array and the array is not empty, pick one at random
+            if (spawnPoints != null && spawnPoints.Length > 0)
+            {
+                spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
+            }
+
+            // Set the player’s position to the chosen spawn point
+            transform.position = spawnPoint;
+        }
+    }
+
+    private void OnChangeHealth(int currentHealth)
+    {
         //GUI Text setzen
-        if(hitpointsText)
-            hitpointsText.text = "" + hitpoints;
+        if (hitpointsText)
+            hitpointsText.text = "" + currentHealth;
 
-        if (HealEvent != null)
-            HealEvent(this, new HitpointsEventArgs(hitpoints, shield, healSource));
     }
 
-    public void ApplyDamage(int amount,GameObject damageSource)
+    private void OnChangeShield(int currentShield)
     {
-        OnHitEvent(amount, damageSource);
-    }
-	
-    public void ApplyHeal(int amount, GameObject healSource)
-    {
-        OnHealEvent(amount, healSource);
+        //GUI Text setzen
+        if (shieldText)
+            shieldText.text = "" + currentShield;
     }
 
-    public void DamageTest()
-    {
-        ApplyDamage(5, null);
-    }
-
-    // for debugging
-    public void SignOfLife()
-    {
-        Debug.Log("I'm there!");
-    }
-
-    public void HealTest()
-    {
-        ApplyHeal(5, this.gameObject);
-    }
-    //Shield restore coroutine
     private IEnumerator RestoreShield()
     {
         restoringShield = true;
@@ -141,28 +160,4 @@ public class Hitpoints : MonoBehaviour {
         restoringShield = false;
     }
 
-    //Parameter werden bei hit event übergeben
-    public class HitpointsEventArgs : EventArgs
-    {
-        public GameObject source;
-        public int currentHitpoints,currentShield;
-
-        public HitpointsEventArgs(int currentHitpoints,int currentShield, GameObject damageSource)
-        {
-            this.source = damageSource;
-            this.currentHitpoints = currentHitpoints;
-        }
-    }
-
-
-    //edit 05.04.2017 for setting up references during runtime
-    public void setHealthReference(GameObject t)
-    {
-        hitpointsText=t.GetComponent<Text>();         
-    }
-
-    public void setShieldReference(GameObject s)
-    {
-        shieldText=s.GetComponent<Text>();
-    }
 }

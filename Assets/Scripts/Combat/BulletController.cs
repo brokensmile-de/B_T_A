@@ -20,7 +20,7 @@ namespace Combat
 
             if (health != null)
             {
-                health.ApplyDamage(Damage, gameObject);
+                health.TakeDamage(Damage);
             }
 
             Destroy(gameObject);
