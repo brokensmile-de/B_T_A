@@ -12,7 +12,7 @@ namespace Combat
 	        set { _damage = value; }
 	    }
 
-	    void OnCollisionEnter(Collision collision)
+	    void OnTriggerEnter(Collider collision)
         {
             GameObject hit = collision.gameObject;
             Hitpoints health = hit.GetComponent<Hitpoints>();
@@ -20,7 +20,7 @@ namespace Combat
 
             if (health != null)
             {
-                health.ApplyDamage(Damage, gameObject);
+                health.TakeDamage(Damage);
             }
 
             Destroy(gameObject);

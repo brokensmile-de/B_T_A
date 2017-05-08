@@ -26,8 +26,8 @@ public class AttachLocalHud : NetworkBehaviour
         playerShieldReference = GameObject.Find("Shield");
 
         //assigning them
-        hitpointScript.setHealthReference(playerHealthReference);
-        hitpointScript.setShieldReference(playerShieldReference);
+        //hitpointScript.setHealthReference(playerHealthReference);
+        //hitpointScript.setShieldReference(playerShieldReference);
     }
 
 
