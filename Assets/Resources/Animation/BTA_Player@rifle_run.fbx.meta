@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 0116bd78e922044e088121b37ddf2046
-timeCreated: 1493821999
+guid: 76f883ce83fdd4a97934bbee354cd586
+timeCreated: 1494250395
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -86,7 +86,7 @@ ModelImporter:
       name: rifle_run
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 12
+      lastFrame: 11
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
