@@ -1,10 +1,26 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Combat
 {
-	public class BulletController : MonoBehaviour
+	public class BulletController : NetworkBehaviour
 	{
-	    [SerializeField]
+        [SyncVar]
+        public NetworkInstanceId spawnedBy;
+        private bool damaged;
+        public override void OnStartClient()
+        {
+            GameObject obj = ClientScene.FindLocalObject(spawnedBy);
+            Collider[] playerColliders = obj.GetComponents<Collider>();
+            Collider bulletCollider = gameObject.GetComponent<Collider>();
+            foreach(Collider c in playerColliders)
+            {
+                Physics.IgnoreCollision(c, bulletCollider);
+            }
+
+        }
+
+        [SerializeField]
 	    private int _damage;
 	    public int Damage
 	    {
@@ -14,6 +30,9 @@ namespace Combat
 
 	    void OnTriggerEnter(Collider collision)
         {
+            if (damaged)
+                return;
+
             GameObject hit = collision.gameObject;
             Hitpoints health = hit.GetComponent<Hitpoints>();
 
@@ -21,6 +40,7 @@ namespace Combat
             if (health != null)
             {
                 health.TakeDamage(Damage);
+                damaged = true;
             }
 
             Destroy(gameObject);

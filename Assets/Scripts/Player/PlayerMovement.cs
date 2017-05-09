@@ -12,7 +12,8 @@ using UnityEngine.Networking;
 
 public class PlayerMovement : NetworkBehaviour
 {
-
+    [SyncVar]
+    public Color color;
     public float speed;
     public float rotateSpeed;
     public float jumpSpeed;
@@ -31,12 +32,15 @@ public class PlayerMovement : NetworkBehaviour
     {
         controller = GetComponent<CharacterController>();
         dashes = maxDashes;
+
+        if(isLocalPlayer)
+        {
+
+        }
+
+        GetComponent<MeshRenderer>().material.color = color;
     }
 
-    public override void OnStartLocalPlayer()
-    {
-        GetComponent<MeshRenderer>().material.color = Color.green;
-    }
 
     void Update()
     {
