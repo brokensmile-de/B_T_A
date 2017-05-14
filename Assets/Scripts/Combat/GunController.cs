@@ -12,6 +12,17 @@ namespace Combat
 
         public IGun CurrentGun { get; private set; }
 
+		//Esteban --- Model GameObjects
+		//Current Gun GameObject
+
+		private GameObject currentGun;
+
+		//Assault Rifle 
+		public GameObject AssaultRifleOb;
+		//Rail Gun
+		public GameObject RailGunOb;
+
+
         [SerializeField]
         private GameObject _bullet;
         public GameObject Bullet
@@ -19,6 +30,8 @@ namespace Combat
             get { return _bullet; }
             set { _bullet = value; }
         }
+			
+
 
         void Update ()
 	    {
@@ -88,7 +101,8 @@ namespace Combat
                 return;
             }
 
-            ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
+			//Esteban --- Player beginnt ohne Waffe
+            //ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
 	    }
 
 	    public void ChangeGun(IGun gun)
@@ -99,6 +113,23 @@ namespace Combat
 	        //FirePoint = transform.Find("FirePoint");
 	        //GunHolder = transform.Find("GunHolder");
 	    }
+
+
+		//Esteban ---- diese Methode wird von CollisionDetector angerufen.
+		public void PickGun(int i){
+			if (i == 1) {
+				ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
+				//Model in gunHolder erzeugen
+				currentGun = Instantiate (AssaultRifleOb, GunHolder.position, GunHolder.rotation);
+				currentGun.transform.parent = GunHolder;
+			}
+			else if (i == 4) {
+				ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
+				//Model in gunHolder erzeugen
+				currentGun = Instantiate (RailGunOb, GunHolder.position, GunHolder.rotation);
+				currentGun.transform.parent = GunHolder;
+			}
+		}
 	}
 }
 

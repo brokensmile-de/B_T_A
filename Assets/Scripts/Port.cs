@@ -11,6 +11,9 @@ public class Port : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         var player = GameObject.Find("Player(Clone)");
+
+		//Esteban --- für LevelAnim
+		//var player = GameObject.Find("BTA_Player 1(Clone)");
         if(player != null)
         {
             var random = _random.Next(0,outs.Count);

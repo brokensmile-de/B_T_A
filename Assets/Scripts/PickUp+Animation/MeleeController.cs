@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TEST_MeleeController : MonoBehaviour {
+public class MeleeController : MonoBehaviour {
 
 	public float punchTime;
 
-	public TEST_Player player;
+	public PlayerMovement player;
 
 	private float timeAcc;
 

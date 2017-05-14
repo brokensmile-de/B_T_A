@@ -27,10 +27,17 @@ public class PlayerMovement : NetworkBehaviour
 
     private CharacterController controller;
 
+	//animation ----Esteban
+	static Animator anim;
+
+
     public void Start()
     {
         controller = GetComponent<CharacterController>();
         dashes = maxDashes;
+
+		//animation ----Esteban
+		anim = GetComponent<Animator> ();
     }
 
     public override void OnStartLocalPlayer()
@@ -88,6 +95,14 @@ public class PlayerMovement : NetworkBehaviour
         moveDirection.y -= gravity * Time.deltaTime;
         //apply movement
         controller.Move(moveDirection * Time.deltaTime);
+
+		//animation---Esteban
+		//bei moveDirection > 0 -> animmieren
+		if (moveDirection.x != 0f || moveDirection.z != 0f) {
+			anim.SetBool ("isRunning", true);
+		} else {
+			anim.SetBool ("isRunning", false);
+		}
     }
 
     private void IncreaseDashCount()
@@ -129,6 +144,16 @@ public class PlayerMovement : NetworkBehaviour
             transform.rotation = grndTilt * transform.rotation;
         }
     }
+
+	//animation -----Esteban
+	//hiermit wird die Melee-Animation angerufen
+	public void Punch(){
+		anim.SetBool ("isPunching", true);
+	}
+	//hiermit wird die Melle-Animation gestoppt
+	public void stopPunch(){
+		anim.SetBool ("isPunching", false);
+	}
 
 }
 
