@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 114250445860707836}
   - component: {fileID: 114155960350921050}
   m_Layer: 8
-  m_Name: Bullet2
+  m_Name: VampireBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,22 +147,22 @@ MonoBehaviour:
   m_SceneId:
     m_Value: 0
   m_AssetId:
-    i0: 144
-    i1: 55
-    i2: 150
-    i3: 180
-    i4: 221
-    i5: 45
-    i6: 228
-    i7: 139
-    i8: 250
-    i9: 50
-    i10: 31
-    i11: 173
-    i12: 63
-    i13: 73
-    i14: 55
-    i15: 226
+    i0: 33
+    i1: 217
+    i2: 23
+    i3: 5
+    i4: 146
+    i5: 254
+    i6: 72
+    i7: 196
+    i8: 8
+    i9: 35
+    i10: 79
+    i11: 220
+    i12: 7
+    i13: 71
+    i14: 158
+    i15: 61
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
 --- !u!114 &114319213370493246
