@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4736496093362026}
   - component: {fileID: 65216023839205368}
+  - component: {fileID: 114878139340643284}
   - component: {fileID: 82444310623173880}
-  - component: {fileID: 114834469001622734}
   m_Layer: 0
   m_Name: StaminaPowerUp
   m_TagString: Untagged
@@ -40,7 +40,6 @@ GameObject:
   - component: {fileID: 33626756309675566}
   - component: {fileID: 23268234339418924}
   - component: {fileID: 111552885118101424}
-  - component: {fileID: 114056828863471660}
   m_Layer: 0
   m_Name: StaminaMesh
   m_TagString: Untagged
@@ -135,7 +134,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ae479b425fe833a42a4ef57f036bdaf6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 104d3de4bc4804e89a6bdeb489998ae6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -221,18 +220,7 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
---- !u!114 &114056828863471660
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1297778845426656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a410c1c3aa79d94b9c2b6274ee5f499, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114834469001622734
+--- !u!114 &114878139340643284
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -243,5 +231,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1662c01cd1437324288062993483c107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  packMesh: {fileID: 1297778845426656}
+  packMesh: {fileID: 1109667093890316}
   cooldown: 5

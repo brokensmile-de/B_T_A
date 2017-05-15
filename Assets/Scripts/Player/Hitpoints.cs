@@ -49,10 +49,7 @@ public class Hitpoints : MonoBehaviour {
         }
     }
 
-    public void activateDoubleShield()
-    {
-        StartCoroutine(DoubleRestoreShield());
-    }
+    
 
     public event EventHandler<HitpointsEventArgs> HitEvent;
     protected virtual void OnHitEvent(int amount, GameObject damageSource)
@@ -159,6 +156,11 @@ public class Hitpoints : MonoBehaviour {
     public void DoubleDamagePowerUp()
     {
         StartCoroutine(DoubleDamageEnum());
+    }
+
+    public void activateDoubleShield()
+    {
+        StartCoroutine(DoubleRestoreShield());
     }
 
     private IEnumerator DoubleRestoreShield()

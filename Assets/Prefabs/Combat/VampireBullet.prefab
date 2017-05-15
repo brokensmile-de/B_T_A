@@ -176,4 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0dfda5437989b411292668b049874784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
+  instantiator: {fileID: 1191593428148948, guid: 86a54089acd489340b6cec448ae82323,
+    type: 2}
+  _damage: 0

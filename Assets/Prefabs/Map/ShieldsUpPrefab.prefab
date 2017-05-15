@@ -231,13 +231,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67a54374633f1b94c93bf0be175dd616, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHitpoints: 100
-  maxShield: 200
-  timeTilShieldRestore: 5
-  hitSound: {fileID: 8300000, guid: e3a08b79bc3200949b96ffc3fd84e928, type: 3}
-  hitpointsText: {fileID: 0}
-  shieldText: {fileID: 0}
-  shield: 100
-  shieldIncrease: 2
   packMesh: {fileID: 1297778845426656}
   cooldown: 5
