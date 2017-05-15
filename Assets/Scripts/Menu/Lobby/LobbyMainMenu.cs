@@ -41,7 +41,7 @@ namespace Prototype.NetworkLobby
             lobbyManager.backDelegate = lobbyManager.StopClientClbk;
             lobbyManager.DisplayIsConnecting();
 
-            lobbyManager.SetServerInfo("Connecting...", lobbyManager.networkAddress);
+            lobbyManager.SetServerInfo("Verbinde..", lobbyManager.networkAddress);
         }
 
         public void OnClickDedicated()
@@ -51,7 +51,7 @@ namespace Prototype.NetworkLobby
 
             lobbyManager.backDelegate = lobbyManager.StopServerClbk;
 
-            lobbyManager.SetServerInfo("Dedicated Server", lobbyManager.networkAddress);
+            lobbyManager.SetServerInfo("Dedizierter Server", lobbyManager.networkAddress);
         }
 
         public void OnClickCreateMatchmakingGame()
@@ -68,7 +68,7 @@ namespace Prototype.NetworkLobby
             lobbyManager._isMatchmaking = true;
             lobbyManager.DisplayIsConnecting();
 
-            lobbyManager.SetServerInfo("Matchmaker Host", lobbyManager.matchHost);
+            lobbyManager.SetServerInfo("Server Host", lobbyManager.matchHost);
         }
 
         public void OnClickOpenServerList()

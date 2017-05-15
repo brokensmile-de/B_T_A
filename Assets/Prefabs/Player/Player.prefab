@@ -59,6 +59,7 @@ GameObject:
   - component: {fileID: 120695050641583332}
   - component: {fileID: 114942592469509178}
   - component: {fileID: 114023177362970330}
+  - component: {fileID: 136466309068724016}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -73,7 +74,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1505035617709488}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.713165, y: -0.13999939, z: -2.4854736}
+  m_LocalPosition: {x: 602.3721, y: 440.9407, z: -1058.3513}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4792797881006460}
@@ -225,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc834f8f67d1cc4bb1ed30eeaf262ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  color: {r: 0, g: 0, b: 0, a: 0}
   speed: 30
   rotateSpeed: 300
   jumpSpeed: 25
@@ -349,6 +351,19 @@ LineRenderer:
     textureMode: 0
   m_UseWorldSpace: 0
   m_Loop: 0
+--- !u!136 &136466309068724016
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1505035617709488}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143336780200936200
 CharacterController:
   m_ObjectHideFlags: 1

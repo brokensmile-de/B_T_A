@@ -73,11 +73,11 @@ namespace Combat
             var newBullet = Instantiate(_bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
-            Physics.IgnoreCollision(newBullet.GetComponent<Collider>(), transform.root.GetComponent<Collider>());
+            newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
             NetworkServer.Spawn(newBullet);
-
             Destroy(newBullet, maxDistance / speed);
         }
+
 
 	    private void ChangeGun(WeaponController weaponController)
 	    {
