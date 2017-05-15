@@ -23,8 +23,6 @@ namespace Prototype.NetworkLobby
 
             joinButton.onClick.RemoveAllListeners();
             joinButton.onClick.AddListener(() => { JoinMatch(networkID, lobbyManager); });
-
-            GetComponent<Image>().color = c;
         }
 
         void JoinMatch(NetworkID networkID, LobbyManager lobbyManager)
