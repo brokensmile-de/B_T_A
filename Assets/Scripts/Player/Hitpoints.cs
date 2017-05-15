@@ -191,24 +191,26 @@ public class Hitpoints : MonoBehaviour {
     {
         powerUpCountDown timer = GetComponent<powerUpCountDown>();
         StealHP stealHP = GetComponent<StealHP>();
-
+        stealHP.setInstantiator(gameObject);
         
         while (timer.hasPowerUp==true)
         {
-            if(stealHP.hasVampirePowerUp == true)
-            {
+           if(stealHP.hasVampirePowerUp==true)
                 hitpoints += StealHpAmount;
-            }
+            
             
             if (hitpointsText)
                 hitpointsText.text = "" + hitpoints;
 
             yield return new WaitForSeconds(0.05f);
 
-            
-
         }
 
+    }
+
+    private void maybeVampire()
+    {
+        
     }
 
     private IEnumerator DoubleDamageEnum()

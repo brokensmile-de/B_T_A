@@ -12,7 +12,6 @@ public class StealHP : Combat.BulletController
 
     public int doubleDamageAmount;
     public int healAmount;
-    public bool hasVampirePowerUp;
     public bool hasDoubleDamagePowerUp;
 
 

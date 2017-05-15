@@ -70,13 +70,17 @@ namespace Combat
 	    [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
 	    {
+
             var newBullet = Instantiate(_bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
 
+            newBullet.GetComponent<BulletController>().setInstantiator(this.gameObject);
+
             NetworkServer.Spawn(newBullet);
 
             Destroy(newBullet, maxDistance / speed);
+            
         }
 
 	    private void ChangeGun(WeaponController weaponController)
