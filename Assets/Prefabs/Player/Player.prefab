@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 120402283878833306}
   - component: {fileID: 114112849381812808}
   - component: {fileID: 114971962449921984}
-  - component: {fileID: 114476235284475642}
+  - component: {fileID: 114502440965039758}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -230,7 +230,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1191593428148948}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.713165, y: -0.13999939, z: -2.4854736}
+  m_LocalPosition: {x: 0.1, y: 3.5, z: 23.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224343647640347864}
@@ -429,6 +429,8 @@ MonoBehaviour:
   doubleMaxShield: 200
   timeTilShieldRestore: 2
   hitSound: {fileID: 0}
+  hasVampire: 0
+  hasDoubleDam: 0
   hitpointsText: {fileID: 114714358367204892}
   shieldText: {fileID: 114190623361161188}
 --- !u!114 &114413739915641072
@@ -567,20 +569,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114476235284475642
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1191593428148948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3a410c1c3aa79d94b9c2b6274ee5f499, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CountdownTimer: {fileID: 114840886149948970}
-  powerUptimeLeft: 15
-  hasPowerUp: 0
 --- !u!114 &114480433454362876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -633,6 +621,21 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114502440965039758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1191593428148948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a410c1c3aa79d94b9c2b6274ee5f499, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CountdownTimer: {fileID: 114840886149948970}
+  powerUptimeLeft: 15
+  hasPowerUp: 0
+  timerAlreadyStarted: 0
 --- !u!114 &114593113699675526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -773,7 +776,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 30
+  m_Text: 
 --- !u!114 &114936594807860236
 MonoBehaviour:
   m_ObjectHideFlags: 1
