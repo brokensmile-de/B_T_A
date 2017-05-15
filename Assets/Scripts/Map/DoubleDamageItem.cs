@@ -23,10 +23,11 @@ public class DoubleDamageItem : MonoBehaviour
             onCooldown = true; //Set Cooldown
             packMesh.SetActive(false); //Deactivate mesh
             audioSrc.Play();
-            powerUpCountDown countdown = other.GetComponent<powerUpCountDown>();
-            countdown.CountDownTimer(15);
-            StealHP doubleDamage = GetComponent<StealHP>();
-            doubleDamage.
+            PowerUpCountDown countdown = other.GetComponent<PowerUpCountDown>();
+            Hitpoints hpScript = other.GetComponent<Hitpoints>();
+            countdown.CountDownTimer(30);
+            hpScript.DoubleDamagePowerUp();//Activate VampirePowerUp Coroutine
+
             
         Invoke("ReActivate", cooldown); //Re-enable after Cooldown
         }

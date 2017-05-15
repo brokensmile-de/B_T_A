@@ -7,7 +7,6 @@ namespace Combat
         
         public GameObject instantiator;
         [SerializeField]
-        public bool hasVampirePowerUp;
         private int _damage;
 	    public int Damage
 	    {
@@ -22,15 +21,33 @@ namespace Combat
 
         void OnCollisionEnter(Collision collision)
         {
+            
             GameObject hit = collision.gameObject;
-            Hitpoints health = hit.GetComponent<Hitpoints>();
+            Hitpoints enemyHealth = hit.GetComponent<Hitpoints>();
+            PowerUpCountDown countdown = instantiator.GetComponent<PowerUpCountDown>();
+            Hitpoints instantiatorHealth = instantiator.GetComponent<Hitpoints>();
+            
 
-
-            if (health != null)
+            if (enemyHealth != null)
             {
-                health.ApplyDamage(Damage, gameObject);
-                //hasVampirePowerUp = true;
+                enemyHealth.ApplyDamage(Damage, gameObject);
+                
+                if (countdown.hasPowerUp&& instantiatorHealth.hasVampire)
+                {
+                    Debug.Log("VampirePowerUpinstantiatorHealth: " + instantiatorHealth + "hit: " +hit);
+                    instantiatorHealth.ApplyHeal(5,gameObject);
+
+                }
+
+                if(countdown.hasPowerUp&& instantiatorHealth.hasDoubleDam)
+                {
+                    Debug.Log("hit doubleDamage");
+                    enemyHealth.ApplyDamage(Damage * 2, gameObject);
+                }
+                
             }
+
+            //countdown.hasPowerUp
 
             Debug.Log("Player " + instantiator + " hit Player " + hit);
            

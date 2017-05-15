@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VampirePowerUp : StealHP
+public class VampirePowerUp : MonoBehaviour
 {
     public int StealHpAmount;
     public GameObject packMesh;
@@ -22,7 +22,7 @@ public class VampirePowerUp : StealHP
             onCooldown = true; //Set Cooldown
             packMesh.SetActive(false); //Deactivate mesh
             audioSrc.Play();
-            powerUpCountDown countdown = other.GetComponent<powerUpCountDown>();
+            PowerUpCountDown countdown = other.GetComponent<PowerUpCountDown>();
             Hitpoints hpScript = other.GetComponent<Hitpoints>();                    
             countdown.CountDownTimer(30);
             hpScript.VampirePowerUp();//Activate VampirePowerUp Coroutine
@@ -39,10 +39,3 @@ public class VampirePowerUp : StealHP
 }
 
 
-//hpScript.();//Activate Double Shield
-//StealHP stealHp = GetComponent<StealHP>();
-//stealHp.hasVampirePowerUp = true;
-//if (stealHp.hasVampirePowerUp)
-//{
-//    hpScript.ApplyHeal(StealHpAmount, this.gameObject);//Apply heal
-//}

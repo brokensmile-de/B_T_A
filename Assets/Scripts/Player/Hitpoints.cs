@@ -18,12 +18,14 @@ public class Hitpoints : MonoBehaviour {
     public int doubleMaxShield;
     public float timeTilShieldRestore;  //Zeit die man keinen damage bekommen darf bis das Schild sich wieder auflädt
     public AudioClip hitSound;
+    public bool hasVampire;
+    public bool hasDoubleDam;
 
     [Header("Refferenzen")]
     public Text hitpointsText;          //Hud Text Hp
     public Text shieldText;             //Hud Text Shield
 
-    private int StealHpAmount=5;
+    
     private int hitpoints;
     private int shield;
     private AudioSource audioSource;
@@ -161,7 +163,7 @@ public class Hitpoints : MonoBehaviour {
 
     private IEnumerator DoubleRestoreShield()
     {
-        powerUpCountDown timer = GetComponent<powerUpCountDown>();
+        PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
 
         
         restoringShield = true;
@@ -189,54 +191,49 @@ public class Hitpoints : MonoBehaviour {
 
     private IEnumerator VampireRecoverHp()
     {
-        powerUpCountDown timer = GetComponent<powerUpCountDown>();
-        StealHP stealHP = GetComponent<StealHP>();
-        stealHP.setInstantiator(gameObject);
+        //  Countdown
+        PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
+        //bullet 
+        //StealHP stealHP = GetComponent<StealHP>();
+        //powerup pick up 
+        VampirePowerUp powerup = GetComponent<VampirePowerUp>();
+        
+        //stealHP.setInstantiator(gameObject);
         
         while (timer.hasPowerUp==true)
         {
-           if(stealHP.hasVampirePowerUp==true)
-                hitpoints += StealHpAmount;
-            
-            
-            if (hitpointsText)
-                hitpointsText.text = "" + hitpoints;
+            hasVampire = true;
+                          
+            //if (hitpointsText)
+            //    hitpointsText.text = "" + hitpoints;
 
             yield return new WaitForSeconds(0.05f);
 
         }
-
+        hasVampire = false;
     }
 
-    private void maybeVampire()
-    {
-        
-    }
 
     private IEnumerator DoubleDamageEnum()
     {
-        powerUpCountDown timer = GetComponent<powerUpCountDown>();
-        StealHP stealHP = GetComponent<StealHP>();
+        PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
+        //StealHP stealHP = GetComponent<StealHP>();
 
 
         while (timer.hasPowerUp == true)
         {
-            if (stealHP.Damage==stealHP.doubleDamageAmount)
-            {
-                stealHP.Damage = stealHP.doubleDamageAmount; 
-            }
-
-            
-
+            //if (stealHP.Damage == stealHP.doubleDamageAmount)
+            //{
+            //    stealHP.Damage = stealHP.doubleDamageAmount;
+            //}
+            hasDoubleDam = true;
             yield return new WaitForSeconds(0.05f);
 
-
-
         }
-
+        hasDoubleDam = false;
     }
 
-    //Parameter werden bei hit event übergeben
+        //Parameter werden bei hit event übergeben
     public class HitpointsEventArgs : EventArgs
     {
         public GameObject source;

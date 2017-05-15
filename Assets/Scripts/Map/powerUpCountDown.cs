@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class powerUpCountDown : MonoBehaviour {
+public class PowerUpCountDown : MonoBehaviour {
 
     public Text CountdownTimer;
     public float powerUptimeLeft = 15;
     public bool hasPowerUp;
+    public bool timerAlreadyStarted;
 
     private IEnumerator CountDown(float timer)
     {
         do
         {
+            timerAlreadyStarted = true;
             CountdownTimer.enabled = true;
             double currTime = timer;
             hasPowerUp = true;
@@ -25,13 +27,19 @@ public class powerUpCountDown : MonoBehaviour {
             }
             yield return new WaitForSeconds(0.0005f);
         } while (timer > 0);
-        hasPowerUp = false;
+        timerAlreadyStarted = false;
         timer = powerUptimeLeft;
-        CountdownTimer.enabled = false;
+        hasPowerUp = false;
     }
 
     public void CountDownTimer(float timer)
     {
+        StopAllCoroutines();
         StartCoroutine(CountDown(15));
+        
     }
+
+    
+    
+    
 }

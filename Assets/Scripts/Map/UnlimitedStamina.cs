@@ -23,7 +23,7 @@ public class UnlimitedStamina : MonoBehaviour
             packMesh.SetActive(false); //Deactivate mesh
             audioSrc.Play();
             PlayerMovement playerMov = other.GetComponent<PlayerMovement>();
-            powerUpCountDown countdown = other.GetComponent<powerUpCountDown>();
+            PowerUpCountDown countdown = other.GetComponent<PowerUpCountDown>();
             countdown.CountDownTimer(15);
             playerMov.IncreaseDashPowerUp();
             Invoke("ReActivate", cooldown); //Re-enable after Cooldown

@@ -121,7 +121,7 @@ public class PlayerMovement : NetworkBehaviour
     {
 
 
-            powerUpCountDown timer = GetComponent<powerUpCountDown>();
+            PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
 
             do
             {

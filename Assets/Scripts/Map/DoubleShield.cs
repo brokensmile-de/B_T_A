@@ -22,10 +22,12 @@ public class DoubleShield : MonoBehaviour
             onCooldown = true; //Set Cooldown
             packMesh.SetActive(false); //Deactivate mesh
             audioSrc.Play();
-            powerUpCountDown countdown = other.GetComponent<powerUpCountDown>();
+            PowerUpCountDown countdown = other.GetComponent<PowerUpCountDown>();
             Hitpoints hpScript = other.GetComponent<Hitpoints>();
             countdown.CountDownTimer(30);
-            hpScript.activateDoubleShield();//Activate Double Shield
+            if (countdown.hasPowerUp)
+                hpScript.activateDoubleShield();//Activate Double Shield
+
             Invoke("ReActivate", cooldown); //Re-enable after Cooldown
         }
 
