@@ -9,6 +9,8 @@ TagManager:
   - Gun
   - AssaultRifle
   - RailGun
+  - Pistol
+  - Shotgun
   layers:
   - Default
   - TransparentFX

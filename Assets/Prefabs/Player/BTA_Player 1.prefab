@@ -1050,9 +1050,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirePoint: {fileID: 4452333516322442}
   GunHolder: {fileID: 4526074118465582}
+  player: {fileID: 114354162017025656}
   AssaultRifleOb: {fileID: 1781911173398898, guid: 98f26872da43d4675b0a2408513ff912,
     type: 2}
   RailGunOb: {fileID: 1093291882211994, guid: 99ee7752e318849eb93de22465ce7ce8, type: 2}
+  PistolOb: {fileID: 1126926761505830, guid: 1fd41e55cc8324496b5989dbef127277, type: 2}
+  ShotgunOb: {fileID: 1127061700157918, guid: 698c99cacb67e4b57996b0d7e440445c, type: 2}
   _bullet: {fileID: 1199921423177846, guid: 903796b4dd2de48bfa321fad3f4937e2, type: 2}
 --- !u!114 &114771347629383834
 MonoBehaviour:

@@ -27,7 +27,7 @@ public class MeleeController : MonoBehaviour {
 			if (timeAcc <= 0f) {
 				isPunching = false;
 				timeAcc = punchTime;
-				player.stopPunch();
+				player.StopPunch();
 				Debug.Log ("Punch out");
 			}
 		}

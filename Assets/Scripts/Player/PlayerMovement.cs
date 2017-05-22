@@ -30,6 +30,9 @@ public class PlayerMovement : NetworkBehaviour
 	//animation ----Esteban
 	static Animator anim;
 
+	//has pistol
+	private bool hasPistol;
+
 
     public void Start()
     {
@@ -38,6 +41,8 @@ public class PlayerMovement : NetworkBehaviour
 
 		//animation ----Esteban
 		anim = GetComponent<Animator> ();
+
+		hasPistol = false;
     }
 
     public override void OnStartLocalPlayer()
@@ -97,12 +102,10 @@ public class PlayerMovement : NetworkBehaviour
         controller.Move(moveDirection * Time.deltaTime);
 
 		//animation---Esteban
-		//bei moveDirection > 0 -> animmieren
-		if (moveDirection.x != 0f || moveDirection.z != 0f) {
-			anim.SetBool ("isRunning", true);
-		} else {
-			anim.SetBool ("isRunning", false);
-		}
+		//bei moveDirection != 0 -> animmieren
+		moveAnim(moveDirection);
+
+
     }
 
     private void IncreaseDashCount()
@@ -151,9 +154,365 @@ public class PlayerMovement : NetworkBehaviour
 		anim.SetBool ("isPunching", true);
 	}
 	//hiermit wird die Melle-Animation gestoppt
-	public void stopPunch(){
+	public void StopPunch(){
 		anim.SetBool ("isPunching", false);
 	}
 
+	//pistol Körperhaltung
+	public void HasPistolAnim(){
+		this.hasPistol = true;
+	}
+
+	//rifle Körperhaltung
+	public void HasNoPistolAnim(){
+		this.hasPistol = false;
+	}
+
+	//bewegungs anim check
+	private void moveAnim(Vector3 moveDirection){
+
+		//prüft ob pistol hat oder nicht
+		if (hasPistol) {
+			
+			anim.SetBool ("isRunning", false);
+			anim.SetBool ("isRunningBack", false);
+			anim.SetBool ("isRunningLeft", false);
+			anim.SetBool ("isRunningRight", false);
+			anim.SetBool ("isIdle", false);
+
+			if (moveDirection.x != 0f || moveDirection.z != 0f) {
+				anim.SetBool ("isIdleP", false);
+
+				//schaut nach hinten
+				if (Input.mousePosition.y < Screen.height / 2 && Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x < (Screen.width * 2) / 3) {
+
+					//bewegt sich nach hinten
+					if (moveDirection.z < 0f) {
+
+						anim.SetBool ("isRunningP", true);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", false);
+
+
+						//bewegt sich nach vorne
+					} else if (moveDirection.z > 0f) {
+
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", true);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", false);
+
+
+						//bewegt sich rechts
+					} else if (moveDirection.x > 0f) {
+
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", true);
+						anim.SetBool ("isRunningRightP", false);
+
+
+						//bewegt sich links
+					} else if (moveDirection.x < 0f) {
+
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", true);
+
+					}
+
+				}
+				//schaut nach vorne
+				else if (Input.mousePosition.y > Screen.height / 2 && Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x < (Screen.width * 2) / 3) {
+					//bewegt sich narch vorne
+					if (moveDirection.z > 0f) {
+						anim.SetBool ("isRunningP", true);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", false);
+
+					}
+					//bewegt sich nach hinten
+					else if (moveDirection.z < 0f) {
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", true);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", false);
+
+
+						//bewegt sich rechts
+					} else if (moveDirection.x > 0f) {
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", true);
+
+
+						//bewegt sich links
+					} else if (moveDirection.x < 0f) {
+
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", true);
+						anim.SetBool ("isRunningRightP", false);
+
+					}
+				}
+				//schaut nach links
+				else if (Input.mousePosition.x <= Screen.width / 3) {
+					//bewegt sich narch vorne
+					if (moveDirection.z > 0f) {
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", true);
+
+					}
+					//bewegt sich nach hinten
+					else if (moveDirection.z < 0f) {
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", true);
+						anim.SetBool ("isRunningRightP", false);
+
+
+						//bewegt sich rechts
+					} else if (moveDirection.x > 0f) {
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", true);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", false);
+
+
+						//bewegt sich links
+					} else if (moveDirection.x < 0f) {
+						anim.SetBool ("isRunningP", true);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", false);
+
+					}
+				}
+				//schaut nach rechts
+				else if (Input.mousePosition.x >= (Screen.width * 2) / 3) {
+					//bewegt sich narch vorne
+					if (moveDirection.z > 0f) {
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", true);
+						anim.SetBool ("isRunningRightP", false);
+
+					}
+					//bewegt sich nach hinten
+					else if (moveDirection.z < 0f) {
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", true);
+
+
+						//bewegt sich rechts
+					} else if (moveDirection.x > 0f) {
+						anim.SetBool ("isRunningP", true);
+						anim.SetBool ("isRunningBackP", false);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", false);
+
+
+						//bewegt sich links
+					} else if (moveDirection.x < 0f) {
+						anim.SetBool ("isRunningP", false);
+						anim.SetBool ("isRunningBackP", true);
+						anim.SetBool ("isRunningLeftP", false);
+						anim.SetBool ("isRunningRightP", false);
+
+					}
+				}
+
+
+
+
+			} else {
+				anim.SetBool ("isRunningP", false);
+				anim.SetBool ("isRunningBackP", false);
+				anim.SetBool ("isRunningLeftP", false);
+				anim.SetBool ("isRunningRightP", false);
+				anim.SetBool ("isIdleP", true);
+			}
+		
+			//has no pistol
+		} else {
+			anim.SetBool ("isRunningP", false);
+			anim.SetBool ("isRunningBackP", false);
+			anim.SetBool ("isRunningLeftP", false);
+			anim.SetBool ("isRunningRightP", false);
+			anim.SetBool ("isIdleP", false);
+
+			if (moveDirection.x != 0f || moveDirection.z != 0f) {
+				anim.SetBool ("isIdle", false);
+
+				//schaut nach hinten
+				if (Input.mousePosition.y < Screen.height / 2 && Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x < (Screen.width * 2) / 3) {
+
+					//bewegt sich nach hinten
+					if (moveDirection.z < 0f) {
+					
+						anim.SetBool ("isRunning", true);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", false);
+
+
+						//bewegt sich nach vorne
+					} else if (moveDirection.z > 0f) {
+					
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", true);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", false);
+
+
+						//bewegt sich rechts
+					} else if (moveDirection.x > 0f) {
+					
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", true);
+						anim.SetBool ("isRunningRight", false);
+
+
+						//bewegt sich links
+					} else if (moveDirection.x < 0f) {
+					
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", true);
+
+					}
+
+				}
+			//schaut nach vorne
+			else if (Input.mousePosition.y > Screen.height / 2 && Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x < (Screen.width * 2) / 3) {
+					//bewegt sich narch vorne
+					if (moveDirection.z > 0f) {
+						anim.SetBool ("isRunning", true);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", false);
+
+					}
+				//bewegt sich nach hinten
+				else if (moveDirection.z < 0f) {
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", true);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", false);
+
+
+						//bewegt sich rechts
+					} else if (moveDirection.x > 0f) {
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", true);
+				
+
+						//bewegt sich links
+					} else if (moveDirection.x < 0f) {
+					
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", true);
+						anim.SetBool ("isRunningRight", false);
+				
+					}
+				}
+			//schaut nach links
+			else if (Input.mousePosition.x <= Screen.width / 3) {
+					//bewegt sich narch vorne
+					if (moveDirection.z > 0f) {
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", true);
+
+					}
+				//bewegt sich nach hinten
+				else if (moveDirection.z < 0f) {
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", true);
+						anim.SetBool ("isRunningRight", false);
+
+
+						//bewegt sich rechts
+					} else if (moveDirection.x > 0f) {
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", true);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", false);
+
+
+						//bewegt sich links
+					} else if (moveDirection.x < 0f) {
+						anim.SetBool ("isRunning", true);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", false);
+
+					}
+				}
+			//schaut nach rechts
+			else if (Input.mousePosition.x >= (Screen.width * 2) / 3) {
+					//bewegt sich narch vorne
+					if (moveDirection.z > 0f) {
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", true);
+						anim.SetBool ("isRunningRight", false);
+
+					}
+				//bewegt sich nach hinten
+				else if (moveDirection.z < 0f) {
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", true);
+
+
+						//bewegt sich rechts
+					} else if (moveDirection.x > 0f) {
+						anim.SetBool ("isRunning", true);
+						anim.SetBool ("isRunningBack", false);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", false);
+
+
+						//bewegt sich links
+					} else if (moveDirection.x < 0f) {
+						anim.SetBool ("isRunning", false);
+						anim.SetBool ("isRunningBack", true);
+						anim.SetBool ("isRunningLeft", false);
+						anim.SetBool ("isRunningRight", false);
+
+					}
+				}
+
+
+
+
+			} else {
+				anim.SetBool ("isRunning", false);
+				anim.SetBool ("isRunningBack", false);
+				anim.SetBool ("isRunningLeft", false);
+				anim.SetBool ("isRunningRight", false);
+				anim.SetBool ("isIdle", true);
+			}
+		}
+	
+	}
 }
 

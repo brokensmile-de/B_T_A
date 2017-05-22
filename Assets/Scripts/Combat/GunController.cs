@@ -13,6 +13,10 @@ namespace Combat
         public IGun CurrentGun { get; private set; }
 
 		//Esteban --- Model GameObjects
+
+		//Player movement für animation
+		public PlayerMovement player;
+
 		//Current Gun GameObject
 
 		private GameObject currentGun;
@@ -21,6 +25,10 @@ namespace Combat
 		public GameObject AssaultRifleOb;
 		//Rail Gun
 		public GameObject RailGunOb;
+		//Pistol
+		public GameObject PistolOb;
+		//Shotgun
+		public GameObject ShotgunOb;
 
 
         [SerializeField]
@@ -55,18 +63,22 @@ namespace Combat
 	        if (Input.GetKeyDown("1"))
 	        {
 	            ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
+				player.HasPistolAnim ();
 	        }
 	        else if (Input.GetKeyDown("2"))
 	        {
 	            ChangeGun(Weapons.Templates.Shotgun.CreateGun(this));
+				player.HasNoPistolAnim ();
 	        }
 	        else if (Input.GetKeyDown("3"))
 	        {
 	            ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
+				player.HasNoPistolAnim ();
 	        }
 	        else if (Input.GetKeyDown("4"))
 	        {
 	            ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
+				player.HasNoPistolAnim ();
 	        }
 	    }
 
@@ -118,14 +130,41 @@ namespace Combat
 		//Esteban ---- diese Methode wird von CollisionDetector angerufen.
 		public void PickGun(int i){
 			if (i == 1) {
+				player.HasNoPistolAnim ();
 				ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
 				//Model in gunHolder erzeugen
+				if(currentGun != null){
+					DestroyObject (currentGun);
+				}
 				currentGun = Instantiate (AssaultRifleOb, GunHolder.position, GunHolder.rotation);
 				currentGun.transform.parent = GunHolder;
 			}
+			else if (i == 2) {
+				player.HasPistolAnim ();
+				ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
+				//Model in gunHolder erzeugen
+				if(currentGun != null){
+					DestroyObject (currentGun);
+				}
+				currentGun = Instantiate (PistolOb, GunHolder.position, GunHolder.rotation);
+				currentGun.transform.parent = GunHolder;
+			}else if (i == 3) {
+				player.HasNoPistolAnim ();
+				ChangeGun(Weapons.Templates.Shotgun.CreateGun(this));
+				//Model in gunHolder erzeugen
+				if(currentGun != null){
+					DestroyObject (currentGun);
+				}
+				currentGun = Instantiate (ShotgunOb, GunHolder.position, GunHolder.rotation);
+				currentGun.transform.parent = GunHolder;
+			}
 			else if (i == 4) {
+				player.HasNoPistolAnim ();
 				ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
 				//Model in gunHolder erzeugen
+				if(currentGun != null){
+					DestroyObject (currentGun);
+				}
 				currentGun = Instantiate (RailGunOb, GunHolder.position, GunHolder.rotation);
 				currentGun.transform.parent = GunHolder;
 			}

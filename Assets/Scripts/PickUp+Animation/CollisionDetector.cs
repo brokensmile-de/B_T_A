@@ -24,9 +24,18 @@ public class CollisionDetector : MonoBehaviour {
 			gun.PickGun(1);
 			Destroy (other.gameObject);
 		}
+		else if(other.gameObject.CompareTag("Pistol")){
+			gun.PickGun(2);
+			Destroy (other.gameObject);
+		}
+		else if(other.gameObject.CompareTag("Shotgun")){
+			gun.PickGun(3);
+			Destroy (other.gameObject);
+		}
 		else if(other.gameObject.CompareTag("RailGun")){
 			gun.PickGun(4);
 			Destroy (other.gameObject);
 		}
+
 	}
 }
