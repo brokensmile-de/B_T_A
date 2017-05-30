@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Grid
-  m_Shader: {fileID: 4800000, guid: ed89999364120254ba7c04b07b8da4f7, type: 3}
-  m_ShaderKeywords: _EMISSION _ENABLED_ON
-  m_LightmapFlags: 1
+  m_Name: mat_vfx-inf_particle_spritesheet_explosion-add_sp[1.0]
+  m_Shader: {fileID: 200, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -37,13 +37,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _MKGlowTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 2124b40a2a8e23846a50e3065301c948, type: 3}
-        m_Scale: {x: 25, y: 25}
+        m_Texture: {fileID: 2800000, guid: fb72ee4b21705854ab0c16432ce7196e, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -62,30 +58,16 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Enabled: 1
-    - _FadeEndDistance: 6
-    - _FadeStartDistance: 0
-    - _GlossMapScale: 1
     - _Glossiness: 0.5
-    - _GlossyReflections: 1
-    - _GlowStrength: 1
-    - _MKGlowPower: 2.5
-    - _MKGlowTexStrength: 1
+    - _InvFade: 1
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _OutlineWidth: 3
     - _Parallax: 0.02
-    - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _VisibleDistance: 10
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MKGlowColor: {r: 1, g: 1, b: 1, a: 0.5}
-    - _MKGlowTexColor: {r: 1, g: 1, b: 1, a: 0.25}
-    - _OutlineColour: {r: 1, g: 1, b: 0, a: 1}
-    - _PlayerPosition: {r: -32.318512, g: 3.8799965, b: 21.192514, a: 0}
+    - _TintColor: {r: 1, g: 1, b: 1, a: 1}
