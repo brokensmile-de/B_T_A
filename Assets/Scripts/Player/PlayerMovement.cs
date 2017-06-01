@@ -184,10 +184,12 @@ public class PlayerMovement : NetworkBehaviour
 				anim.SetBool ("isIdleP", false);
 
 				//schaut nach hinten
-				if (Input.mousePosition.y < Screen.height / 2 && Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x < (Screen.width * 2) / 3) {
+				// y <= height / 2 && Differenz von x und width / 2 ist 
+				// kleiner oder gleich die Differenz von y und height / 2
+				if (Input.mousePosition.y <= Screen.height / 2 && (Mathf.Abs((Screen.width / 2) - Input.mousePosition.x) / Screen.width) <= (Mathf.Abs((Screen.height / 2) - Input.mousePosition.y) / Screen.height)) {
 
 					//bewegt sich nach hinten
-					if (moveDirection.z < 0f) {
+					if (moveDirection.z < 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 
 						anim.SetBool ("isRunningP", true);
 						anim.SetBool ("isRunningBackP", false);
@@ -196,7 +198,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich nach vorne
-					} else if (moveDirection.z > 0f) {
+					} else if (moveDirection.z > 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", true);
@@ -205,7 +207,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich rechts
-					} else if (moveDirection.x > 0f) {
+					} else if (moveDirection.x > 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", false);
@@ -214,7 +216,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich links
-					} else if (moveDirection.x < 0f) {
+					} else if (moveDirection.x < 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", false);
@@ -225,9 +227,11 @@ public class PlayerMovement : NetworkBehaviour
 
 				}
 				//schaut nach vorne
-				else if (Input.mousePosition.y > Screen.height / 2 && Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x < (Screen.width * 2) / 3) {
+				// y > height / 2 && Differenz von x und width / 2 ist 
+				// kleiner oder gleich die Differenz von y und height / 2
+				else if (Input.mousePosition.y > Screen.height / 2 && (Mathf.Abs((Screen.width / 2) - Input.mousePosition.x) / Screen.width) <= (Mathf.Abs((Screen.height / 2) - Input.mousePosition.y) / Screen.height)) {
 					//bewegt sich narch vorne
-					if (moveDirection.z > 0f) {
+					if (moveDirection.z > 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", true);
 						anim.SetBool ("isRunningBackP", false);
 						anim.SetBool ("isRunningLeftP", false);
@@ -235,7 +239,7 @@ public class PlayerMovement : NetworkBehaviour
 
 					}
 					//bewegt sich nach hinten
-					else if (moveDirection.z < 0f) {
+					else if (moveDirection.z < 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", true);
 						anim.SetBool ("isRunningLeftP", false);
@@ -243,7 +247,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich rechts
-					} else if (moveDirection.x > 0f) {
+					} else if (moveDirection.x > 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", false);
 						anim.SetBool ("isRunningLeftP", false);
@@ -251,7 +255,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich links
-					} else if (moveDirection.x < 0f) {
+					} else if (moveDirection.x < 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", false);
@@ -261,9 +265,9 @@ public class PlayerMovement : NetworkBehaviour
 					}
 				}
 				//schaut nach links
-				else if (Input.mousePosition.x <= Screen.width / 3) {
+				else if (Input.mousePosition.x <= Screen.width / 2 && (Mathf.Abs((Screen.height / 2) - Input.mousePosition.y) / Screen.height) <= (Mathf.Abs((Screen.width / 2) - Input.mousePosition.x) / Screen.width)) {
 					//bewegt sich narch vorne
-					if (moveDirection.z > 0f) {
+					if (moveDirection.z > 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", false);
 						anim.SetBool ("isRunningLeftP", false);
@@ -271,7 +275,7 @@ public class PlayerMovement : NetworkBehaviour
 
 					}
 					//bewegt sich nach hinten
-					else if (moveDirection.z < 0f) {
+					else if (moveDirection.z < 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", false);
 						anim.SetBool ("isRunningLeftP", true);
@@ -279,7 +283,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich rechts
-					} else if (moveDirection.x > 0f) {
+					} else if (moveDirection.x > 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", true);
 						anim.SetBool ("isRunningLeftP", false);
@@ -287,7 +291,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich links
-					} else if (moveDirection.x < 0f) {
+					} else if (moveDirection.x < 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", true);
 						anim.SetBool ("isRunningBackP", false);
 						anim.SetBool ("isRunningLeftP", false);
@@ -296,9 +300,9 @@ public class PlayerMovement : NetworkBehaviour
 					}
 				}
 				//schaut nach rechts
-				else if (Input.mousePosition.x >= (Screen.width * 2) / 3) {
+				else if (Input.mousePosition.x > Screen.width / 2 && (Mathf.Abs((Screen.height / 2) - Input.mousePosition.y) / Screen.height) <= (Mathf.Abs((Screen.width / 2) - Input.mousePosition.x) / Screen.width)) {
 					//bewegt sich narch vorne
-					if (moveDirection.z > 0f) {
+					if (moveDirection.z > 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", false);
 						anim.SetBool ("isRunningLeftP", true);
@@ -306,7 +310,7 @@ public class PlayerMovement : NetworkBehaviour
 
 					}
 					//bewegt sich nach hinten
-					else if (moveDirection.z < 0f) {
+					else if (moveDirection.z < 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", false);
 						anim.SetBool ("isRunningLeftP", false);
@@ -314,7 +318,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich rechts
-					} else if (moveDirection.x > 0f) {
+					} else if (moveDirection.x > 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", true);
 						anim.SetBool ("isRunningBackP", false);
 						anim.SetBool ("isRunningLeftP", false);
@@ -322,7 +326,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich links
-					} else if (moveDirection.x < 0f) {
+					} else if (moveDirection.x < 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunningP", false);
 						anim.SetBool ("isRunningBackP", true);
 						anim.SetBool ("isRunningLeftP", false);
@@ -354,10 +358,10 @@ public class PlayerMovement : NetworkBehaviour
 				anim.SetBool ("isIdle", false);
 
 				//schaut nach hinten
-				if (Input.mousePosition.y < Screen.height / 2 && Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x < (Screen.width * 2) / 3) {
+				if (Input.mousePosition.y <= Screen.height / 2 && (Mathf.Abs((Screen.width / 2) - Input.mousePosition.x) / Screen.width) <= (Mathf.Abs((Screen.height / 2) - Input.mousePosition.y) / Screen.height)) {
 
 					//bewegt sich nach hinten
-					if (moveDirection.z < 0f) {
+					if (moveDirection.z < 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 					
 						anim.SetBool ("isRunning", true);
 						anim.SetBool ("isRunningBack", false);
@@ -366,7 +370,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich nach vorne
-					} else if (moveDirection.z > 0f) {
+					} else if (moveDirection.z > 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 					
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", true);
@@ -375,7 +379,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich rechts
-					} else if (moveDirection.x > 0f) {
+					} else if (moveDirection.x > 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 					
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", false);
@@ -384,7 +388,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich links
-					} else if (moveDirection.x < 0f) {
+					} else if (moveDirection.x < 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 					
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", false);
@@ -395,9 +399,9 @@ public class PlayerMovement : NetworkBehaviour
 
 				}
 			//schaut nach vorne
-			else if (Input.mousePosition.y > Screen.height / 2 && Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x < (Screen.width * 2) / 3) {
+				else if (Input.mousePosition.y > Screen.height / 2 && (Mathf.Abs((Screen.width / 2) - Input.mousePosition.x) / Screen.width) <= (Mathf.Abs((Screen.height / 2) - Input.mousePosition.y) / Screen.height)) {
 					//bewegt sich narch vorne
-					if (moveDirection.z > 0f) {
+					if (moveDirection.z > 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", true);
 						anim.SetBool ("isRunningBack", false);
 						anim.SetBool ("isRunningLeft", false);
@@ -405,7 +409,7 @@ public class PlayerMovement : NetworkBehaviour
 
 					}
 				//bewegt sich nach hinten
-				else if (moveDirection.z < 0f) {
+					else if (moveDirection.z < 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", true);
 						anim.SetBool ("isRunningLeft", false);
@@ -413,7 +417,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich rechts
-					} else if (moveDirection.x > 0f) {
+					} else if (moveDirection.x > 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", false);
 						anim.SetBool ("isRunningLeft", false);
@@ -421,7 +425,7 @@ public class PlayerMovement : NetworkBehaviour
 				
 
 						//bewegt sich links
-					} else if (moveDirection.x < 0f) {
+					} else if (moveDirection.x < 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 					
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", false);
@@ -431,9 +435,9 @@ public class PlayerMovement : NetworkBehaviour
 					}
 				}
 			//schaut nach links
-			else if (Input.mousePosition.x <= Screen.width / 3) {
+				else if (Input.mousePosition.x <= Screen.width / 2 && (Mathf.Abs((Screen.height / 2) - Input.mousePosition.y) / Screen.height) <= (Mathf.Abs((Screen.width / 2) - Input.mousePosition.x) / Screen.width)) {
 					//bewegt sich narch vorne
-					if (moveDirection.z > 0f) {
+					if (moveDirection.z > 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", false);
 						anim.SetBool ("isRunningLeft", false);
@@ -441,7 +445,7 @@ public class PlayerMovement : NetworkBehaviour
 
 					}
 				//bewegt sich nach hinten
-				else if (moveDirection.z < 0f) {
+					else if (moveDirection.z < 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", false);
 						anim.SetBool ("isRunningLeft", true);
@@ -449,7 +453,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich rechts
-					} else if (moveDirection.x > 0f) {
+					} else if (moveDirection.x > 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", true);
 						anim.SetBool ("isRunningLeft", false);
@@ -457,7 +461,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich links
-					} else if (moveDirection.x < 0f) {
+					} else if (moveDirection.x < 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", true);
 						anim.SetBool ("isRunningBack", false);
 						anim.SetBool ("isRunningLeft", false);
@@ -466,9 +470,9 @@ public class PlayerMovement : NetworkBehaviour
 					}
 				}
 			//schaut nach rechts
-			else if (Input.mousePosition.x >= (Screen.width * 2) / 3) {
+				else if (Input.mousePosition.x > Screen.width / 2 && (Mathf.Abs((Screen.height / 2) - Input.mousePosition.y) / Screen.height) <= (Mathf.Abs((Screen.width / 2) - Input.mousePosition.x) / Screen.width)) {
 					//bewegt sich narch vorne
-					if (moveDirection.z > 0f) {
+					if (moveDirection.z > 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", false);
 						anim.SetBool ("isRunningLeft", true);
@@ -476,7 +480,7 @@ public class PlayerMovement : NetworkBehaviour
 
 					}
 				//bewegt sich nach hinten
-				else if (moveDirection.z < 0f) {
+					else if (moveDirection.z < 0f && (moveDirection.z * moveDirection.z) > (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", false);
 						anim.SetBool ("isRunningLeft", false);
@@ -484,7 +488,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich rechts
-					} else if (moveDirection.x > 0f) {
+					} else if (moveDirection.x > 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", true);
 						anim.SetBool ("isRunningBack", false);
 						anim.SetBool ("isRunningLeft", false);
@@ -492,7 +496,7 @@ public class PlayerMovement : NetworkBehaviour
 
 
 						//bewegt sich links
-					} else if (moveDirection.x < 0f) {
+					} else if (moveDirection.x < 0f && (moveDirection.z * moveDirection.z) < (moveDirection.x * moveDirection.x)) {
 						anim.SetBool ("isRunning", false);
 						anim.SetBool ("isRunningBack", true);
 						anim.SetBool ("isRunningLeft", false);
