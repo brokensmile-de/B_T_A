@@ -567,6 +567,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreboard: {fileID: 761038525}
+  scoreEntryPrefab: {fileID: 1353986270017312, guid: c9555abf169fc0345aadf6d0dc5ce5a4,
+    type: 2}
 --- !u!1 &88151391
 GameObject:
   m_ObjectHideFlags: 0
