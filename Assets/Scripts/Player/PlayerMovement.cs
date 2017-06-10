@@ -33,7 +33,6 @@ public class PlayerMovement : NetworkBehaviour
 	//has pistol
 	private bool hasPistol;
 
-
     public void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -43,6 +42,8 @@ public class PlayerMovement : NetworkBehaviour
 		anim = GetComponent<Animator> ();
 
 		hasPistol = false;
+
+
     }
 
     public override void OnStartLocalPlayer()
@@ -65,6 +66,7 @@ public class PlayerMovement : NetworkBehaviour
         CalcRotationToMouse();  //spieler in richtung Maus rotieren
         DoMovement();
         AlignToGround();        //rotiere Player parallel zur oberfläche auf der er steht 
+
     }
 
     private Vector3 moveDirection = Vector3.zero;
@@ -104,6 +106,9 @@ public class PlayerMovement : NetworkBehaviour
 		//animation---Esteban
 		//bei moveDirection != 0 -> animmieren
 		moveAnim(moveDirection);
+
+
+
 
 
     }
@@ -518,5 +523,6 @@ public class PlayerMovement : NetworkBehaviour
 		}
 	
 	}
+
 }
 

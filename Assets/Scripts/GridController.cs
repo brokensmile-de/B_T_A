@@ -17,10 +17,12 @@ public class GridController : MonoBehaviour
         else
         {
 			
-            player = GameObject.Find("Player(Clone)").transform;
+            //player = GameObject.Find("Player(Clone)").transform;
 
 			//Esteban---- verändert für Level Anim
-			//player = GameObject.Find("BTA_Player 1(Clone)").transform;
+			player = GameObject.Find("BTA_Player 1(Clone)").transform;
+
+
         }
     }
 }
