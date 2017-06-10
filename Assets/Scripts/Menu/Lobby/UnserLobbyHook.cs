@@ -9,7 +9,7 @@ public class UnserLobbyHook : LobbyHook {
 
     public override void OnLobbyServerSceneLoadedForPlayer(NetworkManager manager, GameObject lobbyPlayer, GameObject gamePlayer) {
         gamePlayer.GetComponent<PlayerMovement>().color = lobbyPlayer.GetComponent<LobbyPlayer>().playerColor;
-
+        gamePlayer.GetComponent<Hitpoints>().playerName = lobbyPlayer.GetComponent<LobbyPlayer>().playerName;
     }
 
 }

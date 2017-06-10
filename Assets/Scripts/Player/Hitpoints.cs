@@ -39,6 +39,9 @@ public class Hitpoints : NetworkBehaviour
     [SyncVar]
     public int score = 0;
 
+    [SyncVar]
+    public string playerName;
+
     void Start()
     {
         hitpoints = maxHitpoints;
@@ -121,22 +124,14 @@ public class Hitpoints : NetworkBehaviour
         }
     }
 
-
     [Server]
     private void AddScore()
     {
         kills++;
         score += 10;
-        RpcAddScore();
     }
-    [ClientRpc]
-    private void RpcAddScore()
-    {
-        if (isLocalPlayer)
-        {
-            ScoreboardManager.s_Singleton.GenerateScoreboard();
-        }
-    }
+
+
     [ClientRpc]
     private void RpcRespawn()
     {
