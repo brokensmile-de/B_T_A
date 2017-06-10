@@ -40,14 +40,14 @@ public class PlayerMovement : NetworkBehaviour
         dashes = maxDashes;
 
 		//animation ----Esteban
-		anim = GetComponent<Animator> ();
+
 
 		hasPistol = false;
 
 
         if(isLocalPlayer)
         {
-
+            anim = GetComponent<Animator>();
         }
 
         transform.FindChild("Mesh").gameObject.GetComponent<SkinnedMeshRenderer>().material.color = color;
