@@ -50,7 +50,7 @@ public class PlayerMovement : NetworkBehaviour
 
         }
 
-        GetComponent<MeshRenderer>().material.color = color;
+        transform.FindChild("Mesh").gameObject.GetComponent<SkinnedMeshRenderer>().material.color = color;
     }
 
 

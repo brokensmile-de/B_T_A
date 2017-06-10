@@ -88,20 +88,12 @@ namespace Combat
             
 
 
-            var newBullet = GameObject.Instantiate(Bullet, FirePoint.position, rotation);
-
-            Debug.Log(newBullet + " newBullet");
+            var newBullet = Instantiate(_bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
-
-
-            //var bulletController = newBullet.GetComponent<BulletController>();
-            //bulletController.MaxDistance =maxDistance;
-
-
+            newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
             NetworkServer.Spawn(newBullet);
-
-            Destroy(newBullet, 2f);
+            //Destroy(newBullet, maxDistance / speed);
         }
 
 	    void Start ()
