@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ScoreboardManager : MonoBehaviour {
+    static public ScoreboardManager s_Singleton;
 
-    public GameObject scoreboard;
     public GameObject scoreEntryPrefab;
-    private GameObject playerlist;
+    public GameObject scoreboard;       //Refferenz auf Scoreboard
+    private GameObject playerlist;      //Refferenz auf scoreEntrys
+
+    public GameObject[] players;
+
+
     private bool showing;
-    public Hashtable playerList = new Hashtable();
+    // Use this for initialization
 
-	// Use this for initialization
-	void Start () {
-
+    void Start () {
+        s_Singleton = this;
         playerlist = scoreboard.transform.Find("PlayerList").gameObject;
+        
     }
 	
 	// Update is called once per frame
@@ -30,6 +35,7 @@ public class ScoreboardManager : MonoBehaviour {
         {
             if(scoreboard.activeInHierarchy)
             {
+
                 scoreboard.SetActive(false);
                 showing = false;
             }
@@ -37,19 +43,31 @@ public class ScoreboardManager : MonoBehaviour {
         }
     }
 
-    private void GenerateScoreboard()
+    public void GenerateScoreboard()
     {
+        players = GameObject.FindGameObjectsWithTag("Player");
+
         foreach (Transform child in playerlist.transform)
         {
             GameObject.Destroy(child.gameObject);
         }
-
-        for (int i = 0; i < 5; i++)
+        
+        foreach (GameObject o in players)
         {
+
             var entry = Instantiate(scoreEntryPrefab) as GameObject;
-            entry.transform.parent = playerlist.transform;
+            entry.transform.SetParent(playerlist.transform);
             entry.transform.localScale = new Vector3(1, 1, 1);
-            entry.GetComponent<EntryManager>().naeme.text = i+ "";
+
+            EntryManager man = entry.GetComponent<EntryManager>();
+
+            PlayerMovement player = o.GetComponent<PlayerMovement>();
+            Hitpoints playerHP = o.GetComponent<Hitpoints>();
+            //man.playerName.text = e.Value.playerName;
+            man.color.color = player.color;
+            man.deaths.text = playerHP.deaths + "";
+            man.kills.text = playerHP.kills + "";
+            man.score.text = playerHP.score + "";
         }
 
         //Prototype.NetworkLobby.LobbyManager.s_Singleton.gameObject

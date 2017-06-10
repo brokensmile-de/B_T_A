@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EntryManager : MonoBehaviour {
-    public Text naeme, kills, deaths, score;
+    public Text playerName, kills, deaths, score;
+    public RawImage color;
 	// Use this for initialization
 	void Start () {
 		

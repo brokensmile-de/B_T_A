@@ -30,6 +30,7 @@ namespace Prototype.NetworkLobby
         [SyncVar(hook = "OnMyColor")]
         public Color playerColor = Color.white;
 
+
         public Color OddRowColor = new Color(250.0f / 255.0f, 250.0f / 255.0f, 250.0f / 255.0f, 1.0f);
         public Color EvenRowColor = new Color(180.0f / 255.0f, 180.0f / 255.0f, 180.0f / 255.0f, 1.0f);
 
