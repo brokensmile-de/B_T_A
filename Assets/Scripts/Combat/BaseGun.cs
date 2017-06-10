@@ -5,7 +5,7 @@ namespace Combat
 {
     public abstract class BaseGun: IGun
     {
-        public readonly WeaponController WeaponController;
+        public readonly WeaponTemplate WeaponTemplate;
         public readonly GunController GunController;
 
         private float _shotCounter;
@@ -13,18 +13,18 @@ namespace Combat
 
         private Boolean _needReset;
 
-        public BaseGun (WeaponController wc, GunController gc)
+        public BaseGun (WeaponTemplate wp, GunController gc)
         {
-            WeaponController = wc;
+            WeaponTemplate = wp;
             GunController = gc;
         }
 
         public void Shoot(Boolean autofire)
         {
-            if (_shotCounter <= 0 && (WeaponController.AutoFire || !autofire)) {
-                _shotCounter = WeaponController.Cooldown;
+            if (_shotCounter <= 0 && (WeaponTemplate.AutoFire || !autofire)) {
+                _shotCounter = WeaponTemplate.Cooldown;
                 _needReset = true;
-                _resetCooldown = WeaponController.ResetCoolown;
+                _resetCooldown = WeaponTemplate.ResetCoolown;
 
                 Shoot();
             }
@@ -50,9 +50,9 @@ namespace Combat
 
         protected abstract void Reset();
 
-        public WeaponController GetWeaponController()
+        public WeaponTemplate GetGunTemplate()
         {
-            return WeaponController;
+            return WeaponTemplate;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace Combat
 {
 	public class HitscanGun : BaseGun
 	{
-	    public HitscanGun(WeaponController wp, GunController gc) : base(wp, gc)
+	    public HitscanGun(WeaponTemplate wp, GunController gc) : base(wp, gc)
 	    {
 	    }
 
@@ -16,10 +16,10 @@ namespace Combat
 	    {
 	        var fwd = GunController.FirePoint.TransformDirection(Vector3.forward);
 
-	        Debug.DrawRay(GunController.FirePoint.position, fwd * WeaponController.MaxShotDistance, Color.green, 5.0f);
+	        Debug.DrawRay(GunController.FirePoint.position, fwd * WeaponTemplate.MaxShotDistance, Color.green, 5.0f);
 
 	        RaycastHit hit;
-	        if (Physics.Raycast(GunController.FirePoint.position, fwd, out hit, WeaponController.MaxShotDistance))
+	        if (Physics.Raycast(GunController.FirePoint.position, fwd, out hit, WeaponTemplate.MaxShotDistance))
 	        {
 	            Debug.Log("Raycast hit: " + hit.collider);
 	        }

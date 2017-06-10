@@ -6,6 +6,11 @@ TagManager:
   tags:
   - Bullet
   - LocalHUD
+  - Gun
+  - AssaultRifle
+  - RailGun
+  - Pistol
+  - Shotgun
   layers:
   - Default
   - TransparentFX

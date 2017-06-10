@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AssemblyCSharp;
+using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -6,41 +7,41 @@ namespace Combat
 {
 	public class GunController : NetworkBehaviour
 	{
-	    public IGun CurrentGun { get; private set; }
+        public Transform FirePoint;
+        public Transform GunHolder;
 
-	    [SerializeField]
-	    private Transform _firePoint;
-	    public Transform FirePoint
-	    {
-	        get { return _firePoint; }
-	        set { _firePoint = value; }
-	    }
+        public IGun CurrentGun { get; private set; }
 
-	    [SerializeField]
-	    private Transform _gunHolder;
-	    public Transform GunHolder
-	    {
-	        get { return _gunHolder; }
-	        set { _gunHolder = value; }
-	    }
+		//Esteban --- Model GameObjects
 
-	    [SerializeField]
-	    private GameObject _bullet;
-	    public GameObject Bullet
-	    {
-	        get { return _bullet; }
-	        set { _bullet = value; }
-	    }
+		//Player movement für animation
+		public PlayerMovement player;
 
-	    [SerializeField]
-	    private WeaponController[] _weapons;
-	    public WeaponController[] Weapons
-	    {
-	        get { return _weapons; }
-	        set { _weapons = value; }
-	    }
+		//Current Gun GameObject
 
-	    public void Update()
+		private GameObject currentGun;
+
+		//Assault Rifle 
+		public GameObject AssaultRifleOb;
+		//Rail Gun
+		public GameObject RailGunOb;
+		//Pistol
+		public GameObject PistolOb;
+		//Shotgun
+		public GameObject ShotgunOb;
+
+
+        [SerializeField]
+        private GameObject _bullet;
+        public GameObject Bullet
+        {
+            get { return _bullet; }
+            set { _bullet = value; }
+        }
+			
+
+
+        void Update ()
 	    {
             if (!isLocalPlayer)
             {
@@ -54,42 +55,120 @@ namespace Combat
 	            if (Input.GetMouseButton(0))
 	            {
 	                CurrentGun.Shoot(!Input.GetMouseButtonDown(0));
+                    //CmdFire();
 	            }
 	        }
 
-	        for (var i = 1; i <= 9; i++)
+	        // Temporarily switch weapons using Number Keys
+	        if (Input.GetKeyDown("1"))
 	        {
-	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
-	            {
-	                ChangeGun(Weapons[i - 1]);
-	            }
+	            ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
+				player.HasPistolAnim ();
+	        }
+	        else if (Input.GetKeyDown("2"))
+	        {
+	            ChangeGun(Weapons.Templates.Shotgun.CreateGun(this));
+				player.HasNoPistolAnim ();
+	        }
+	        else if (Input.GetKeyDown("3"))
+	        {
+	            ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
+				player.HasNoPistolAnim ();
+	        }
+	        else if (Input.GetKeyDown("4"))
+	        {
+	            ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
+				player.HasNoPistolAnim ();
 	        }
 	    }
 
 
-	    [Command]
+        [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
-	    {
-            var newBullet = Instantiate(_bullet, FirePoint.position, rotation);
+        {
+            
+
+
+            var newBullet = GameObject.Instantiate(Bullet, FirePoint.position, rotation);
+
+            Debug.Log(newBullet + " newBullet");
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
-            newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
+
+
+            //var bulletController = newBullet.GetComponent<BulletController>();
+            //bulletController.MaxDistance =maxDistance;
+
+
             NetworkServer.Spawn(newBullet);
-            Destroy(newBullet, maxDistance / speed);
+
+            Destroy(newBullet, 2f);
         }
 
-
-	    private void ChangeGun(WeaponController weaponController)
+	    void Start ()
 	    {
-	        IGun gun = null;
 
-	        switch (weaponController.WeaponType)
-	        {
-	            case WeaponType.Projectile: gun = new ProjectileGun(weaponController, this); break;
-	            case WeaponType.HitScan: gun = new HitscanGun(weaponController, this); break;
-	        }
-	        CurrentGun = gun;
+            if (!isLocalPlayer)
+            {
+                return;
+            }
+
+			//Esteban --- Player beginnt ohne Waffe
+            //ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
 	    }
+
+	    public void ChangeGun(IGun gun)
+	    {
+	        CurrentGun = gun;
+
+            //direct assignment saves headaches
+	        //FirePoint = transform.Find("FirePoint");
+	        //GunHolder = transform.Find("GunHolder");
+	    }
+
+
+		//Esteban ---- diese Methode wird von CollisionDetector angerufen.
+		public void PickGun(int i){
+			if (i == 1) {
+				player.HasNoPistolAnim ();
+				ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
+				//Model in gunHolder erzeugen
+				if(currentGun != null){
+					DestroyObject (currentGun);
+				}
+				currentGun = Instantiate (AssaultRifleOb, GunHolder.position, GunHolder.rotation);
+				currentGun.transform.parent = GunHolder;
+			}
+			else if (i == 2) {
+				player.HasPistolAnim ();
+				ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
+				//Model in gunHolder erzeugen
+				if(currentGun != null){
+					DestroyObject (currentGun);
+				}
+				currentGun = Instantiate (PistolOb, GunHolder.position, GunHolder.rotation);
+				currentGun.transform.parent = GunHolder;
+			}else if (i == 3) {
+				player.HasNoPistolAnim ();
+				ChangeGun(Weapons.Templates.Shotgun.CreateGun(this));
+				//Model in gunHolder erzeugen
+				if(currentGun != null){
+					DestroyObject (currentGun);
+				}
+				currentGun = Instantiate (ShotgunOb, GunHolder.position, GunHolder.rotation);
+				currentGun.transform.parent = GunHolder;
+			}
+			else if (i == 4) {
+				player.HasNoPistolAnim ();
+				ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
+				//Model in gunHolder erzeugen
+				if(currentGun != null){
+					DestroyObject (currentGun);
+				}
+				currentGun = Instantiate (RailGunOb, GunHolder.position, GunHolder.rotation);
+				currentGun.transform.parent = GunHolder;
+			}
+		}
 	}
 }
 
