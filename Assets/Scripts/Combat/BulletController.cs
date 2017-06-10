@@ -7,10 +7,11 @@ namespace Combat
 	{
         [SyncVar]
         public NetworkInstanceId spawnedBy;
+        public GameObject obj;
         private bool damaged;
         public override void OnStartClient()
         {
-            GameObject obj = ClientScene.FindLocalObject(spawnedBy);
+            obj = ClientScene.FindLocalObject(spawnedBy);
             Collider[] playerColliders = obj.GetComponents<Collider>();
             Collider bulletCollider = gameObject.GetComponent<Collider>();
             foreach(Collider c in playerColliders)
@@ -39,7 +40,7 @@ namespace Combat
 
             if (health != null)
             {
-                health.TakeDamage(Damage);
+                health.TakeDamage(Damage, obj);
                 damaged = true;
             }
 

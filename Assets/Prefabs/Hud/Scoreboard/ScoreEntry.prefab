@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: 224612339604105860}
   - component: {fileID: 222599414283773126}
   - component: {fileID: 114778298362361572}
+  - component: {fileID: 114515017025557812}
   m_Layer: 5
   m_Name: ScoreEntry
   m_TagString: Untagged
@@ -146,6 +147,22 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 0
+--- !u!114 &114515017025557812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1353986270017312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7dce5e7c1e7fe54bbb08cd623af7497, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: {fileID: 114982520611279220}
+  kills: {fileID: 114534737315717216}
+  deaths: {fileID: 114552011616036072}
+  score: {fileID: 114497174843833228}
+  color: {fileID: 114902341585799610}
 --- !u!114 &114534737315717216
 MonoBehaviour:
   m_ObjectHideFlags: 1

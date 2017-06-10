@@ -88,4 +88,4 @@ Material:
     - _MKGlowColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _MKGlowTexColor: {r: 1, g: 1, b: 1, a: 0.25}
     - _OutlineColour: {r: 1, g: 1, b: 0, a: 1}
-    - _PlayerPosition: {r: -16.765232, g: 3.8799963, b: -6.976908, a: 0}
+    - _PlayerPosition: {r: -17.478346, g: 3.8799999, b: 12.535486, a: 0}

@@ -18,6 +18,7 @@ public class Hitpoints : NetworkBehaviour
     public const int maxShield = 100;
     public float timeTilShieldRestore;  //Zeit die man keinen damage bekommen darf bis das Schild sich wieder auflädt
     public AudioClip hitSound;
+
     [Header("Refferenzen")]
     public Text hitpointsText;          //Hud Text Hp
     public Text shieldText;             //Hud Text Shield
@@ -30,6 +31,16 @@ public class Hitpoints : NetworkBehaviour
     private AudioSource audioSource;
     private float lastHitTimestamp;      //Zeitpunkt zu dem man das letzte mal schaden bekommen + cooldown
     private bool restoringShield;        //gibt an ob das shield gerade am aufladen ist
+
+    [SyncVar]
+    public int deaths = 0;
+    [SyncVar]
+    public int kills = 0;
+    [SyncVar]
+    public int score = 0;
+
+    [SyncVar]
+    public string playerName;
 
     void Start()
     {
@@ -72,7 +83,7 @@ public class Hitpoints : NetworkBehaviour
         }
 
     }
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount, GameObject inflicter)
     {
         if (!isServer)
             return;
@@ -101,12 +112,23 @@ public class Hitpoints : NetworkBehaviour
 
         if (hitpoints <= 0)
         {
+
             hitpoints = maxHitpoints;
             shield = maxShield;
-
+            deaths++;
+            
+            inflicter.GetComponent<Hitpoints>().AddScore();
             // called on the Server, invoked on the Clients
             RpcRespawn();
+
         }
+    }
+
+    [Server]
+    private void AddScore()
+    {
+        kills++;
+        score += 10;
     }
 
 
@@ -115,6 +137,7 @@ public class Hitpoints : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            ScoreboardManager.s_Singleton.GenerateScoreboard();
             // Set the spawn point to origin as a default value
             Vector3 spawnPoint = Vector3.zero;
 
