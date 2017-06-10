@@ -1,5 +1,4 @@
-﻿using AssemblyCSharp;
-
+﻿
 namespace Combat.Weapons
 {
 	public class Railgun : WeaponTemplate

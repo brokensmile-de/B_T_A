@@ -1,5 +1,4 @@
-﻿using AssemblyCSharp;
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Networking;
 
