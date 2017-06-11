@@ -1012,7 +1012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransformSyncMode: 4
-  m_SendInterval: 0.033333335
+  m_SendInterval: 0.05
   m_SyncRotationAxis: 7
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 0, g: 0, b: 0, a: 0}
-  speed: 30
+  speed: 20
   rotateSpeed: 300
   jumpSpeed: 25
   gravity: 90
@@ -1041,6 +1041,7 @@ MonoBehaviour:
   maxDashes: 2
   dashChargeCooldown: 5
   dashText: {fileID: 0}
+  m_syncPositionThreshold: 0.25
 --- !u!114 &114791026611075328
 MonoBehaviour:
   m_ObjectHideFlags: 1

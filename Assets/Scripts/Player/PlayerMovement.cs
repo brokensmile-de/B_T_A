@@ -33,28 +33,22 @@ public class PlayerMovement : NetworkBehaviour
 	static Animator anim;
 
     public Text dashText;
-    public RawImage slider;
 
-	//has pistol
-	private bool hasPistol;
+    //has pistol
+    private bool hasPistol;
 
     public void Start()
     {
         controller = GetComponent<CharacterController>();
         dashes = maxDashes;
 
-		//animation ----Esteban
-
-
 		hasPistol = false;
-
 
         if(isLocalPlayer)
         {
             anim = GetComponent<Animator>();
             GameObject hudCanvas = GameObject.Find("HudCanvas");
             dashText = hudCanvas.transform.Find("HealthUI/Dash").GetComponent<Text>();
-            slider = hudCanvas.transform.Find("HealthUI/Slider").GetComponent<RawImage>();
         }
 
         transform.FindChild("Mesh").gameObject.GetComponent<SkinnedMeshRenderer>().material.color = color;
@@ -78,16 +72,6 @@ public class PlayerMovement : NetworkBehaviour
         AlignToGround();        //rotiere Player parallel zur oberfläche auf der er steht 
 
     }
-    private IEnumerator sliderSlide()
-    {
-        while(restoringDashes)
-        {
-            slider.rectTransform.rect.width -= 1;
-            yield return new WaitForSeconds(0.1f);
-        }
-
-    }
-    
 
     private Vector3 moveDirection = Vector3.zero;
     private void DoMovement()
