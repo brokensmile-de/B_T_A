@@ -61,3 +61,4 @@ MonoBehaviour:
   BulletMaxSpread: 10
   BulletSpreadIncrease: 0.5
   WeaponType: 0
+  AmmoPerPickUp: 5

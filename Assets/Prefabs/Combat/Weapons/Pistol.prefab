@@ -60,5 +60,5 @@ MonoBehaviour:
   BulletBaseSpread: 0
   BulletMaxSpread: 0
   BulletSpreadIncrease: 0
-  Bullet: {fileID: 1199921423177846, guid: 903796b4dd2de48bfa321fad3f4937e2, type: 2}
   WeaponType: 0
+  AmmoPerPickUp: 15

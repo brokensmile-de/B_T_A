@@ -11,6 +11,8 @@ TagManager:
   - RailGun
   - Pistol
   - Shotgun
+  - InfiniteDash
+  - DoubleShield
   layers:
   - Default
   - TransparentFX

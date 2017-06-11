@@ -59,9 +59,9 @@ namespace Combat
 	        }
 
 	        // Temporarily switch weapons using Number Keys
-	        if (Input.GetKeyDown("1"))
+	       /* if (Input.GetKeyDown("1"))
 	        {
-	            ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
+	           ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
 				player.HasPistolAnim ();
 	        }
 	        else if (Input.GetKeyDown("2"))
@@ -79,6 +79,8 @@ namespace Combat
 	            ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
 				player.HasNoPistolAnim ();
 	        }
+	        */
+
 	    }
 
 
@@ -104,8 +106,10 @@ namespace Combat
                 return;
             }
 
-			//Esteban --- Player beginnt ohne Waffe
+			//Esteban --- Player beginnt mit Pistole
             //ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
+
+			PickGun (2);
 	    }
 
 	    public void ChangeGun(IGun gun)
@@ -159,6 +163,11 @@ namespace Combat
 				currentGun = Instantiate (RailGunOb, GunHolder.position, GunHolder.rotation);
 				currentGun.transform.parent = GunHolder;
 			}
+		}
+
+		//Esteban---- Ammo ist leer. Der player hat nur eine Pistole
+		public void emptyAmmo(){
+			PickGun (2);
 		}
 	}
 }

@@ -11,6 +11,8 @@
 		    BulletSpreadIncrease = 0.5f;
 		    AutoFire = true;
 		    ResetCoolown = 2f;
+			//Esteban
+			AmmoPerPickUp = 30.0f;
 		}
 
 	    public override IGun CreateGun(GunController controller)

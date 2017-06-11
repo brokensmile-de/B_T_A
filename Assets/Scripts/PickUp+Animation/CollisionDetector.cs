@@ -36,6 +36,16 @@ public class CollisionDetector : MonoBehaviour {
 			gun.PickGun(4);
 			Destroy (other.gameObject);
 		}
+		else if(other.gameObject.CompareTag("InfiniteDash")){
+			Debug.Log ("INFINITE DASH!!");
+			//Hier sollte es implementiert werden
+			Destroy (other.gameObject);
+		}
+		else if(other.gameObject.CompareTag("DoubleShield")){
+			Debug.Log ("DOUBLE SHIELD!!");
+			//Hier sollte es implementiert werden
+			Destroy (other.gameObject);
+		}
 
 	}
 }

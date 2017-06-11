@@ -8,6 +8,7 @@
 	    public float BulletMaxSpread { get; protected set; }
 	    public float BulletSpreadIncrease { get; protected set; }
 
+
 	    public ProjectileWeaponTemplate()
 	    {
 	        BulletsPerShot = 1;

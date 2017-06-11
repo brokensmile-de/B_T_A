@@ -7,6 +7,8 @@ namespace Combat.Weapons
 		{
 		    Cooldown = 2f;
 		    MaxShotDistance = 100f;
+			//Esteban
+			AmmoPerPickUp = 5.0f;
 		}
 
 	    public override IGun CreateGun(GunController controller)
