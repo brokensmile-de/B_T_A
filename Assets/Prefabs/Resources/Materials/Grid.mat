@@ -43,7 +43,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 2124b40a2a8e23846a50e3065301c948, type: 3}
-        m_Scale: {x: 25, y: 25}
+        m_Scale: {x: 2, y: 2}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -88,4 +88,4 @@ Material:
     - _MKGlowColor: {r: 1, g: 1, b: 1, a: 0.5}
     - _MKGlowTexColor: {r: 1, g: 1, b: 1, a: 0.25}
     - _OutlineColour: {r: 1, g: 1, b: 0, a: 1}
-    - _PlayerPosition: {r: -21.242752, g: 2.9749994, b: -1.3039615, a: 0}
+    - _PlayerPosition: {r: -59.06023, g: 2, b: -15, a: 0}

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking;
 
 [ExecuteInEditMode]
 public class GridController : MonoBehaviour

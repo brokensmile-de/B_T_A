@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 //Author:Adrian Zimmer
 //Description: Movementscript für Player bei dem die Kamera immer im gleichen winkel bleiben sollte und W/A/S/D kamera relativ funktionieren
@@ -31,23 +32,23 @@ public class PlayerMovement : NetworkBehaviour
 	//animation ----Esteban
 	static Animator anim;
 
-	//has pistol
-	private bool hasPistol;
+    public Text dashText;
+
+    //has pistol
+    private bool hasPistol;
 
     public void Start()
     {
         controller = GetComponent<CharacterController>();
         dashes = maxDashes;
 
-		//animation ----Esteban
-
-
 		hasPistol = false;
-
 
         if(isLocalPlayer)
         {
             anim = GetComponent<Animator>();
+            GameObject hudCanvas = GameObject.Find("HudCanvas");
+            dashText = hudCanvas.transform.Find("HealthUI/Dash").GetComponent<Text>();
         }
 
         transform.FindChild("Mesh").gameObject.GetComponent<SkinnedMeshRenderer>().material.color = color;
@@ -91,6 +92,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 isDashing = true;
                 dashes --;
+                dashText.text = dashes+"";
 
                 StartCoroutine(Dash());
             }
@@ -115,6 +117,7 @@ public class PlayerMovement : NetworkBehaviour
     private void IncreaseDashCount()
     {
         dashes++;
+        dashText.text = dashes + "";
         restoringDashes = false;
     }
 
