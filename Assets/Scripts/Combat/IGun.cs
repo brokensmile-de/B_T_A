@@ -6,7 +6,7 @@ namespace Combat
 	{
 		void Shoot(Boolean autofire);
 	    void Update();
-		WeaponTemplate GetGunTemplate();
+		WeaponController GetWeaponController();
 	}
 }
 

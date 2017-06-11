@@ -1041,7 +1041,6 @@ MonoBehaviour:
   maxDashes: 2
   dashChargeCooldown: 5
   dashText: {fileID: 0}
-  m_syncPositionThreshold: 0.25
 --- !u!114 &114791026611075328
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1055,6 +1054,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FirePoint: {fileID: 4672014894825796}
   GunHolder: {fileID: 4272649985475212}
+  _weapons:
+  - {fileID: 114241434366929358, guid: ba09f92533876374d8ca94003a71578e, type: 2}
+  - {fileID: 114059091215519674, guid: 1329bb4c486d7bc438fb0c548aa7ddb3, type: 2}
+  - {fileID: 114513456232034450, guid: 90abeca6f2aba9b4e8f72d65817db4d6, type: 2}
+  - {fileID: 114594057946607914, guid: ba76934a0ee05ff48b6bef8e410e8bfe, type: 2}
   player: {fileID: 114749088134993626}
   AssaultRifleOb: {fileID: 1781911173398898, guid: 98f26872da43d4675b0a2408513ff912,
     type: 2}

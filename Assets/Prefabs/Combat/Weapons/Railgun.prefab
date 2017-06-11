@@ -61,4 +61,5 @@ MonoBehaviour:
   BulletMaxSpread: 0
   BulletSpreadIncrease: 0
   Bullet: {fileID: 0}
+  Model: {fileID: 4411478635286596, guid: 99ee7752e318849eb93de22465ce7ce8, type: 2}
   WeaponType: 1

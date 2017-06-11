@@ -1353,8 +1353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103264177b3c05048876f9c167d2e8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 1648952682}
-  selectedObject: {fileID: 354809410}
+  eventSystem: {fileID: 0}
+  selectedObject: {fileID: 0}
 --- !u!95 &727552607
 Animator:
   serializedVersion: 3
@@ -1570,8 +1570,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103264177b3c05048876f9c167d2e8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 1648952682}
-  selectedObject: {fileID: 1461729014}
+  eventSystem: {fileID: 0}
+  selectedObject: {fileID: 0}
 --- !u!225 &757677855
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -3115,7 +3115,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22400008, guid: b6a1cf4e3eeaf9a4ca38bf8acb910a6d, type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -494.4281
       objectReference: {fileID: 0}
     - target: {fileID: 22400008, guid: b6a1cf4e3eeaf9a4ca38bf8acb910a6d, type: 2}
       propertyPath: m_SizeDelta.x
@@ -7059,8 +7059,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103264177b3c05048876f9c167d2e8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventSystem: {fileID: 1648952682}
-  selectedObject: {fileID: 1776674267}
+  eventSystem: {fileID: 0}
+  selectedObject: {fileID: 0}
 --- !u!225 &1718187817
 CanvasGroup:
   m_ObjectHideFlags: 0

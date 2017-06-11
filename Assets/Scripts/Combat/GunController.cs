@@ -1,46 +1,32 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Combat
 {
 	public class GunController : NetworkBehaviour
 	{
-        public Transform FirePoint;
-        public Transform GunHolder;
+		public Transform FirePoint;
+		public Transform GunHolder;
 
-        public IGun CurrentGun { get; private set; }
+	    public IGun CurrentGun { get; private set; }
 
-		//Esteban --- Model GameObjects
+	    [SerializeField]
+	    private WeaponController[] _weapons;
+	    public WeaponController[] Weapons
+	    {
+	        get { return _weapons; }
+	        set { _weapons = value; }
+	    }
+	    
+        //Esteban --- Model GameObjects
 
-		//Player movement für animation
-		public PlayerMovement player;
+        //Player movement für animation
+        public PlayerMovement player;
 
-		//Current Gun GameObject
+        //Current Gun model
+		private Transform gunModel;
 
-		private GameObject currentGun;
-
-		//Assault Rifle 
-		public GameObject AssaultRifleOb;
-		//Rail Gun
-		public GameObject RailGunOb;
-		//Pistol
-		public GameObject PistolOb;
-		//Shotgun
-		public GameObject ShotgunOb;
-
-
-        [SerializeField]
-        private GameObject _bullet;
-        public GameObject Bullet
-        {
-            get { return _bullet; }
-            set { _bullet = value; }
-        }
-			
-
-
-        void Update ()
+	    void Update ()
 	    {
             if (!isLocalPlayer)
             {
@@ -54,30 +40,15 @@ namespace Combat
 	            if (Input.GetMouseButton(0))
 	            {
 	                CurrentGun.Shoot(!Input.GetMouseButtonDown(0));
-                    //CmdFire();
 	            }
 	        }
 
-	        // Temporarily switch weapons using Number Keys
-	        if (Input.GetKeyDown("1"))
+	        for (var i = 1; i <= 9; i++)
 	        {
-	            ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
-				player.HasPistolAnim ();
-	        }
-	        else if (Input.GetKeyDown("2"))
-	        {
-	            ChangeGun(Weapons.Templates.Shotgun.CreateGun(this));
-				player.HasNoPistolAnim ();
-	        }
-	        else if (Input.GetKeyDown("3"))
-	        {
-	            ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
-				player.HasNoPistolAnim ();
-	        }
-	        else if (Input.GetKeyDown("4"))
-	        {
-	            ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
-				player.HasNoPistolAnim ();
+	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
+	            {
+	                ChangeGun(Weapons[i - 1]);
+	            }
 	        }
 	    }
 
@@ -85,10 +56,8 @@ namespace Combat
         [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
         {
-            
-
-
-            var newBullet = Instantiate(_bullet, FirePoint.position, rotation);
+	        var bullet = CurrentGun.GetWeaponController().Bullet.gameObject;
+            var newBullet = Instantiate(bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
             newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
@@ -96,68 +65,43 @@ namespace Combat
             //Destroy(newBullet, maxDistance / speed);
         }
 
-	    void Start ()
+	    public void ChangeGun(WeaponController weapon)
 	    {
+	        IGun gun = null;
 
-            if (!isLocalPlayer)
-            {
-                return;
-            }
+	        switch (weapon.WeaponType)
+	        {
+	            case WeaponType.Projectile: gun = new ProjectileGun(weapon, this); break;
+	            case WeaponType.HitScan: gun = new HitscanGun(weapon, this); break;
+	        }
+		    
+		    if(gunModel != null){
+				DestroyObject (gunModel.gameObject);
+			    gunModel = null;
+		    }
 
-			//Esteban --- Player beginnt ohne Waffe
-            //ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
-	    }
+		    if (weapon.gameObject.name == "Pistol")
+		    {
+			    player.HasPistolAnim();
+		    }
+		    else
+		    {
+			    player.HasNoPistolAnim();
+		    }
+		    
+		    
+		    gunModel = Instantiate (weapon.Model, GunHolder.position, GunHolder.rotation);
+		    gunModel.transform.parent = GunHolder;
 
-	    public void ChangeGun(IGun gun)
-	    {
 	        CurrentGun = gun;
-
-            //direct assignment saves headaches
-	        //FirePoint = transform.Find("FirePoint");
-	        //GunHolder = transform.Find("GunHolder");
 	    }
 
 
 		//Esteban ---- diese Methode wird von CollisionDetector angerufen.
 		public void PickGun(int i){
-			if (i == 1) {
-				player.HasNoPistolAnim ();
-				ChangeGun(Weapons.Templates.AssaultRifle.CreateGun(this));
-				//Model in gunHolder erzeugen
-				if(currentGun != null){
-					DestroyObject (currentGun);
-				}
-				currentGun = Instantiate (AssaultRifleOb, GunHolder.position, GunHolder.rotation);
-				currentGun.transform.parent = GunHolder;
-			}
-			else if (i == 2) {
-				player.HasPistolAnim ();
-				ChangeGun(Weapons.Templates.Pistol.CreateGun(this));
-				//Model in gunHolder erzeugen
-				if(currentGun != null){
-					DestroyObject (currentGun);
-				}
-				currentGun = Instantiate (PistolOb, GunHolder.position, GunHolder.rotation);
-				currentGun.transform.parent = GunHolder;
-			}else if (i == 3) {
-				player.HasNoPistolAnim ();
-				ChangeGun(Weapons.Templates.Shotgun.CreateGun(this));
-				//Model in gunHolder erzeugen
-				if(currentGun != null){
-					DestroyObject (currentGun);
-				}
-				currentGun = Instantiate (ShotgunOb, GunHolder.position, GunHolder.rotation);
-				currentGun.transform.parent = GunHolder;
-			}
-			else if (i == 4) {
-				player.HasNoPistolAnim ();
-				ChangeGun(Weapons.Templates.Railgun.CreateGun(this));
-				//Model in gunHolder erzeugen
-				if(currentGun != null){
-					DestroyObject (currentGun);
-				}
-				currentGun = Instantiate (RailGunOb, GunHolder.position, GunHolder.rotation);
-				currentGun.transform.parent = GunHolder;
+			if (i <= 0 && i > Weapons.Length)
+			{
+				ChangeGun(Weapons[i]);
 			}
 		}
 	}
