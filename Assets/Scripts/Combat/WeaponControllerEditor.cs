@@ -1,4 +1,5 @@
-﻿using Combat;
+﻿#if UNITY_EDITOR
+using Combat;
 using UnityEditor;
 using UnityEngine;
 
@@ -68,4 +69,6 @@ namespace Combat
             serializedObject.ApplyModifiedProperties();
         }
     }
+
 }
+#endif

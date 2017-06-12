@@ -71,6 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4289347158512152}
   - component: {fileID: 95350865326396674}
+  - component: {fileID: 114227866747060604}
   m_Layer: 0
   m_Name: Assaultrifle OBJ
   m_TagString: Untagged
@@ -267,3 +268,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114227866747060604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1781911173398898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 152
+    i1: 242
+    i2: 104
+    i3: 114
+    i4: 218
+    i5: 67
+    i6: 212
+    i7: 103
+    i8: 91
+    i9: 10
+    i10: 36
+    i11: 8
+    i12: 81
+    i13: 63
+    i14: 249
+    i15: 18
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0

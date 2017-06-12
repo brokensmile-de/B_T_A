@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4411478635286596}
   - component: {fileID: 95419426150907096}
+  - component: {fileID: 114208654335632148}
   m_Layer: 0
   m_Name: Railgun OBJ 1
-  m_TagString: Untagged
+  m_TagString: RailGun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -197,3 +198,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114208654335632148
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093291882211994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 153
+    i1: 238
+    i2: 119
+    i3: 82
+    i4: 227
+    i5: 24
+    i6: 132
+    i7: 158
+    i8: 185
+    i9: 61
+    i10: 226
+    i11: 36
+    i12: 101
+    i13: 206
+    i14: 124
+    i15: 232
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
