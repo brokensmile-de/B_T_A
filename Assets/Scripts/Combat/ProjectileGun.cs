@@ -30,6 +30,7 @@ namespace Combat
                     GunController.CmdFire(rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance);
 
 	                rotation *= Quaternion.Euler(0f, bulletDistance, 0f);
+                    
 	            }
 	        }
 	        else

@@ -773,7 +773,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866942754674226}
   m_LocalRotation: {x: 0, y: -0.41045338, z: 0, w: 0.91188157}
-  m_LocalPosition: {x: 557.4954, y: 30.094769, z: -221.20662}
+  m_LocalPosition: {x: 165.17767, y: 44.6107, z: -195.25046}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4472572527854158}
@@ -1060,12 +1060,6 @@ MonoBehaviour:
   - {fileID: 114513456232034450, guid: 90abeca6f2aba9b4e8f72d65817db4d6, type: 2}
   - {fileID: 114594057946607914, guid: ba76934a0ee05ff48b6bef8e410e8bfe, type: 2}
   player: {fileID: 114749088134993626}
-  AssaultRifleOb: {fileID: 1781911173398898, guid: 98f26872da43d4675b0a2408513ff912,
-    type: 2}
-  RailGunOb: {fileID: 1093291882211994, guid: 99ee7752e318849eb93de22465ce7ce8, type: 2}
-  PistolOb: {fileID: 1126926761505830, guid: 1fd41e55cc8324496b5989dbef127277, type: 2}
-  ShotgunOb: {fileID: 1075218554355244, guid: b8d1e6df80bae45a18cc7e56c8279d06, type: 2}
-  _bullet: {fileID: 1199921423177846, guid: 903796b4dd2de48bfa321fad3f4937e2, type: 2}
 --- !u!114 &114925144707682796
 MonoBehaviour:
   m_ObjectHideFlags: 1

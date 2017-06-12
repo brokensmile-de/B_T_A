@@ -37,9 +37,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4868711415212082}
   - component: {fileID: 95932212585434678}
+  - component: {fileID: 114733374151838406}
   m_Layer: 0
   m_Name: shotgun_v2
-  m_TagString: Untagged
+  m_TagString: Shotgun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,7 +142,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1075218554355244}
   m_LocalRotation: {x: -0.0032248236, y: -0.013478547, z: -0.00086088857, w: -0.9999036}
-  m_LocalPosition: {x: 2.34, y: 4.1, z: 21.32}
+  m_LocalPosition: {x: 2.34, y: 3.35, z: 21.31}
   m_LocalScale: {x: 0.6044803, y: 0.60448027, z: 0.60448027}
   m_Children:
   - {fileID: 4297791267479416}
@@ -337,3 +338,35 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114733374151838406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1075218554355244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 184
+    i1: 209
+    i2: 230
+    i3: 223
+    i4: 128
+    i5: 186
+    i6: 228
+    i7: 90
+    i8: 24
+    i9: 204
+    i10: 126
+    i11: 86
+    i12: 200
+    i13: 39
+    i14: 157
+    i15: 6
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0

@@ -24,6 +24,7 @@ namespace Combat
         public PlayerMovement player;
 
         //Current Gun model
+        [SyncVar]
 		private Transform gunModel;
 
 	    void Update ()
@@ -47,7 +48,7 @@ namespace Combat
 	        {
 	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
 	            {
-	                ChangeGun(Weapons[i - 1]);
+	                ChangeGun(i-1);
 	            }
 	        }
 	    }
@@ -56,52 +57,78 @@ namespace Combat
         [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
         {
-	        var bullet = CurrentGun.GetWeaponController().Bullet.gameObject;
+	        var bullet = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController().Bullet.gameObject;
             var newBullet = Instantiate(bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
             newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
             NetworkServer.Spawn(newBullet);
-            //Destroy(newBullet, maxDistance / speed);
         }
 
-	    public void ChangeGun(WeaponController weapon)
+
+
+        [Command]
+        void CmdChangeGun(int i)
+        {
+            IGun gun = null;
+
+            switch (Weapons[i].WeaponType)
+            {
+                case WeaponType.Projectile: gun = new ProjectileGun(Weapons[i], this); break;
+                case WeaponType.HitScan: gun = new HitscanGun(Weapons[i], this); break;
+            }
+
+            CurrentGun = gun;
+
+            if (gunModel != null)
+            {
+                DestroyObject(gunModel.gameObject);
+                gunModel = null;
+            }
+
+            gunModel = Instantiate(Weapons[i].Model, GunHolder.position, GunHolder.rotation);
+            //gunModel.transform.parent = GunHolder;
+            NetworkServer.Spawn(gunModel.gameObject);
+            RpcChangeWeapon(gunModel.gameObject);
+        }
+
+        [ClientRpc]
+        void RpcChangeWeapon(GameObject obj)
+        { 
+            obj.transform.parent = GunHolder;
+            obj.transform.localPosition = new Vector3(0, 0, 0);
+            obj.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        }
+
+        public void ChangeGun(int i)
 	    {
 	        IGun gun = null;
 
-	        switch (weapon.WeaponType)
+	        switch (Weapons[i].WeaponType)
 	        {
-	            case WeaponType.Projectile: gun = new ProjectileGun(weapon, this); break;
-	            case WeaponType.HitScan: gun = new HitscanGun(weapon, this); break;
+	            case WeaponType.Projectile: gun = new ProjectileGun(Weapons[i], this); break;
+	            case WeaponType.HitScan: gun = new HitscanGun(Weapons[i], this); break;
 	        }
-		    
-		    if(gunModel != null){
-				DestroyObject (gunModel.gameObject);
-			    gunModel = null;
-		    }
+            CurrentGun = gun;
 
-		    if (weapon.gameObject.name == "Pistol")
-		    {
-			    player.HasPistolAnim();
-		    }
-		    else
-		    {
-			    player.HasNoPistolAnim();
-		    }
-		    
-		    
-		    gunModel = Instantiate (weapon.Model, GunHolder.position, GunHolder.rotation);
-		    gunModel.transform.parent = GunHolder;
+            if (Weapons[i].gameObject.name == "Pistol")
+            {
+                player.HasPistolAnim();
+            }
+            else
+            {
+                player.HasNoPistolAnim();
+            }
 
-	        CurrentGun = gun;
+            CmdChangeGun(i);
 	    }
-
 
 		//Esteban ---- diese Methode wird von CollisionDetector angerufen.
 		public void PickGun(int i){
-			if (i <= 0 && i > Weapons.Length)
+			if (i >= 0 && i < Weapons.Length)
 			{
-				ChangeGun(Weapons[i]);
+				ChangeGun(i);
+                Debug.Log("called");
 			}
 		}
 	}

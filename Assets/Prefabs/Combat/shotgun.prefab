@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4749340111521382}
+  - component: {fileID: 114869217421703364}
   m_Layer: 0
   m_Name: shotgun
   m_TagString: Untagged
@@ -109,3 +110,35 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1409469916025788}
   m_Mesh: {fileID: 4300000, guid: e19d64d29f04a4a9b8fc56b15f67a259, type: 3}
+--- !u!114 &114869217421703364
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1127061700157918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 105
+    i1: 140
+    i2: 153
+    i3: 202
+    i4: 203
+    i5: 103
+    i6: 228
+    i7: 181
+    i8: 121
+    i9: 150
+    i10: 176
+    i11: 215
+    i12: 228
+    i13: 64
+    i14: 68
+    i15: 92
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
