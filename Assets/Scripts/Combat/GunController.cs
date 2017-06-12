@@ -26,6 +26,15 @@ namespace Combat
         //Current Gun model
 		private Transform gunModel;
 
+		void Start(){
+		
+			if (!isLocalPlayer) {
+				return;
+			}
+			ChangeGun (Weapons [0]);
+		
+		}
+
 	    void Update ()
 	    {
             if (!isLocalPlayer)
@@ -43,13 +52,14 @@ namespace Combat
 	            }
 	        }
 
-	        for (var i = 1; i <= 9; i++)
+			//Numpad gun change
+	       /* for (var i = 1; i <= 9; i++)
 	        {
 	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
 	            {
 	                ChangeGun(Weapons[i - 1]);
 	            }
-	        }
+	        }*/
 	    }
 
 
@@ -99,11 +109,18 @@ namespace Combat
 
 		//Esteban ---- diese Methode wird von CollisionDetector angerufen.
 		public void PickGun(int i){
-			if (i <= 0 && i > Weapons.Length)
+			if (i >= 0 && i < Weapons.Length)
 			{
 				ChangeGun(Weapons[i]);
 			}
 		}
+
+		//Esteban ---Ammo -- wird von WeaponController angerufen
+		public void emptyAmmo(){
+			//Change back to Pistol
+			ChangeGun (Weapons [0]);
+		}
+
 	}
 }
 
