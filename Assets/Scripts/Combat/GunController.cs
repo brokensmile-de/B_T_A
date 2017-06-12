@@ -128,7 +128,6 @@ namespace Combat
 			if (i >= 0 && i < Weapons.Length)
 			{
 				ChangeGun(i);
-                Debug.Log("called");
 			}
 		}
 	}
