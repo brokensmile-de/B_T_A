@@ -66,10 +66,20 @@ public class PlayerMovement : NetworkBehaviour
             restoringDashes = true;
             Invoke("IncreaseDashCount", dashChargeCooldown);
         }
+        if(!Timer.singleton.isGameOver)
+        {
+            CalcRotationToMouse();  //spieler in richtung Maus rotieren
+            DoMovement();
+            AlignToGround();        //rotiere Player parallel zur oberfläche auf der er steht 
+        }else
+        {
+            anim.SetBool("isRunning", false);
+            anim.SetBool("isRunningBack", false);
+            anim.SetBool("isRunningLeft", false);
+            anim.SetBool("isRunningRight", false);
+            anim.SetBool("isIdle", true);
+        }
 
-        CalcRotationToMouse();  //spieler in richtung Maus rotieren
-        DoMovement();
-        AlignToGround();        //rotiere Player parallel zur oberfläche auf der er steht 
 
     }
 

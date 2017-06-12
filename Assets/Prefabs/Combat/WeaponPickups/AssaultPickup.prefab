@@ -36,11 +36,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4692265210227236}
-  - component: {fileID: 114253284194456764}
   - component: {fileID: 65399863976531928}
-  - component: {fileID: 114696205840266290}
   - component: {fileID: 114788305774780428}
   - component: {fileID: 82210645928573038}
+  - component: {fileID: 114747225362517554}
+  - component: {fileID: 114368932936621494}
   m_Layer: 0
   m_Name: AssaultPickup
   m_TagString: Untagged
@@ -375,7 +375,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114253284194456764
+--- !u!114 &114368932936621494
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1332849877983160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45405f148b38251468d0cb42850829c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponId: 1
+  cooldown: 5
+  mesh: {fileID: 1926232321159712}
+  sound: {fileID: 82210645928573038}
+--- !u!114 &114747225362517554
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -387,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneId:
-    m_Value: 2
+    m_Value: 0
   m_AssetId:
     i0: 174
     i1: 194
@@ -407,21 +422,6 @@ MonoBehaviour:
     i15: 203
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114696205840266290
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1332849877983160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45405f148b38251468d0cb42850829c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponId: 1
-  cooldown: 5
-  mesh: {fileID: 1926232321159712}
-  sound: {fileID: 82210645928573038}
 --- !u!114 &114788305774780428
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -146,11 +146,13 @@ public class Hitpoints : NetworkBehaviour
             {
                 spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
             }
+            GetComponent<Combat.GunController>().PickGun(0);
 
             // Set the player’s position to the chosen spawn point
             transform.position = spawnPoint;
         }
     }
+
 
     private void OnChangeHealth(int currentHealth)
     {

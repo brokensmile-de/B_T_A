@@ -17,7 +17,7 @@ namespace Combat
 	        get { return _weapons; }
 	        set { _weapons = value; }
 	    }
-	    
+
         //Esteban --- Model GameObjects
 
         //Player movement für animation
@@ -26,7 +26,7 @@ namespace Combat
         //Current Gun model
         [SyncVar]
 		private Transform gunModel;
-
+        bool first = false;
 	    void Update ()
 	    {
             if (!isLocalPlayer)
@@ -38,13 +38,17 @@ namespace Combat
 	        {
 	            CurrentGun.Update();
 
-	            if (Input.GetMouseButton(0))
+	            if (Input.GetMouseButton(0) && !Timer.singleton.isGameOver)
 	            {
 	                CurrentGun.Shoot(!Input.GetMouseButtonDown(0));
 	            }
 	        }
 
-	        for (var i = 1; i <= 9; i++)
+            if (!first)
+                Invoke("StartGun", 0.1f);
+            first = true;
+
+            for (var i = 1; i <= 9; i++)
 	        {
 	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
 	            {
@@ -53,6 +57,10 @@ namespace Combat
 	        }
 	    }
 
+        private void StartGun()
+        {
+            PickGun(0);
+        }
 
         [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
@@ -128,7 +136,6 @@ namespace Combat
 			if (i >= 0 && i < Weapons.Length)
 			{
 				ChangeGun(i);
-                Debug.Log("called");
 			}
 		}
 	}
