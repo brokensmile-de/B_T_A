@@ -62,7 +62,6 @@ namespace Prototype.NetworkLobby
             GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
-
             SetServerInfo("Offline", "Niemand");
         }
 

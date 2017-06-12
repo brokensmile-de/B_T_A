@@ -39,7 +39,7 @@ public class ScoreboardManager : MonoBehaviour
 
         else if (showing && !Input.GetKey("tab"))
         {
-            if (scoreboard.activeInHierarchy)
+            if (scoreboard.activeInHierarchy && !Timer.singleton.isGameOver)
             {
 
                 scoreboard.SetActive(false);
