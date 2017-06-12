@@ -23,8 +23,6 @@ public class Timer : NetworkBehaviour
     // Use this for initialization
     void Start()
     {
-
-
         if (!isServer)
             return;
         actualTime = roundTime*60;
@@ -56,17 +54,10 @@ public class Timer : NetworkBehaviour
             TimerObject.SetActive(false);
             Invoke("Disconnect", 5);
         }
-
-
     }
 
     public void Disconnect()
     {
         Prototype.NetworkLobby.LobbyManager.s_Singleton.GoBackButton();
-    }
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }
