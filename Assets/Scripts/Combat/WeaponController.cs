@@ -4,7 +4,9 @@ using UnityEngine;
 namespace Combat
 {
     public class WeaponController : MonoBehaviour {
+        public int Id;
         public float Cooldown = 0f;
+        public AudioClip Sound;
         public float MaxShotDistance = 50f;
         public Boolean AutoFire = false;
         public float ResetCoolown = 0f;

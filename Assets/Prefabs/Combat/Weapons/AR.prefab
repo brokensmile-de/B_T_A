@@ -51,7 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c91f391b60e54bc78150db4a9db58ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Id: 1
   Cooldown: 0.1
+  Sound: {fileID: 8300000, guid: e3e3d9659a837e84b9699cc84c19a3f9, type: 3}
   MaxShotDistance: 50
   AutoFire: 1
   ResetCoolown: 0.5
