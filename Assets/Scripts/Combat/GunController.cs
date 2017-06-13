@@ -5,8 +5,12 @@ namespace Combat
 {
 	public class GunController : NetworkBehaviour
 	{
-		public Transform FirePoint;
 		public Transform GunHolder;
+
+		public Transform FirePoint
+		{
+			get { return transform.root.gameObject.GetComponent<GunController>().gunModel.Find("FirePoint"); }
+		}
 
 	    public IGun CurrentGun { get; private set; }
 
