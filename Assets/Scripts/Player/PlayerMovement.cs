@@ -103,7 +103,8 @@ public class PlayerMovement : NetworkBehaviour
                 isDashing = true;
                 dashes --;
                 dashText.text = dashes+"";
-
+				//Esteban--- schneller anim
+				anim.speed = 1.5f;
                 StartCoroutine(Dash());
             }
 
@@ -111,6 +112,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 //verrechne mit movementspeed
                 moveDirection *= speed;
+				anim.speed = 1;
             }    
         }
         //subtrahiere gravity

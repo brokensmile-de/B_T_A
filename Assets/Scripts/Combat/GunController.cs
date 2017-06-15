@@ -142,6 +142,12 @@ namespace Combat
 				ChangeGun(i);
 			}
 		}
+	
+	//Esteban ---- diese Methode wird von ProjectileGun Angerufen.
+	public void EmptyAmmo(){
+			//wechsel auf pistole wenn ammo leer ist
+		ChangeGun(0);
+		}
 	}
 }
 

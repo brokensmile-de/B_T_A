@@ -8,8 +8,11 @@ namespace Combat
 	{
 	    private float _curSpread;
 
+		private float _ammo;
+
 	    public ProjectileGun(WeaponController wp, GunController gc) : base(wp, gc)
 	    {
+			Start ();
 	        Reset();
 	    }
 
@@ -17,38 +20,43 @@ namespace Combat
 	    {
 	        _curSpread = WeaponController.BulletBaseSpread;
 	    }
+		void Start(){
+			_ammo = WeaponController.AmmoPerPickUp;
+		}
 
 	    protected override void Shoot()
 	    {
-		    var baseRotation = GunController.FirePoint.rotation;
-		    baseRotation.x = 0;
-		    baseRotation.z = 0;
-		    var len = Mathf.Sqrt(baseRotation.y * baseRotation.y + baseRotation.w * baseRotation.w);
-		    baseRotation.y /= len;
-		    baseRotation.w /= len;
-	        if (WeaponController.BulletsPerShot > 1)
-	        {
-	            // Multiple bullets per shot e.g. Shotgun
-	            var bulletDistance = _curSpread / WeaponController.BulletsPerShot;
-	            var rotation = baseRotation * Quaternion.Euler(0f, -_curSpread/2, 0f);
-	            for (int i = 0; i < WeaponController.BulletsPerShot; i++)
-	            {
-                    GunController.CmdFire(rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance);
+			//ammo check
+			if (_ammo < 1f) {
+				GunController.EmptyAmmo ();
+			} else {
+				var baseRotation = GunController.FirePoint.rotation;
+				baseRotation.x = 0;
+				baseRotation.z = 0;
+				var len = Mathf.Sqrt (baseRotation.y * baseRotation.y + baseRotation.w * baseRotation.w);
+				baseRotation.y /= len;
+				baseRotation.w /= len;
+				if (WeaponController.BulletsPerShot > 1) {
+					// Multiple bullets per shot e.g. Shotgun
+					var bulletDistance = _curSpread / WeaponController.BulletsPerShot;
+					var rotation = baseRotation * Quaternion.Euler (0f, -_curSpread / 2, 0f);
+					for (int i = 0; i < WeaponController.BulletsPerShot; i++) {
+						GunController.CmdFire (rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance);
 
-	                rotation *= Quaternion.Euler(0f, bulletDistance, 0f);
+						rotation *= Quaternion.Euler (0f, bulletDistance, 0f);
                     
-	            }
-	        }
-	        else
-	        {
-	            // Single bullet per shot
-	            var spread = Random.Range(-_curSpread/2, _curSpread/2);
-	            var rotation = baseRotation * Quaternion.Euler(0f, spread, 0f);
+					}
+					_ammo -= 1;
+				} else {
+					// Single bullet per shot
+					var spread = Random.Range (-_curSpread / 2, _curSpread / 2);
+					var rotation = baseRotation * Quaternion.Euler (0f, spread, 0f);
 	            
-	            GunController.CmdFire(rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance);
-	       }
-	        _curSpread = Math.Min(WeaponController.BulletSpreadIncrease + _curSpread, WeaponController.BulletMaxSpread);
-
+					GunController.CmdFire (rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance);
+					_ammo -= 1;
+				}
+				_curSpread = Math.Min (WeaponController.BulletSpreadIncrease + _curSpread, WeaponController.BulletMaxSpread);
+			}
 	    }
 	}
 }

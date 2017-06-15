@@ -11,6 +11,7 @@ TagManager:
   - RailGun
   - Pistol
   - Shotgun
+  - Wall
   layers:
   - Default
   - TransparentFX
