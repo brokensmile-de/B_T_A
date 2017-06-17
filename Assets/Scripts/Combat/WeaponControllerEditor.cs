@@ -22,6 +22,9 @@ namespace Combat
         SerializedProperty _weaponType;
         SerializedProperty _id;
         SerializedProperty _sound;
+		
+		//Esteban --- Ammo
+		SerializedProperty _ammoPerPickUp;
 
         void OnEnable()
         {
@@ -39,6 +42,8 @@ namespace Combat
             _weaponType = serializedObject.FindProperty("WeaponType");
             _id = serializedObject.FindProperty("Id");
             _sound = serializedObject.FindProperty("Sound");
+			_ammoPerPickUp = serializedObject.FindProperty("AmmoPerPickUp");
+
         }
 
         public override void OnInspectorGUI()
@@ -50,6 +55,7 @@ namespace Combat
             EditorGUILayout.PropertyField(_weaponType);
             EditorGUILayout.Space();
 
+			EditorGUILayout.PropertyField(_ammoPerPickUp);
             EditorGUILayout.PropertyField(_cooldown);
             EditorGUILayout.PropertyField(_maxShotDistance);
             EditorGUILayout.PropertyField(_autoFire);

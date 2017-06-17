@@ -18,5 +18,7 @@ namespace Combat
         public BulletController Bullet = null;
         public Transform Model = null;
         public WeaponType WeaponType = WeaponType.Projectile;
+		//Esteban ---Ammo
+		public float AmmoPerPickUp = 10f;
     }
 }

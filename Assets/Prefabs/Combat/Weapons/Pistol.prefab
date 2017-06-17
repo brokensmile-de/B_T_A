@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0
   Cooldown: 0
-  Sound: {fileID: 8300000, guid: 6f1b0ce276a904349a575df345fd8d08, type: 3}
+  Sound: {fileID: 8300000, guid: 3259ad31d7ea38545bdde78a9bfd3e41, type: 3}
   MaxShotDistance: 50
   AutoFire: 0
   ResetCoolown: 0
@@ -65,3 +65,4 @@ MonoBehaviour:
   Bullet: {fileID: 114319213370493246, guid: 903796b4dd2de48bfa321fad3f4937e2, type: 2}
   Model: {fileID: 4447909539245042, guid: 1fd41e55cc8324496b5989dbef127277, type: 2}
   WeaponType: 0
+  AmmoPerPickUp: 0

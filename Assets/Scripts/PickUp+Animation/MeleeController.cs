@@ -28,19 +28,19 @@ public class MeleeController : MonoBehaviour {
 				isPunching = false;
 				timeAcc = punchTime;
 				player.StopPunch();
-				Debug.Log ("Punch out");
+				//Debug.Log ("Punch out");
 			}
 		}
 		if(!isPunching && Input.GetKeyDown(KeyCode.E)){
 			isPunching = true;
 			player.Punch ();
-			Debug.Log ("Punch in");
+			//Debug.Log ("Punch in");
 		}
 	}
 
-	//void OnTriggerEnter(Collider other){
-	//	if(other.gameObject.CompareTag("Wall") && isPunching){
-	//		Debug.Log ("Wall Punch");
-	//	}
-	//}
+	void OnTriggerEnter(Collider other){
+		if(other.gameObject.CompareTag("Wall") && isPunching){
+			Debug.Log ("Wall Punch");
+		}
+	}
 }

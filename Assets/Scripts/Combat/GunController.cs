@@ -73,6 +73,7 @@ namespace Combat
             WeaponController currentGun = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController();
 
             var bullet = currentGun.Bullet.gameObject;
+
             var newBullet = Instantiate(bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
@@ -150,6 +151,12 @@ namespace Combat
 			{
 				ChangeGun(i);
 			}
+		}
+	
+	//Esteban ---- diese Methode wird von ProjectileGun Angerufen.
+	public void EmptyAmmo(){
+			//wechsel auf pistole wenn ammo leer ist
+		ChangeGun(0);
 		}
 	}
 }

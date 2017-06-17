@@ -65,3 +65,4 @@ MonoBehaviour:
   Bullet: {fileID: 114319213370493246, guid: 903796b4dd2de48bfa321fad3f4937e2, type: 2}
   Model: {fileID: 4289347158512152, guid: 98f26872da43d4675b0a2408513ff912, type: 2}
   WeaponType: 0
+  AmmoPerPickUp: 100
