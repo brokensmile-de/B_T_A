@@ -6,6 +6,7 @@ namespace Combat
 	public class GunController : NetworkBehaviour
 	{
 		public Transform GunHolder;
+        public AudioSource audioSource;
 
 		public Transform FirePoint
 		{
@@ -69,14 +70,22 @@ namespace Combat
         [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
         {
-	        var bullet = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController().Bullet.gameObject;
+            WeaponController currentGun = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController();
+
+            var bullet = currentGun.Bullet.gameObject;
             var newBullet = Instantiate(bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
             newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
             NetworkServer.Spawn(newBullet);
+            RpcFire(currentGun.Id);
         }
 
+        [ClientRpc]
+        void RpcFire(int i)
+        {
+            audioSource.PlayOneShot(Weapons[i].Sound);
+        }
 
 
         [Command]

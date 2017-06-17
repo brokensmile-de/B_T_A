@@ -20,6 +20,8 @@ namespace Combat
         SerializedProperty _bullet;
         SerializedProperty _model;
         SerializedProperty _weaponType;
+        SerializedProperty _id;
+        SerializedProperty _sound;
 
         void OnEnable()
         {
@@ -35,12 +37,16 @@ namespace Combat
             _bullet = serializedObject.FindProperty("Bullet");
             _model = serializedObject.FindProperty("Model");
             _weaponType = serializedObject.FindProperty("WeaponType");
+            _id = serializedObject.FindProperty("Id");
+            _sound = serializedObject.FindProperty("Sound");
         }
 
         public override void OnInspectorGUI()
         {
 
             serializedObject.Update();
+            EditorGUILayout.PropertyField(_id);
+
             EditorGUILayout.PropertyField(_weaponType);
             EditorGUILayout.Space();
 
@@ -49,6 +55,7 @@ namespace Combat
             EditorGUILayout.PropertyField(_autoFire);
             EditorGUILayout.PropertyField(_resetCoolown);
             EditorGUILayout.PropertyField(_model);
+            EditorGUILayout.PropertyField(_sound);
             EditorGUILayout.Space();
             
             switch ((WeaponType) _weaponType.enumValueIndex)
