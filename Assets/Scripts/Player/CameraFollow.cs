@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour
     
     void Start()
     {
-        offset = new Vector3(0,20,-15);
+       // offset = new Vector3(0,20,-15);
     }
 
     // LateUpdate um jittering zu verhindern (jittering mit Update taucht nur bei Hinzufügen einer NetworkIdentity auf, 2 Stunden dran verzweifelt)
