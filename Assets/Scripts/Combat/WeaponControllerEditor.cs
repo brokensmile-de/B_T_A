@@ -1,5 +1,7 @@
-﻿﻿#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
+using Combat;
 using UnityEditor;
+using UnityEngine;
 
 namespace Combat
 {
@@ -15,6 +17,8 @@ namespace Combat
         SerializedProperty _bulletBaseSpread;
         SerializedProperty _bulletMaxSpread;
         SerializedProperty _bulletSpreadIncrease;
+        SerializedProperty _bullet;
+        SerializedProperty _model;
         SerializedProperty _weaponType;
 
         void OnEnable()
@@ -28,6 +32,8 @@ namespace Combat
             _bulletBaseSpread = serializedObject.FindProperty("BulletBaseSpread");
             _bulletMaxSpread = serializedObject.FindProperty("BulletMaxSpread");
             _bulletSpreadIncrease = serializedObject.FindProperty("BulletSpreadIncrease");
+            _bullet = serializedObject.FindProperty("Bullet");
+            _model = serializedObject.FindProperty("Model");
             _weaponType = serializedObject.FindProperty("WeaponType");
         }
 
@@ -42,6 +48,7 @@ namespace Combat
             EditorGUILayout.PropertyField(_maxShotDistance);
             EditorGUILayout.PropertyField(_autoFire);
             EditorGUILayout.PropertyField(_resetCoolown);
+            EditorGUILayout.PropertyField(_model);
             EditorGUILayout.Space();
             
             switch ((WeaponType) _weaponType.enumValueIndex)
@@ -51,6 +58,7 @@ namespace Combat
                     break;
 
                 case WeaponType.Projectile:
+                    EditorGUILayout.PropertyField(_bullet);
                     EditorGUILayout.PropertyField(_bulletSpeed);
                     EditorGUILayout.PropertyField(_bulletsPerShot);
                     EditorGUILayout.PropertyField(_bulletBaseSpread);
@@ -61,5 +69,6 @@ namespace Combat
             serializedObject.ApplyModifiedProperties();
         }
     }
+
 }
 #endif

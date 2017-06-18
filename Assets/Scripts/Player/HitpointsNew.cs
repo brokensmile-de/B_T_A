@@ -8,52 +8,32 @@ using UnityEngine.Networking;
 //Author: Adrian Zimmer
 //Description: Hitpoints + Shield script. Zur benutzung: auf dem Script Applydamage(amount,schadensQuelle als gameobjekt) aufrufen
 //Date Created: 03.04.2017
-//Last edited:16.06.2017
-//Edited by:Valentin Kircher, alle powerups fangen durch die bestätigung vom CountDown an und leiten von PowerUps ab
+//Last edited:
+//Edited by:
 
-public class Hitpoints : NetworkBehaviour
+public class HitpointsNew : NetworkBehaviour
 {
     [Header("Parameter")]
     public const int maxHitpoints = 100;
     public const int maxShield = 100;
-    public const int doubleMaxShield = 200;
-    public bool hasVampire;
-    public bool hasDoubleDamage;
+    public int doubleMaxShield = 200; 
     public float timeTilShieldRestore;  //Zeit die man keinen damage bekommen darf bis das Schild sich wieder auflädt
     public AudioClip hitSound;
-    public bool alwaysTrue = true;
-
     [Header("Refferenzen")]
     public Text hitpointsText;          //Hud Text Hp
     public Text shieldText;             //Hud Text Shield
-    public Text CountdownTimerText;
-
 
     private NetworkStartPosition[] spawnPoints;
     [SyncVar(hook = "OnChangeHealth")]
     public int hitpoints = maxHitpoints;
     [SyncVar(hook = "OnChangeShield")]
     public int shield = maxShield;
-
     private AudioSource audioSource;
     private float lastHitTimestamp;      //Zeitpunkt zu dem man das letzte mal schaden bekommen + cooldown
     private bool restoringShield;        //gibt an ob das shield gerade am aufladen ist
 
-
-
-    [SyncVar]
-    public int deaths = 0;
-    [SyncVar]
-    public int kills = 0;
-    [SyncVar]
-    public int score = 0;
-
-    [SyncVar]
-    public string playerName;
-
     void Start()
     {
-        
         hitpoints = maxHitpoints;
         shield = maxShield;
         if (isLocalPlayer)
@@ -62,9 +42,6 @@ public class Hitpoints : NetworkBehaviour
             GameObject hudCanvas = GameObject.Find("HudCanvas");
             hitpointsText = hudCanvas.transform.Find("HealthUI/Hitpoints").GetComponent<Text>();
             shieldText = hudCanvas.transform.Find("HealthUI/Shield").GetComponent<Text>();
-            PowerUpCountDown countdownTimer = GetComponent<PowerUpCountDown>();
-            
-            CountdownTimerText = hudCanvas.transform.Find("Countdown/bg/CountdownTimer").GetComponent<Text>();
         }
         hitpoints = maxHitpoints;
         shield = maxShield;
@@ -96,7 +73,7 @@ public class Hitpoints : NetworkBehaviour
         }
 
     }
-    public void TakeDamage(int amount, GameObject inflicter)
+    public void TakeDamage(int amount)
     {
         if (!isServer)
             return;
@@ -114,7 +91,6 @@ public class Hitpoints : NetworkBehaviour
 
             shield = 0;
         }
-
         else
         {
             shield -= amount;
@@ -126,23 +102,12 @@ public class Hitpoints : NetworkBehaviour
 
         if (hitpoints <= 0)
         {
-
             hitpoints = maxHitpoints;
             shield = maxShield;
-            deaths++;
-            
-            inflicter.GetComponent<Hitpoints>().AddScore();
+
             // called on the Server, invoked on the Clients
             RpcRespawn();
-
         }
-    }
-
-    [Server]
-    private void AddScore()
-    {
-        kills++;
-        score += 10;
     }
 
 
@@ -151,7 +116,6 @@ public class Hitpoints : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            ScoreboardManager.s_Singleton.GenerateScoreboard();
             // Set the spawn point to origin as a default value
             Vector3 spawnPoint = Vector3.zero;
 
@@ -160,14 +124,11 @@ public class Hitpoints : NetworkBehaviour
             {
                 spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
             }
-            GetComponent<Combat.GunController>().PickGun(0);
 
             // Set the player’s position to the chosen spawn point
             transform.position = spawnPoint;
-            
         }
     }
-
 
     private void OnChangeHealth(int currentHealth)
     {
@@ -183,80 +144,30 @@ public class Hitpoints : NetworkBehaviour
         if (shieldText)
             shieldText.text = "" + currentShield;
     }
-    //
+
+/*
     public void DoubleShieldPowerUp()
     {
-        
         PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
-
         restoringShield = true;
-        
-        
-        while (shield < doubleMaxShield && timer.hasPowerUp)
+        while (shield < doubleMaxShield)
         {
-
-            shield += 2 ;
-                           
+            shield += 2;
             //shield = doubleMaxShield;
+            OnChangeShield(shield);
             //if (shield > doubleMaxShield)
             //    shield = doubleMaxShield;
-            OnChangeShield(shield);
-                      
+            //if (shieldText)
+            //    shieldText.text = "" + shield;
+
         }
-        
+        OnChangeShield(shield);
+        //if (shield > maxShield)
+        //    shield = maxShield;
+
         restoringShield = false;
     }
-
-    public void VampirePowerUp()
-    {
-        //PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
-        //VampirePowerUp vampirePowerup = GetComponent<VampirePowerUp>();
-        //while(shield<=maxShield&&timer.hasPowerUp)
-        //{
-        //    hasVampire = true;
-        //    OnChangeHealth(hitpoints);
-        //}
-        //hasVampire = false;
-        StartCoroutine(Vampir());
-    }
-    //valentin, Ienumerator damit es bei der while schleife es nicht abstürzt
-    private IEnumerator Vampir()
-    {
-        PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
-        VampirePowerUp vampirePowerup = GetComponent<VampirePowerUp>();
-        while (timer.hasPowerUp)
-        {
-            hasVampire = true;
-            OnChangeHealth(hitpoints);
-            yield return new WaitForSeconds(0.5f);
-        }
-        hasVampire = false;
-    }
-
-    public void DoubleDamagePowerUp()
-    {
-        //PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
-        //while (timer.hasPowerUp)
-        //{
-        //    hasDoubleDamage = true;
-
-        //}
-        //hasDoubleDamage = false;
-        StartCoroutine(DoubleDamage());
-    }
-
-    public IEnumerator DoubleDamage()
-    {
-        PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
-        while (timer.hasPowerUp)
-        {
-            hasDoubleDamage = true;
-            yield return new WaitForSeconds(0.5f);
-        }
-        hasDoubleDamage = false;
-
-    }
-
+    */
     private IEnumerator RestoreShield()
     {
         restoringShield = true;

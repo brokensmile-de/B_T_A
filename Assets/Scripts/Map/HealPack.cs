@@ -23,7 +23,7 @@ public class HealPack : MonoBehaviour
             packMesh.SetActive(false); //Deactivate mesh
             audioSrc.Play();
             Hitpoints hpScript = other.GetComponent<Hitpoints>();
-            hpScript.ApplyHeal(healAmount, this.gameObject);//Apply heal
+            hpScript.Heal(healAmount);//Apply heal
             Invoke("ReActivate", cooldown); //Re-enable after Cooldown
         }
 

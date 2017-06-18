@@ -2,40 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleShield : MonoBehaviour
+public class DoubleShield : PowerUps
 {
-    
-    public GameObject packMesh;
-    public float cooldown;
 
-    private bool onCooldown;
-    private AudioSource audioSrc;
-
-    public void Start()
-    {
-        audioSrc = GetComponent<AudioSource>();
-    }
-    void OnTriggerEnter(Collider other)
+    public override void OnTriggerEnter(Collider other)
     {
         if (!onCooldown)
         {
-            onCooldown = true; //Set Cooldown
-            packMesh.SetActive(false); //Deactivate mesh
-            audioSrc.Play();
+            InitilizePowerUp();
+            
             PowerUpCountDown countdown = other.GetComponent<PowerUpCountDown>();
             Hitpoints hpScript = other.GetComponent<Hitpoints>();
-            countdown.CountDownTimer(30);
+            countdown.RestartTimer();
             if (countdown.hasPowerUp)
-                hpScript.activateDoubleShield();//Activate Double Shield
+            {
+                hpScript.DoubleShieldPowerUp();//Activate Double Shield
+                Debug.Log("In DoubleShieldTrigger hasPowerUp");
+            }
+
 
             Invoke("ReActivate", cooldown); //Re-enable after Cooldown
         }
 
     }
 
-    private void ReActivate()
-    {
-        onCooldown = false;
-        packMesh.SetActive(true);
-    }
+    
 }
+
+//public GameObject packMesh;
+//public float cooldown;
+
+//private bool onCooldown;
+//private AudioSource audioSrc;
+
+//public void Start()
+//{
+//    audioSrc = GetComponent<AudioSource>();
+//}
+
+//public override void DoPowerUp()
+//{
+//    Hitpoints hpScript = GetComponent<Hitpoints>();
+//    hpScript.DoubleShieldPowerUp();
+
+//}
+
+//private void ReActivate()
+//{
+//    onCooldown = false;
+//    packMesh.SetActive(true);
+//}

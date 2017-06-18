@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainTestScene.unity
+    path: Assets/Scenes/LobbyWorksPUTest.unity
+    guid: 78370e0d928f31945b52aaa8e67e9b44
   - enabled: 1
-    path: Assets/Scenes/Lobby.unity
+    path: Assets/Scenes/BTAWorksPUTest.unity
+    guid: 00000000000000000000000000000000

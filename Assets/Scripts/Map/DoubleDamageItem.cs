@@ -2,43 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoubleDamageItem : MonoBehaviour
+public class DoubleDamageItem : PowerUps
 {
-
-    public int damageAmount;
-    public GameObject packMesh;
-    public float cooldown;
-
-    private bool onCooldown;
-    private AudioSource audioSrc;
-
-    public void Start()
-    {
-        audioSrc = GetComponent<AudioSource>();
-    }
-    void OnTriggerEnter(Collider other)
+    
+    public override void OnTriggerEnter(Collider other)
     {
         if (!onCooldown)
         {
-            onCooldown = true; //Set Cooldown
-            packMesh.SetActive(false); //Deactivate mesh
-            audioSrc.Play();
+            InitilizePowerUp();
             PowerUpCountDown countdown = other.GetComponent<PowerUpCountDown>();
             Hitpoints hpScript = other.GetComponent<Hitpoints>();
-            countdown.CountDownTimer(30);
-            hpScript.DoubleDamagePowerUp();//Activate VampirePowerUp Coroutine
+            countdown.RestartTimer();
+            if (countdown.hasPowerUp)
+            {
+                hpScript.DoubleDamagePowerUp();//Activate VampirePowerUp Coroutine
 
-            
+            }
         Invoke("ReActivate", cooldown); //Re-enable after Cooldown
         }
 
     }
-
     
-
-    private void ReActivate()
-    {
-        onCooldown = false;
-        packMesh.SetActive(true);
-    }
 }

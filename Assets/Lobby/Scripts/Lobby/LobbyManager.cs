@@ -15,7 +15,6 @@ namespace Prototype.NetworkLobby
 
         static public LobbyManager s_Singleton;
 
-
         [Header("Unity UI Lobby")]
         [Tooltip("Time in second between all players ready & match start")]
         public float prematchCountdown = 5.0f;
@@ -32,12 +31,11 @@ namespace Prototype.NetworkLobby
         public GameObject addPlayerButton;
 
         protected RectTransform currentPanel;
-
+        public Image rahmen;
         public Button backButton;
 
         public Text statusInfo;
         public Text hostInfo;
-
         //Client numPlayers from NetworkManager is always 0, so we count (throught connect/destroy in LobbyPlayer) the number
         //of players, so that even client know how many player there is.
         [HideInInspector]
@@ -60,11 +58,10 @@ namespace Prototype.NetworkLobby
             currentPanel = mainMenuPanel;
 
             backButton.gameObject.SetActive(false);
-            
-            gameObject.GetComponentInParent<Canvas>().enabled = true;
-            DontDestroyOnLoad(gameObject);
+            GetComponent<Canvas>().enabled = true;
 
-            SetServerInfo("Offline", "None");
+            DontDestroyOnLoad(gameObject);
+            SetServerInfo("Offline", "Niemand");
         }
 
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
@@ -103,6 +100,7 @@ namespace Prototype.NetworkLobby
                 }
 
                 topPanel.ToggleVisibility(true);
+                rahmen.enabled = true;
                 topPanel.isInGame = false;
             }
             else
@@ -114,6 +112,7 @@ namespace Prototype.NetworkLobby
                 //backDelegate = StopGameClbk;
                 topPanel.isInGame = true;
                 topPanel.ToggleVisibility(false);
+                rahmen.enabled = false;
             }
         }
 
@@ -138,7 +137,7 @@ namespace Prototype.NetworkLobby
             else
             {
                 backButton.gameObject.SetActive(false);
-                SetServerInfo("Offline", "None");
+                SetServerInfo("Offline", "Niemand");
                 _isMatchmaking = false;
             }
         }
@@ -146,7 +145,7 @@ namespace Prototype.NetworkLobby
         public void DisplayIsConnecting()
         {
             var _this = this;
-            infoPanel.Display("Connecting...", "Cancel", () => { _this.backDelegate(); });
+            infoPanel.Display("Verbinde...", "Abbrechen", () => { _this.backDelegate(); });
         }
 
         public void SetServerInfo(string status, string host)
@@ -226,7 +225,7 @@ namespace Prototype.NetworkLobby
 
         public void KickedMessageHandler(NetworkMessage netMsg)
         {
-            infoPanel.Display("Kicked by Server", "Close", null);
+            infoPanel.Display("Gekickt vom Server", "Schlieﬂen", null);
             netMsg.conn.Disconnect();
         }
 

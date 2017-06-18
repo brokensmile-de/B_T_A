@@ -13,6 +13,8 @@ namespace Combat
         public float BulletBaseSpread = 0f;
         public float BulletMaxSpread = 0f;
         public float BulletSpreadIncrease = 0f;
+        public BulletController Bullet = null;
+        public Transform Model = null;
         public WeaponType WeaponType = WeaponType.Projectile;
     }
 }

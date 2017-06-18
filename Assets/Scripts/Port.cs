@@ -10,12 +10,11 @@ public class Port : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        var player = GameObject.Find("Player(Clone)");
-        if(player != null)
+        if(other.tag == "Player")
         {
             var random = _random.Next(0,outs.Count);
             var o = outs[random];
-            player.transform.position = o.position;
+            other.transform.position = o.position;
         }
     }
 

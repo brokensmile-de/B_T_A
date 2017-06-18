@@ -1,36 +1,18 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Combat
 {
 	public class GunController : NetworkBehaviour
 	{
+		public Transform GunHolder;
+
+		public Transform FirePoint
+		{
+			get { return transform.root.gameObject.GetComponent<GunController>().gunModel.Find("FirePoint"); }
+		}
+
 	    public IGun CurrentGun { get; private set; }
-
-	    [SerializeField]
-	    private Transform _firePoint;
-	    public Transform FirePoint
-	    {
-	        get { return _firePoint; }
-	        set { _firePoint = value; }
-	    }
-
-	    [SerializeField]
-	    private Transform _gunHolder;
-	    public Transform GunHolder
-	    {
-	        get { return _gunHolder; }
-	        set { _gunHolder = value; }
-	    }
-
-	    [SerializeField]
-	    private GameObject _bullet;
-	    public GameObject Bullet
-	    {
-	        get { return _bullet; }
-	        set { _bullet = value; }
-	    }
 
 	    [SerializeField]
 	    private WeaponController[] _weapons;
@@ -40,7 +22,16 @@ namespace Combat
 	        set { _weapons = value; }
 	    }
 
-	    public void Update()
+        //Esteban --- Model GameObjects
+
+        //Player movement für animation
+        public PlayerMovement player;
+
+        //Current Gun model
+        [SyncVar]
+		private Transform gunModel;
+        bool first = false;
+	    void Update ()
 	    {
             if (!isLocalPlayer)
             {
@@ -51,49 +42,107 @@ namespace Combat
 	        {
 	            CurrentGun.Update();
 
-	            if (Input.GetMouseButton(0))
+	            if (Input.GetMouseButton(0) && !Timer.singleton.isGameOver)
 	            {
 	                CurrentGun.Shoot(!Input.GetMouseButtonDown(0));
 	            }
 	        }
 
-	        for (var i = 1; i <= 9; i++)
+            if (!first)
+                Invoke("StartGun", 0.1f);
+            first = true;
+
+            for (var i = 1; i <= 9; i++)
 	        {
 	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
 	            {
-	                ChangeGun(Weapons[i - 1]);
+	                ChangeGun(i-1);
 	            }
 	        }
 	    }
 
-
-	    [Command]
+        private void StartGun()
+        {
+            PickGun(0);
+        }
+        //valentin ---- Habe newBullet für das Vampire powerup mit setObj gesetzt
+        [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
-	    {
-
-            var newBullet = Instantiate(_bullet, FirePoint.position, rotation);
+        {
+	        var bullet = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController().Bullet.gameObject;
+            var newBullet = Instantiate(bullet, FirePoint.position, rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
-
-            newBullet.GetComponent<BulletController>().setInstantiator(this.gameObject);
-
+            newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
+            newBullet.GetComponent<BulletController>().SetObj(this.gameObject);
             NetworkServer.Spawn(newBullet);
-
-            Destroy(newBullet, maxDistance / speed);
-            
         }
 
-	    private void ChangeGun(WeaponController weaponController)
+
+
+        [Command]
+        void CmdChangeGun(int i)
+        {
+            IGun gun = null;
+
+            switch (Weapons[i].WeaponType)
+            {
+                case WeaponType.Projectile: gun = new ProjectileGun(Weapons[i], this); break;
+                case WeaponType.HitScan: gun = new HitscanGun(Weapons[i], this); break;
+            }
+
+            CurrentGun = gun;
+
+            if (gunModel != null)
+            {
+                DestroyObject(gunModel.gameObject);
+                gunModel = null;
+            }
+
+            gunModel = Instantiate(Weapons[i].Model, GunHolder.position, GunHolder.rotation);
+            //gunModel.transform.parent = GunHolder;
+            NetworkServer.Spawn(gunModel.gameObject);
+            RpcChangeWeapon(gunModel.gameObject);
+        }
+
+        [ClientRpc]
+        void RpcChangeWeapon(GameObject obj)
+        { 
+            obj.transform.parent = GunHolder;
+            obj.transform.localPosition = new Vector3(0, 0, 0);
+            obj.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        }
+
+        public void ChangeGun(int i)
 	    {
 	        IGun gun = null;
 
-	        switch (weaponController.WeaponType)
+	        switch (Weapons[i].WeaponType)
 	        {
-	            case WeaponType.Projectile: gun = new ProjectileGun(weaponController, this); break;
-	            case WeaponType.HitScan: gun = new HitscanGun(weaponController, this); break;
+	            case WeaponType.Projectile: gun = new ProjectileGun(Weapons[i], this); break;
+	            case WeaponType.HitScan: gun = new HitscanGun(Weapons[i], this); break;
 	        }
-	        CurrentGun = gun;
+            CurrentGun = gun;
+
+            if (Weapons[i].gameObject.name == "Pistol")
+            {
+                player.HasPistolAnim();
+            }
+            else
+            {
+                player.HasNoPistolAnim();
+            }
+
+            CmdChangeGun(i);
 	    }
+
+		//Esteban ---- diese Methode wird von CollisionDetector angerufen.
+		public void PickGun(int i){
+			if (i >= 0 && i < Weapons.Length)
+			{
+				ChangeGun(i);
+			}
+		}
 	}
 }
 
