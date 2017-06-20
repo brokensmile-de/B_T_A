@@ -26,7 +26,7 @@ public class Hitpoints : NetworkBehaviour
     [Header("Refferenzen")]
     public Text hitpointsText;          //Hud Text Hp
     public Text shieldText;             //Hud Text Shield
-    public Text CountdownTimerText;
+    //public Text CountdownTimerText;
 
 
     private NetworkStartPosition[] spawnPoints;
@@ -53,7 +53,7 @@ public class Hitpoints : NetworkBehaviour
 
     void Start()
     {
-        
+
         hitpoints = maxHitpoints;
         shield = maxShield;
         if (isLocalPlayer)
@@ -62,9 +62,9 @@ public class Hitpoints : NetworkBehaviour
             GameObject hudCanvas = GameObject.Find("HudCanvas");
             hitpointsText = hudCanvas.transform.Find("HealthUI/Hitpoints").GetComponent<Text>();
             shieldText = hudCanvas.transform.Find("HealthUI/Shield").GetComponent<Text>();
-            PowerUpCountDown countdownTimer = GetComponent<PowerUpCountDown>();
-            
-            CountdownTimerText = hudCanvas.transform.Find("Countdown/bg/CountdownTimer").GetComponent<Text>();
+           // PowerUpCountDown countdownTimer = GetComponent<PowerUpCountDown>();
+
+           // CountdownTimerText = hudCanvas.transform.Find("Countdown/bg/CountdownTimer").GetComponent<Text>();
         }
         hitpoints = maxHitpoints;
         shield = maxShield;
@@ -130,8 +130,9 @@ public class Hitpoints : NetworkBehaviour
             hitpoints = maxHitpoints;
             shield = maxShield;
             deaths++;
-            
-            inflicter.GetComponent<Hitpoints>().AddScore();
+
+
+
             // called on the Server, invoked on the Clients
             RpcRespawn();
 
@@ -164,7 +165,7 @@ public class Hitpoints : NetworkBehaviour
 
             // Set the player’s position to the chosen spawn point
             transform.position = spawnPoint;
-            
+
         }
     }
 
@@ -186,24 +187,25 @@ public class Hitpoints : NetworkBehaviour
     //
     public void DoubleShieldPowerUp()
     {
-        
+
         PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
 
         restoringShield = true;
-        
-        
+
+
         while (shield < doubleMaxShield && timer.hasPowerUp)
         {
 
-            shield += 2 ;
-                           
+            //shield += 2;
+            HealShield(2);
+
             //shield = doubleMaxShield;
             //if (shield > doubleMaxShield)
             //    shield = doubleMaxShield;
             OnChangeShield(shield);
-                      
+
         }
-        
+
         restoringShield = false;
     }
 
@@ -223,11 +225,11 @@ public class Hitpoints : NetworkBehaviour
     private IEnumerator Vampir()
     {
         PowerUpCountDown timer = GetComponent<PowerUpCountDown>();
-        VampirePowerUp vampirePowerup = GetComponent<VampirePowerUp>();
+        //VampirePowerUp vampirePowerup = GetComponent<VampirePowerUp>();
         while (timer.hasPowerUp)
         {
             hasVampire = true;
-            OnChangeHealth(hitpoints);
+            //OnChangeHealth(hitpoints);
             yield return new WaitForSeconds(0.5f);
         }
         hasVampire = false;
@@ -272,5 +274,15 @@ public class Hitpoints : NetworkBehaviour
         }
         restoringShield = false;
     }
-
+    public void HealShield(int amount)
+    {
+        if (doubleMaxShield + amount <= doubleMaxShield){
+            shield += amount;
+        }
+        else
+        {
+            shield = doubleMaxShield;
+        }
+        
+    }
 }

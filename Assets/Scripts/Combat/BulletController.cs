@@ -56,14 +56,14 @@ namespace Combat
                 if (countdown.hasPowerUp && instantiatorHealth.hasDoubleDamage)
                 {
                     //Debug.Log("hit doubleDamage");
-                    health.TakeDamage(Damage * 20, gameObject);
+                    health.TakeDamage(Damage * 2, gameObject);
                 }
 
             }
 
             //countdown.hasPowerUp
 
-            Debug.Log("Player " + obj + " hit Player " + hit);
+            //Debug.Log("Player " + obj + " hit Player " + hit);
         
     
 

@@ -20,17 +20,17 @@ public class PowerUpCountDown : NetworkBehaviour
 
     private IEnumerator CountDown(float timer)
     {
-        Hitpoints cText = GetComponent<Hitpoints>();
+        //Hitpoints cText = GetComponent<Hitpoints>();
         
         while (timer > 0)
         {
-            cText.CountdownTimerText.enabled = true;
+            //cText.CountdownTimerText.enabled = true;
             currTime = timer;
-            if (cText.CountdownTimerText)
-            {
+            //if (cText.CountdownTimerText)
+           // {
                 currTime = System.Math.Round(currTime, 1);
-                cText.CountdownTimerText.text = "" + currTime;
-            }
+           //     cText.CountdownTimerText.text = "" + currTime;
+           // }
             
            
 
@@ -44,7 +44,7 @@ public class PowerUpCountDown : NetworkBehaviour
         timerAlreadyStarted = false;
         timer = powerUptimeLeft;
         hasPowerUp = false;
-        cText.CountdownTimerText.enabled = false;
+        //cText.CountdownTimerText.enabled = false;
     }
 
 

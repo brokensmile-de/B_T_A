@@ -160,8 +160,8 @@ public class PlayerMovement : NetworkBehaviour
                 dashes++;
             else if (dashes >= DashPowerUpAmount)
                 dashes = DashPowerUpAmount;
-            if (dashText)
-                dashText.text = "" + dashes;
+            //if (dashText)
+              //  dashText.text = "" + dashes;
 
             yield return new WaitForSeconds(0.5f);
 

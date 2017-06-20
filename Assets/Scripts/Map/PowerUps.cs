@@ -25,7 +25,7 @@ public class PowerUps : MonoBehaviour
             packMesh.SetActive(false); //Deactivate mesh
             audioSrc.Play();
             PowerUpCountDown countdown = other.GetComponent<PowerUpCountDown>();
-            Hitpoints hpScript = other.GetComponent<Hitpoints>();
+          //  Hitpoints hpScript = other.GetComponent<Hitpoints>();
             countdown.RestartTimer();
             if (countdown.hasPowerUp)
             {

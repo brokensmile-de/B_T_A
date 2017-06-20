@@ -4402,68 +4402,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1115407443}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1138572839
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4881510300680966, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: -20.753174
-      objectReference: {fileID: 0}
-    - target: {fileID: 4881510300680966, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 2.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4881510300680966, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 14.66571
-      objectReference: {fileID: 0}
-    - target: {fileID: 4881510300680966, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4881510300680966, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0.41045338
-      objectReference: {fileID: 0}
-    - target: {fileID: 4881510300680966, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4881510300680966, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.91188157
-      objectReference: {fileID: 0}
-    - target: {fileID: 4881510300680966, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-      propertyPath: m_RootOrder
-      value: 18
-      objectReference: {fileID: 0}
-    - target: {fileID: 114396771617844646, guid: 86a54089acd489340b6cec448ae82323,
-        type: 2}
-      propertyPath: CountdownTimerText
-      value: 
-      objectReference: {fileID: 1705681643}
-    - target: {fileID: 114925144707682796, guid: 86a54089acd489340b6cec448ae82323,
-        type: 2}
-      propertyPath: dashText
-      value: 
-      objectReference: {fileID: 1535447717}
-    - target: {fileID: 114466394406807076, guid: 86a54089acd489340b6cec448ae82323,
-        type: 2}
-      propertyPath: hitpointsText
-      value: 
-      objectReference: {fileID: 1965502931}
-    - target: {fileID: 114466394406807076, guid: 86a54089acd489340b6cec448ae82323,
-        type: 2}
-      propertyPath: shieldText
-      value: 
-      objectReference: {fileID: 1949164091}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 86a54089acd489340b6cec448ae82323, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1173710121
 GameObject:
   m_ObjectHideFlags: 0
@@ -5566,12 +5504,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1529634622}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1535447717 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114125450403696894, guid: 3aed522161f0efd44b4a438c1285aefe,
-    type: 2}
-  m_PrefabInternal: {fileID: 1887276403}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1573772476
 Prefab:
   m_ObjectHideFlags: 0
@@ -6258,12 +6190,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3c1237e62f175d24c892a0dcc12b60d4, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &1705681643 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114620386824144142, guid: 3aed522161f0efd44b4a438c1285aefe,
-    type: 2}
-  m_PrefabInternal: {fileID: 1887276403}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1001 &1708115798
 Prefab:
   m_ObjectHideFlags: 0
@@ -7265,6 +7191,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1604106693934626, guid: 3aed522161f0efd44b4a438c1285aefe, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3aed522161f0efd44b4a438c1285aefe, type: 2}
   m_IsPrefabParent: 0
@@ -7356,18 +7286,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1937166524}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1949164091 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114913610015942982, guid: 3aed522161f0efd44b4a438c1285aefe,
-    type: 2}
-  m_PrefabInternal: {fileID: 1887276403}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
---- !u!114 &1965502931 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114255973974001068, guid: 3aed522161f0efd44b4a438c1285aefe,
-    type: 2}
-  m_PrefabInternal: {fileID: 1887276403}
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!1 &1986913819
 GameObject:
   m_ObjectHideFlags: 0
