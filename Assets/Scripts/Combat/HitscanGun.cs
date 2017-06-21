@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Combat
 {
@@ -12,17 +13,10 @@ namespace Combat
 	    {
 	    }
 
-	    protected override void Shoot()
+
+		protected override void Shoot()
 	    {
-	        var fwd = GunController.FirePoint.TransformDirection(Vector3.forward);
-
-	        Debug.DrawRay(GunController.FirePoint.position, fwd * WeaponController.MaxShotDistance, Color.green, 5.0f);
-
-	        RaycastHit hit;
-	        if (Physics.Raycast(GunController.FirePoint.position, fwd, out hit, WeaponController.MaxShotDistance))
-	        {
-	            Debug.Log("Raycast hit: " + hit.collider);
-	        }
+		    GunController.CmdHitscan(WeaponController.MaxShotDistance);
 	    }
 	}
 }

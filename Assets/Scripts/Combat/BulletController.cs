@@ -20,7 +20,6 @@ namespace Combat
             }
         }
 
-        [SerializeField]
         private int _damage;
         public int Damage
         {

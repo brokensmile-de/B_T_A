@@ -68,28 +68,89 @@ namespace Combat
         }
 
         [Command]
-        public void CmdFire(Quaternion rotation, float speed, float maxDistance)
+        public void CmdProjectile(Quaternion rotation, float speed, float maxDistance)
         {
-	        var baseRotation = transform.rotation;
-	        baseRotation.x = 0;
-	        baseRotation.z = 0;
-	        var len = Mathf.Sqrt (baseRotation.y * baseRotation.y + baseRotation.w * baseRotation.w);
-	        baseRotation.y /= len;
-	        baseRotation.w /= len;
+	        var fwd = GetForwardDirection();
 	        
             WeaponController currentGun = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController();
 
             var bullet = currentGun.Bullet.gameObject;
 
-            var newBullet = Instantiate(bullet, FirePoint.position, baseRotation * rotation);
+            var newBullet = Instantiate(bullet, FirePoint.position, fwd * rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
-            newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
+	        var bc = newBullet.GetComponent<BulletController>();
+            bc.spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
+	        bc.Damage = currentGun.Damage;
             NetworkServer.Spawn(newBullet);
             RpcFire(currentGun.Id);
         }
 
-        [ClientRpc]
+
+		private Quaternion GetForwardDirection()
+		{
+			var baseRotation = transform.rotation;
+			baseRotation.x = 0;
+			baseRotation.z = 0;
+			var len = Mathf.Sqrt (baseRotation.y * baseRotation.y + baseRotation.w * baseRotation.w);
+			baseRotation.y /= len;
+			baseRotation.w /= len;
+
+			return baseRotation;
+		}
+
+
+		[Command]
+		public void CmdHitscan(float maxDistance)
+		{
+			var fwd = GetForwardDirection();
+	        
+			WeaponController currentGun = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController();
+
+			var ray = currentGun.Ray.gameObject;
+
+			var direction = fwd * Vector3.forward;
+
+			//Debug.DrawRay(GunController.FirePoint.position, fwd * WeaponController.MaxShotDistance, Color.green, 5.0f);
+		    
+			RaycastHit hit;
+			var distance = maxDistance;
+			if (Physics.Raycast(FirePoint.position, direction, out hit, maxDistance))
+			{
+				Hitpoints health = hit.transform.GetComponent<Hitpoints>();
+
+				if (health != null)
+				{
+					health.TakeDamage(currentGun.Damage, gameObject);
+				}
+				
+				distance = hit.distance;
+			}
+
+			var start = FirePoint.position;
+			var end = start + direction * distance;
+			var width = 1f;
+			
+			var offset = end - start;
+			var position = start + (offset / 2.0f);
+
+
+			var cylinder = Instantiate(ray, position, Quaternion.identity);
+			cylinder.transform.up = offset;
+			cylinder.transform.localScale = new Vector3(
+				width * cylinder.transform.localScale.x, 
+				offset.magnitude / 2.0f * cylinder.transform.localScale.y, 
+				width * cylinder.transform.localScale.z
+			);
+			
+
+			NetworkServer.Spawn(cylinder);
+			RpcFire(currentGun.Id);
+			
+			Destroy(cylinder, 1.5f);
+		}
+
+		[ClientRpc]
         void RpcFire(int i)
         {
             audioSource.PlayOneShot(Weapons[i].Sound);

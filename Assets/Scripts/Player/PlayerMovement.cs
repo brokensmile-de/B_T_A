@@ -51,7 +51,7 @@ public class PlayerMovement : NetworkBehaviour
             dashText = hudCanvas.transform.Find("HealthUI/Dash").GetComponent<Text>();
         }
 
-        transform.FindChild("Mesh").gameObject.GetComponent<SkinnedMeshRenderer>().material.color = color;
+        transform.Find("Mesh").gameObject.GetComponent<SkinnedMeshRenderer>().material.color = color;
     }
 
 

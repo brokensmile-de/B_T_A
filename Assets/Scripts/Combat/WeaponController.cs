@@ -6,6 +6,7 @@ namespace Combat
     public class WeaponController : MonoBehaviour {
         public int Id;
         public float Cooldown = 0f;
+        public int Damage = 5;
         public AudioClip Sound;
         public float MaxShotDistance = 50f;
         public Boolean AutoFire = false;
@@ -16,6 +17,7 @@ namespace Combat
         public float BulletMaxSpread = 0f;
         public float BulletSpreadIncrease = 0f;
         public BulletController Bullet = null;
+        public Transform Ray = null;
         public Transform Model = null;
         public WeaponType WeaponType = WeaponType.Projectile;
 		//Esteban ---Ammo
