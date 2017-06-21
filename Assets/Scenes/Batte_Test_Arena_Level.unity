@@ -4644,7 +4644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01275832a21face48871a988467dcc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roundTime: 20
+  roundTime: 10
   timerText: {fileID: 1891280040}
   HudObject: {fileID: 90828808}
   TimerObject: {fileID: 1259521479}

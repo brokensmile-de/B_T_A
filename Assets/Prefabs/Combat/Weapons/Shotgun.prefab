@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Id: 2
-  Cooldown: 0
+  Cooldown: 0.5
   Damage: 5
   Sound: {fileID: 8300000, guid: 22bfd9dfb9b0b204f808cf5d31d0615c, type: 3}
   MaxShotDistance: 50
