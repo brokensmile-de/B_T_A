@@ -30,12 +30,7 @@ namespace Combat
 			if (_ammo < 1f && this.WeaponController.Id != 0) {
 				GunController.EmptyAmmo ();
 			} else {
-				var baseRotation = GunController.FirePoint.rotation;
-				baseRotation.x = 0;
-				baseRotation.z = 0;
-				var len = Mathf.Sqrt (baseRotation.y * baseRotation.y + baseRotation.w * baseRotation.w);
-				baseRotation.y /= len;
-				baseRotation.w /= len;
+				var baseRotation = Quaternion.identity;
 				if (WeaponController.BulletsPerShot > 1) {
 					// Multiple bullets per shot e.g. Shotgun
 					var bulletDistance = _curSpread / WeaponController.BulletsPerShot;

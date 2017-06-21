@@ -70,11 +70,18 @@ namespace Combat
         [Command]
         public void CmdFire(Quaternion rotation, float speed, float maxDistance)
         {
+	        var baseRotation = transform.rotation;
+	        baseRotation.x = 0;
+	        baseRotation.z = 0;
+	        var len = Mathf.Sqrt (baseRotation.y * baseRotation.y + baseRotation.w * baseRotation.w);
+	        baseRotation.y /= len;
+	        baseRotation.w /= len;
+	        
             WeaponController currentGun = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController();
 
             var bullet = currentGun.Bullet.gameObject;
 
-            var newBullet = Instantiate(bullet, FirePoint.position, rotation);
+            var newBullet = Instantiate(bullet, FirePoint.position, baseRotation * rotation);
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
             newBullet.GetComponent<BulletController>().spawnedBy = transform.root.gameObject.GetComponent<NetworkIdentity>().netId;
