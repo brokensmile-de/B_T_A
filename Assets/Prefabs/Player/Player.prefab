@@ -775,7 +775,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866942754674226}
   m_LocalRotation: {x: 0, y: -0.41045338, z: 0, w: 0.91188157}
-  m_LocalPosition: {x: 464.81323, y: 625.07153, z: -889.25964}
+  m_LocalPosition: {x: -32.174927, y: 2.4, z: -20.973969}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4472572527854158}
@@ -947,7 +947,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1156,7 +1156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b770ce42122a43a4a6605d674e6c7b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirePoint: {fileID: 4672014894825796}
   GunHolder: {fileID: 4272649985475212}
   audioSource: {fileID: 82181522207208632}
   _weapons:
@@ -1263,9 +1262,9 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 2
   m_Height: 4.39
-  m_Radius: 0.87
+  m_Radius: 1.39
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0.23, y: 2.1, z: 0.16}
+  m_Center: {x: 0.07, y: 2.1, z: 0.09}

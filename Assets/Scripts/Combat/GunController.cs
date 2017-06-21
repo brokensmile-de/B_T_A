@@ -13,7 +13,7 @@ namespace Combat
 			get { return transform.root.gameObject.GetComponent<GunController>().gunModel.Find("FirePoint"); }
 		}
 
-	    public IGun CurrentGun { get; private set; }
+        public IGun CurrentGun { get; private set; }
 
 	    [SerializeField]
 	    private WeaponController[] _weapons;
@@ -84,6 +84,7 @@ namespace Combat
 	        bc.Damage = currentGun.Damage;
             NetworkServer.Spawn(newBullet);
             RpcFire(currentGun.Id);
+            Destroy(newBullet, 3);
         }
 
 
@@ -136,15 +137,20 @@ namespace Combat
 
 
 			var cylinder = Instantiate(ray, position, Quaternion.identity);
-			cylinder.transform.up = offset;
-			cylinder.transform.localScale = new Vector3(
+			//cylinder.transform.up = offset;
+			/*cylinder.transform.localScale = new Vector3(
 				width * cylinder.transform.localScale.x, 
 				offset.magnitude / 2.0f * cylinder.transform.localScale.y, 
 				width * cylinder.transform.localScale.z
-			);
-			
-
-			NetworkServer.Spawn(cylinder);
+			);*/
+            NetworkRay networkRay = cylinder.GetComponent<NetworkRay>();
+            networkRay.up = offset;
+            networkRay.scale = new Vector3(
+                width * cylinder.transform.localScale.x,
+                offset.magnitude / 2.0f * cylinder.transform.localScale.y,
+                width * cylinder.transform.localScale.z
+            );
+            NetworkServer.Spawn(cylinder);
 			RpcFire(currentGun.Id);
 			
 			Destroy(cylinder, 1.5f);
@@ -154,6 +160,7 @@ namespace Combat
         void RpcFire(int i)
         {
             audioSource.PlayOneShot(Weapons[i].Sound);
+          
         }
 
 
