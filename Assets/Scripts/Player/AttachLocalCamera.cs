@@ -18,8 +18,11 @@ public class AttachLocalCamera : NetworkBehaviour {
 
         player = this.gameObject;        
         cameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraFollow>();        
-        cameraScript.setTarget(player);        
-    }
+        cameraScript.setTarget(player);
+
+		// Enable minimap camera for local player
+		player.transform.Find("MinimapCamera").GetComponent<Camera>().enabled = true;
+	}
 	
 
 }

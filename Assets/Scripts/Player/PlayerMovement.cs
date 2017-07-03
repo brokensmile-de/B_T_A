@@ -52,6 +52,7 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         transform.Find("Mesh").gameObject.GetComponent<SkinnedMeshRenderer>().material.color = color;
+        transform.Find("MinimapMarker").gameObject.GetComponent<MeshRenderer>().material.color = color;
     }
 
 
