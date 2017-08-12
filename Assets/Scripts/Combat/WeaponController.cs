@@ -8,6 +8,8 @@ namespace Combat
         public float Cooldown = 0f;
         public int Damage = 5;
         public AudioClip Sound;
+        public Sprite Image;
+        public Color Color;
         public float MaxShotDistance = 50f;
         public Boolean AutoFire = false;
         public float ResetCoolown = 0f;

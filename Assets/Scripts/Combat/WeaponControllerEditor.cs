@@ -24,6 +24,8 @@ namespace Combat
         SerializedProperty _weaponType;
         SerializedProperty _id;
         SerializedProperty _sound;
+        SerializedProperty _color;
+        SerializedProperty _image;
 		
 		//Esteban --- Ammo
 		SerializedProperty _ammoPerPickUp;
@@ -47,7 +49,8 @@ namespace Combat
             _id = serializedObject.FindProperty("Id");
             _sound = serializedObject.FindProperty("Sound");
 			_ammoPerPickUp = serializedObject.FindProperty("AmmoPerPickUp");
-
+            _image = serializedObject.FindProperty("Image");
+            _color = serializedObject.FindProperty("Color");
         }
 
         public override void OnInspectorGUI()
@@ -67,6 +70,8 @@ namespace Combat
             EditorGUILayout.PropertyField(_resetCoolown);
             EditorGUILayout.PropertyField(_model);
             EditorGUILayout.PropertyField(_sound);
+            EditorGUILayout.PropertyField(_color);
+            EditorGUILayout.PropertyField(_image);
             EditorGUILayout.Space();
             
             switch ((WeaponType) _weaponType.enumValueIndex)

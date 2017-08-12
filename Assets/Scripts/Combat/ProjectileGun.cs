@@ -8,7 +8,7 @@ namespace Combat
 	{
 	    private float _curSpread;
 
-		private float _ammo;
+		
 
 	    public ProjectileGun(WeaponController wp, GunController gc) : base(wp, gc)
 	    {
@@ -27,9 +27,7 @@ namespace Combat
 	    protected override void Shoot()
 	    {
 			//ammo check
-			if (_ammo < 1f && this.WeaponController.Id != 0) {
-				GunController.EmptyAmmo ();
-			} else {
+
 				var baseRotation = Quaternion.identity;
 				if (WeaponController.BulletsPerShot > 1) {
 					// Multiple bullets per shot e.g. Shotgun
@@ -42,6 +40,8 @@ namespace Combat
                     
 					}
 					_ammo -= 1;
+                    if(this.WeaponController.Id != 0)
+                    GunController.ammoText.text = _ammo + "";
 				} else {
 					// Single bullet per shot
 					var spread = Random.Range (-_curSpread / 2, _curSpread / 2);
@@ -49,9 +49,14 @@ namespace Combat
 	            
 					GunController.CmdProjectile (rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance);
 					_ammo -= 1;
-				}
+                    if (this.WeaponController.Id != 0)
+                        GunController.ammoText.text = _ammo + "";
+                }
 				_curSpread = Math.Min (WeaponController.BulletSpreadIncrease + _curSpread, WeaponController.BulletMaxSpread);
-			}
+            if (_ammo < 1f && this.WeaponController.Id != 0)
+            {
+                GunController.EmptyAmmo();
+            }
 	    }
 	}
 }

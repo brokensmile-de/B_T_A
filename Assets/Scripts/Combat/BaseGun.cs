@@ -12,7 +12,7 @@ namespace Combat
         private float _resetCooldown;
 
         private Boolean _needReset;
-
+        protected float _ammo;
         public BaseGun (WeaponController wc, GunController gc)
         {
             WeaponController = wc;
