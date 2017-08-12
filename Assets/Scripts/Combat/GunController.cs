@@ -35,8 +35,11 @@ namespace Combat
         public void Start()
         {
             if(isLocalPlayer)
+            {
                 ammoText = GameObject.Find("HudCanvas").transform.Find("AmmoHud/Ammo").GetComponent<Text>();
                 image = GameObject.Find("HudCanvas").transform.Find("AmmoHud/Image").GetComponent<Image>();
+            }
+
         }
 
         //Current Gun model
@@ -220,11 +223,16 @@ namespace Combat
             {
                 player.HasNoPistolAnim();
             }
+
             
-            ammoText.text = Weapons[i].AmmoPerPickUp + "";
-            image.sprite = Weapons[i].Image;
-            image.color = Weapons[i].Color;
-            ammoText.color = Weapons[i].Color;
+            if(isLocalPlayer)
+            {
+                ammoText.text = Weapons[i].AmmoPerPickUp + "";
+                image.sprite = Weapons[i].Image;
+                image.color = Weapons[i].Color;
+                ammoText.color = Weapons[i].Color;
+            }
+
             if (i == 0)
                 ammoText.text = "";
 
