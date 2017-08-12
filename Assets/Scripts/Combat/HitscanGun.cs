@@ -20,18 +20,21 @@ namespace Combat
         }
         protected override void Shoot()
 	    {
+           
+            
+            GunController.CmdHitscan(WeaponController.MaxShotDistance);
+            _ammo--;
+            GunController.ammoText.text = _ammo + "";
+            
             if (_ammo < 1f)
             {
                 GunController.EmptyAmmo();
-            }else
-            {
-                GunController.CmdHitscan(WeaponController.MaxShotDistance);
-                _ammo--;
-                GunController.ammoText.text = _ammo + "";
             }
-                
-            
-	    }
+ 
+
+
+
+        }
 	}
 }
 
