@@ -53,7 +53,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 1
   Cooldown: 0.1
+  Damage: 5
   Sound: {fileID: 8300000, guid: e3e3d9659a837e84b9699cc84c19a3f9, type: 3}
+  Image: {fileID: 21300000, guid: eb62b8c8071e52941a0ff7e3cfd942b5, type: 3}
+  Color: {r: 0.054065764, g: 0.15464962, b: 0.7352941, a: 1}
   MaxShotDistance: 50
   AutoFire: 1
   ResetCoolown: 0.5
@@ -63,6 +66,7 @@ MonoBehaviour:
   BulletMaxSpread: 10
   BulletSpreadIncrease: 0.5
   Bullet: {fileID: 114319213370493246, guid: 903796b4dd2de48bfa321fad3f4937e2, type: 2}
+  Ray: {fileID: 0}
   Model: {fileID: 4289347158512152, guid: 98f26872da43d4675b0a2408513ff912, type: 2}
   WeaponType: 0
   AmmoPerPickUp: 100

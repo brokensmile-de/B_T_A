@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 namespace Combat
 {
@@ -7,6 +8,9 @@ namespace Combat
 	{
 		public Transform GunHolder;
         public AudioSource audioSource;
+        public Text ammoText;
+        public Image image;
+        
 
 		public Transform FirePoint
 		{
@@ -27,6 +31,13 @@ namespace Combat
 
         //Player movement für animation
         public PlayerMovement player;
+
+        public void Start()
+        {
+            if(isLocalPlayer)
+                ammoText = GameObject.Find("HudCanvas").transform.Find("AmmoHud/Ammo").GetComponent<Text>();
+                image = GameObject.Find("HudCanvas").transform.Find("AmmoHud/Image").GetComponent<Image>();
+        }
 
         //Current Gun model
         [SyncVar]
@@ -187,6 +198,7 @@ namespace Combat
             obj.transform.parent = GunHolder;
             obj.transform.localPosition = new Vector3(0, 0, 0);
             obj.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, 0));
+
         }
 
         public void ChangeGun(int i)
@@ -208,11 +220,19 @@ namespace Combat
             {
                 player.HasNoPistolAnim();
             }
+            
+            ammoText.text = Weapons[i].AmmoPerPickUp + "";
+            image.sprite = Weapons[i].Image;
+            image.color = Weapons[i].Color;
+            ammoText.color = Weapons[i].Color;
+            if (i == 0)
+                ammoText.text = "";
+
+
 
             CmdChangeGun(i);
 	    }
 
-		//Esteban ---- diese Methode wird von CollisionDetector angerufen.
 		public void PickGun(int i){
 			if (i >= 0 && i < Weapons.Length)
 			{

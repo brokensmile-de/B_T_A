@@ -7,16 +7,30 @@ namespace Combat
 	{
 	    public HitscanGun(WeaponController wp, GunController gc) : base(wp, gc)
 	    {
-	    }
+            Start();
+        }
 
 	    protected override void Reset()
 	    {
-	    }
+        }
 
-
-		protected override void Shoot()
+        void Start()
+        {
+            _ammo = WeaponController.AmmoPerPickUp;
+        }
+        protected override void Shoot()
 	    {
-		    GunController.CmdHitscan(WeaponController.MaxShotDistance);
+            if (_ammo < 1f)
+            {
+                GunController.EmptyAmmo();
+            }else
+            {
+                GunController.CmdHitscan(WeaponController.MaxShotDistance);
+                _ammo--;
+                GunController.ammoText.text = _ammo + "";
+            }
+                
+            
 	    }
 	}
 }
