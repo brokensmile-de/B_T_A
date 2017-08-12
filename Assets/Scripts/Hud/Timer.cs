@@ -43,7 +43,22 @@ public class Timer : NetworkBehaviour
     [ClientRpc]
     void RpcUpdateTimer(int actualTime)
     {
-        timerText.text = actualTime / 60 + " : " + actualTime % 60;
+        string seconds = "";
+        string minutes = "";
+
+        if (actualTime % 60 < 10)
+            seconds = "0" + actualTime % 60;
+        else
+            seconds = actualTime % 60 + "";
+
+        if (actualTime / 60 < 10 && actualTime / 60  > 0)
+            minutes = "0" + actualTime / 60;
+        else if(actualTime / 60 <= 0)
+            minutes = "00";
+        else
+            minutes = actualTime / 60 + "";
+
+        timerText.text = minutes + " : " + seconds;
         if (actualTime <= 0)
         {
             isGameOver = true;

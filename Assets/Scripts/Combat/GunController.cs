@@ -52,14 +52,6 @@ namespace Combat
             if (!first)
                 Invoke("StartGun", 0.1f);
             first = true;
-
-            for (var i = 1; i <= 9; i++)
-	        {
-	            if (Input.GetKeyDown(i.ToString()) && Weapons.Length >= i)
-	            {
-	                ChangeGun(i-1);
-	            }
-	        }
 	    }
 
         private void StartGun()

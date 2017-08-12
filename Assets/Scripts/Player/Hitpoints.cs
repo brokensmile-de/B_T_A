@@ -180,7 +180,7 @@ public class Hitpoints : NetworkBehaviour
                 shield = maxShield;
             if (shieldText)
                 shieldText.text = "" + shield;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.09f);
         }
         restoringShield = false;
     }

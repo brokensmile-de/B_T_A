@@ -28,7 +28,7 @@ public class PlayerMovement : NetworkBehaviour
     private bool restoringDashes;       //Gibt an ob ein dash charge gerade am laden ist um doppelte aufladungen zu verhindern
 
     private CharacterController controller;
-
+    public GameObject dashParticleSystem;
 	//animation ----Esteban
 	static Animator anim;
 
@@ -135,10 +135,11 @@ public class PlayerMovement : NetworkBehaviour
 
     private IEnumerator Dash()
     {
+        GameObject paticleSystem = Instantiate(dashParticleSystem,transform.position,dashParticleSystem.transform.rotation);
         moveDirection.x = moveDirection.x * dashSpeed;
         moveDirection.z = moveDirection.z * dashSpeed;
         yield return new WaitForSeconds(0.2f);
-
+        
         isDashing = false;
     }
 
