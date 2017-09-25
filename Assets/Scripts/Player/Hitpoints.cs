@@ -56,16 +56,15 @@ public class Hitpoints : NetworkBehaviour
             {
                 shield = 200;
                 maxShield = 200;
+                CancelInvoke("ResetDoubleShield");
                 Invoke("ResetDoubleShield", DoubleShield.durationStatic);
-            }else
-            {
-                maxShield = 100;
             }
         }
     }
     private void ResetDoubleShield()
     {
         hasDoubleShield = false;
+        maxShield = 100;
         if (shield > 100)
             shield = 100;
     }
@@ -79,6 +78,7 @@ public class Hitpoints : NetworkBehaviour
             hasVampire = value;
             if(value == true)
             {
+                CancelInvoke("ResetVampire");
                 Invoke("ResetVampire", Vampire.durationStatic);
             }
         }

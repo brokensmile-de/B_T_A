@@ -46,7 +46,11 @@ public class PlayerMovement : NetworkBehaviour
         {
             infiniteDash = value;
             if (value == true)
-                Invoke("ResetInfiniteDash",InfiniteDash.durationStatic);
+            {
+                CancelInvoke("ResetInfiniteDash");
+                Invoke("ResetInfiniteDash", InfiniteDash.durationStatic);
+            }
+
         }
     }
 
