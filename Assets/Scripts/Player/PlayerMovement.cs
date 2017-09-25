@@ -33,6 +33,27 @@ public class PlayerMovement : NetworkBehaviour
 	static Animator anim;
 
     public Text dashText;
+    //TODO: dashcooldown
+    private bool infiniteDash;
+    public bool HasInfiniteDash
+    {
+        get
+        {
+            return infiniteDash;
+        }
+
+        set
+        {
+            infiniteDash = value;
+            if (value == true)
+                Invoke("ResetInfiniteDash",InfiniteDash.durationStatic);
+        }
+    }
+
+    private void ResetInfiniteDash()
+    {
+        infiniteDash = false;
+    }
 
     //has pistol
     private bool hasPistol;
@@ -79,8 +100,6 @@ public class PlayerMovement : NetworkBehaviour
             anim.SetBool("isRunningRight", false);
             anim.SetBool("isIdle", true);
         }
-
-
     }
 
     private Vector3 moveDirection = Vector3.zero;
@@ -98,11 +117,15 @@ public class PlayerMovement : NetworkBehaviour
                 moveDirection = forward + right;
             }
 
-            if (Input.GetButtonDown("Jump") && dashes >= 1 && !isDashing)
+            if (Input.GetButtonDown("Jump") && (dashes >= 1 || HasInfiniteDash )&& !isDashing )
             {
                 isDashing = true;
-                dashes --;
-                dashText.text = dashes+"";
+                if(!HasInfiniteDash)
+                {
+                    dashes--;
+                    dashText.text = dashes + "";
+                }
+
 				//Esteban--- schneller anim
 				anim.speed = 1.5f;
                 StartCoroutine(Dash());
