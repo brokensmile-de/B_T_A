@@ -281,7 +281,7 @@ Transform:
   m_LocalScale: {x: -20, y: 20, z: 20}
   m_Children: []
   m_Father: {fileID: 331513755}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &210394377
 SpriteRenderer:
@@ -467,11 +467,10 @@ Transform:
   - {fileID: 812503015}
   - {fileID: 1288031231}
   - {fileID: 1916722942}
-  - {fileID: 1519714633}
   - {fileID: 210394376}
   - {fileID: 901125950}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &331513756
 MonoBehaviour:
@@ -1913,7 +1912,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 331513755}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &901125951
 AudioSource:
@@ -3645,7 +3644,7 @@ Transform:
   m_LocalPosition: {x: 439.71487, y: 530.28265, z: -546.7759}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 331513755}
+  m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!199 &1519714634
@@ -3732,7 +3731,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: -1984815479
+  randomSeed: 359967301
   InitialModule:
     serializedVersion: 3
     enabled: 1
