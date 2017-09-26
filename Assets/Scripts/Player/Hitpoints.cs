@@ -15,7 +15,7 @@ public class Hitpoints : NetworkBehaviour
 {
     [Header("Parameter")]
     public const int maxHitpoints = 100;
-    public const int maxShield = 100;
+    public int maxShield = 100;
     public float timeTilShieldRestore;  //Zeit die man keinen damage bekommen darf bis das Schild sich wieder auflädt
     public AudioClip hitSound;
 
@@ -27,7 +27,7 @@ public class Hitpoints : NetworkBehaviour
     [SyncVar(hook = "OnChangeHealth")]
     public int hitpoints = maxHitpoints;
     [SyncVar(hook = "OnChangeShield")]
-    public int shield = maxShield;
+    public int shield;
     private AudioSource audioSource;
     private float lastHitTimestamp;      //Zeitpunkt zu dem man das letzte mal schaden bekommen + cooldown
     private bool restoringShield;        //gibt an ob das shield gerade am aufladen ist
@@ -42,6 +42,51 @@ public class Hitpoints : NetworkBehaviour
     [SyncVar]
     public string playerName;
 
+    private bool hasDoubleShield;
+    public bool HasDoubleShield
+    {
+        get
+        {
+            return hasDoubleShield;
+        }
+        set
+        {
+            hasDoubleShield = value;
+            if(value == true)
+            {
+                shield = 200;
+                maxShield = 200;
+                CancelInvoke("ResetDoubleShield");
+                Invoke("ResetDoubleShield", DoubleShield.durationStatic);
+            }
+        }
+    }
+    private void ResetDoubleShield()
+    {
+        hasDoubleShield = false;
+        maxShield = 100;
+        if (shield > 100)
+            shield = 100;
+    }
+
+    private bool hasVampire;
+    public bool HasVampire
+    {
+        get { return hasVampire; }
+        set
+        {
+            hasVampire = value;
+            if(value == true)
+            {
+                CancelInvoke("ResetVampire");
+                Invoke("ResetVampire", Vampire.durationStatic);
+            }
+        }
+    }
+    private void ResetVampire()
+    {
+        HasVampire = false;
+    }
     void Start()
     {
         hitpoints = maxHitpoints;
@@ -90,6 +135,11 @@ public class Hitpoints : NetworkBehaviour
 
         lastHitTimestamp = Time.time + timeTilShieldRestore;
 
+        Hitpoints inflicterHp = inflicter.GetComponent<Hitpoints>();
+        if (inflicterHp != null && inflicterHp.HasVampire)
+        {
+            inflicterHp.Heal((int)(amount * 0.5f));
+        }
         //Schild+damage abzugsberechnungen
         int differenz = shield - amount;
         if (differenz < 0)
@@ -113,7 +163,11 @@ public class Hitpoints : NetworkBehaviour
         if (hitpoints <= 0)
         {
 
+            GetComponent<PlayerMovement>().HasInfiniteDash = false;
+            HasVampire = false;
+            HasDoubleShield = false;
             hitpoints = maxHitpoints;
+
             shield = maxShield;
             deaths++;
             

@@ -2,36 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealPack : MonoBehaviour
-{
-    public int healAmount;
-    public GameObject packMesh;
-    public float cooldown;
-
+public abstract class Pickup : MonoBehaviour {
+    public GameObject Mesh;
     private bool onCooldown;
+    public float cooldown;
     private AudioSource audioSrc;
 
-    public void Start()
+
+    public virtual void Start()
     {
         audioSrc = GetComponent<AudioSource>();
     }
+
     void OnTriggerEnter(Collider other)
     {
-        if(!onCooldown)
+        if (!onCooldown)
         {
             onCooldown = true; //Set Cooldown
-            packMesh.SetActive(false); //Deactivate mesh
+            Mesh.gameObject.SetActive(false); //Deactivate mesh
             audioSrc.Play();
-            Hitpoints hpScript = other.GetComponent<Hitpoints>();
-            hpScript.Heal(healAmount);//Apply heal
+            Use(other);
             Invoke("ReActivate", cooldown); //Re-enable after Cooldown
         }
-
     }
+
+    protected abstract void Use(Collider other);
 
     private void ReActivate()
     {
         onCooldown = false;
-        packMesh.SetActive(true);
+        Mesh.gameObject.SetActive(true);
     }
 }

@@ -23,6 +23,8 @@ public class PlayerMovement : NetworkBehaviour
 
     public float maxDashes;             //Maximale anzahl an dash charges
     public float dashChargeCooldown;    //Cooldown für einen Charge restore
+    public float dashCooldown = 1;      //Cooldown zwischen auswechmanövern in sekunden
+    private float lastDash;             //wann wurde da letzte mal gedasht(für cooldown)
     private float dashes;               //Wieviele dashes kann man noch usen
     private bool isDashing;             //Gibt an ob der spieler gerade am Dashen ist
     private bool restoringDashes;       //Gibt an ob ein dash charge gerade am laden ist um doppelte aufladungen zu verhindern
@@ -33,6 +35,31 @@ public class PlayerMovement : NetworkBehaviour
 	static Animator anim;
 
     public Text dashText;
+    //TODO: dashcooldown
+    private bool infiniteDash;
+    public bool HasInfiniteDash
+    {
+        get
+        {
+            return infiniteDash;
+        }
+
+        set
+        {
+            infiniteDash = value;
+            if (value == true)
+            {
+                CancelInvoke("ResetInfiniteDash");
+                Invoke("ResetInfiniteDash", InfiniteDash.durationStatic);
+            }
+
+        }
+    }
+
+    private void ResetInfiniteDash()
+    {
+        infiniteDash = false;
+    }
 
     //has pistol
     private bool hasPistol;
@@ -79,8 +106,6 @@ public class PlayerMovement : NetworkBehaviour
             anim.SetBool("isRunningRight", false);
             anim.SetBool("isIdle", true);
         }
-
-
     }
 
     private Vector3 moveDirection = Vector3.zero;
@@ -98,11 +123,16 @@ public class PlayerMovement : NetworkBehaviour
                 moveDirection = forward + right;
             }
 
-            if (Input.GetButtonDown("Jump") && dashes >= 1 && !isDashing)
+            if (Input.GetButtonDown("Jump") && (dashes >= 1 || HasInfiniteDash )&& !isDashing && Time.time > lastDash + dashCooldown)
             {
                 isDashing = true;
-                dashes --;
-                dashText.text = dashes+"";
+                lastDash = Time.time;
+                if(!HasInfiniteDash)
+                {
+                    dashes--;
+                    dashText.text = dashes + "";
+                }
+
 				//Esteban--- schneller anim
 				anim.speed = 1.5f;
                 StartCoroutine(Dash());
@@ -135,7 +165,6 @@ public class PlayerMovement : NetworkBehaviour
 
     private IEnumerator Dash()
     {
-        GameObject paticleSystem = Instantiate(dashParticleSystem,transform.position,dashParticleSystem.transform.rotation);
         moveDirection.x = moveDirection.x * dashSpeed;
         moveDirection.z = moveDirection.z * dashSpeed;
         yield return new WaitForSeconds(0.2f);
