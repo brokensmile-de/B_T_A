@@ -123,8 +123,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4875222135801650}
   - component: {fileID: 95098076414340502}
-  - component: {fileID: 114336017353641144}
-  - component: {fileID: 114846589434980964}
+  - component: {fileID: 114724324987235114}
+  - component: {fileID: 114629979521028644}
   m_Layer: 0
   m_Name: pickup_doubleshield
   m_TagString: Untagged
@@ -509,7 +509,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114336017353641144
+--- !u!114 &114629979521028644
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -528,7 +528,7 @@ MonoBehaviour:
   param3: 
   param4: 
   param5: 
---- !u!114 &114846589434980964
+--- !u!114 &114724324987235114
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -540,7 +540,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneId:
-    m_Value: 3
+    m_Value: 0
   m_AssetId:
     i0: 236
     i1: 42
@@ -572,8 +572,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mesh: {fileID: 1487534772749284}
-  cooldown: 2
-  duration: 4
+  cooldown: 15
+  duration: 5
 --- !u!198 &198062475868321114
 ParticleSystem:
   m_ObjectHideFlags: 1

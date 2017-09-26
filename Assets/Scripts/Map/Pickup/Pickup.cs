@@ -18,7 +18,6 @@ public abstract class Pickup : MonoBehaviour {
     {
         if (!onCooldown)
         {
-            Debug.Log("act");
             onCooldown = true; //Set Cooldown
             Mesh.gameObject.SetActive(false); //Deactivate mesh
             audioSrc.Play();

@@ -57,8 +57,8 @@ GameObject:
   - component: {fileID: 33626756309675566}
   - component: {fileID: 23268234339418924}
   - component: {fileID: 95288506627796012}
-  - component: {fileID: 114544446686663826}
-  - component: {fileID: 114849544790520074}
+  - component: {fileID: 114941776712530032}
+  - component: {fileID: 114321405995889036}
   m_Layer: 0
   m_Name: pickup_medpak (1)
   m_TagString: Untagged
@@ -422,9 +422,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mesh: {fileID: 1297778845426656}
-  cooldown: 5
+  cooldown: 15
   healAmount: 25
---- !u!114 &114544446686663826
+--- !u!114 &114321405995889036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297778845426656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95288506627796012}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
+--- !u!114 &114941776712530032
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -436,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneId:
-    m_Value: 5
+    m_Value: 0
   m_AssetId:
     i0: 50
     i1: 133
@@ -456,25 +475,6 @@ MonoBehaviour:
     i15: 39
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114849544790520074
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1297778845426656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 95288506627796012}
-  m_ParameterSendBits: 0
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
 --- !u!198 &198354215459432804
 ParticleSystem:
   m_ObjectHideFlags: 1

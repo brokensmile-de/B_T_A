@@ -40,8 +40,8 @@ GameObject:
   - component: {fileID: 33888833095818670}
   - component: {fileID: 23267398869005046}
   - component: {fileID: 95604842086666126}
-  - component: {fileID: 114794991143276948}
-  - component: {fileID: 114444440707761366}
+  - component: {fileID: 114677233236310060}
+  - component: {fileID: 114736723600969966}
   m_Layer: 0
   m_Name: pickup_vampire
   m_TagString: Untagged
@@ -410,26 +410,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114444440707761366
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1077538033449862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 95604842086666126}
-  m_ParameterSendBits: 0
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
---- !u!114 &114794991143276948
+--- !u!114 &114677233236310060
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -441,7 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneId:
-    m_Value: 12
+    m_Value: 0
   m_AssetId:
     i0: 78
     i1: 114
@@ -461,6 +442,25 @@ MonoBehaviour:
     i15: 8
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
+--- !u!114 &114736723600969966
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1077538033449862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95604842086666126}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114869764956199376
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -37,8 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4049646527140732}
   - component: {fileID: 95392447783639476}
-  - component: {fileID: 114609314255054608}
-  - component: {fileID: 114752411605673798}
+  - component: {fileID: 114500379557591734}
+  - component: {fileID: 114141624945856514}
   m_Layer: 0
   m_Name: pickup_infinitedash
   m_TagString: Untagged
@@ -614,6 +614,25 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114141624945856514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165086697783748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 95392447783639476}
+  m_ParameterSendBits: 0
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!114 &114345710977753128
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -626,9 +645,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Mesh: {fileID: 1165086697783748}
-  cooldown: 5
+  cooldown: 15
   duration: 3
---- !u!114 &114609314255054608
+--- !u!114 &114500379557591734
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -640,7 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SceneId:
-    m_Value: 4
+    m_Value: 0
   m_AssetId:
     i0: 51
     i1: 218
@@ -660,25 +679,6 @@ MonoBehaviour:
     i15: 152
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 0
---- !u!114 &114752411605673798
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1165086697783748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Animator: {fileID: 95392447783639476}
-  m_ParameterSendBits: 0
-  param0: 
-  param1: 
-  param2: 
-  param3: 
-  param4: 
-  param5: 
 --- !u!198 &198029829066068688
 ParticleSystem:
   m_ObjectHideFlags: 1

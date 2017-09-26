@@ -23,6 +23,8 @@ public class PlayerMovement : NetworkBehaviour
 
     public float maxDashes;             //Maximale anzahl an dash charges
     public float dashChargeCooldown;    //Cooldown für einen Charge restore
+    public float dashCooldown = 1;      //Cooldown zwischen auswechmanövern in sekunden
+    private float lastDash;             //wann wurde da letzte mal gedasht(für cooldown)
     private float dashes;               //Wieviele dashes kann man noch usen
     private bool isDashing;             //Gibt an ob der spieler gerade am Dashen ist
     private bool restoringDashes;       //Gibt an ob ein dash charge gerade am laden ist um doppelte aufladungen zu verhindern
@@ -121,9 +123,10 @@ public class PlayerMovement : NetworkBehaviour
                 moveDirection = forward + right;
             }
 
-            if (Input.GetButtonDown("Jump") && (dashes >= 1 || HasInfiniteDash )&& !isDashing )
+            if (Input.GetButtonDown("Jump") && (dashes >= 1 || HasInfiniteDash )&& !isDashing && Time.time > lastDash + dashCooldown)
             {
                 isDashing = true;
+                lastDash = Time.time;
                 if(!HasInfiniteDash)
                 {
                     dashes--;
@@ -162,7 +165,6 @@ public class PlayerMovement : NetworkBehaviour
 
     private IEnumerator Dash()
     {
-        GameObject paticleSystem = Instantiate(dashParticleSystem,transform.position,dashParticleSystem.transform.rotation);
         moveDirection.x = moveDirection.x * dashSpeed;
         moveDirection.z = moveDirection.z * dashSpeed;
         yield return new WaitForSeconds(0.2f);
