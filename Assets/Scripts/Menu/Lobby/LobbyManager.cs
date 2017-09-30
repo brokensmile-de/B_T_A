@@ -98,13 +98,14 @@ namespace Prototype.NetworkLobby
                 {
                     ChangeTo(mainMenuPanel);
                 }
-
+                
                 topPanel.ToggleVisibility(true);
                 rahmen.enabled = true;
                 topPanel.isInGame = false;
             }
             else
             {
+                Debug.Log("fsaef");
                 ChangeTo(null);
 
                 Destroy(GameObject.Find("MainMenuUI(Clone)"));
