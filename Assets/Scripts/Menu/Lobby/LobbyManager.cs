@@ -21,6 +21,7 @@ namespace Prototype.NetworkLobby
 
         [Space]
         [Header("UI Reference")]
+
         public LobbyTopPanel topPanel;
 
         public RectTransform mainMenuPanel;
@@ -33,6 +34,7 @@ namespace Prototype.NetworkLobby
         protected RectTransform currentPanel;
         public Image rahmen;
         public Button backButton;
+		public Button backToMenuButton;
 
         public Text statusInfo;
         public Text hostInfo;
@@ -58,6 +60,7 @@ namespace Prototype.NetworkLobby
             currentPanel = mainMenuPanel;
 
             backButton.gameObject.SetActive(false);
+			backToMenuButton.gameObject.SetActive(true);
             GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
@@ -134,10 +137,12 @@ namespace Prototype.NetworkLobby
             if (currentPanel != mainMenuPanel)
             {
                 backButton.gameObject.SetActive(true);
+				backToMenuButton.gameObject.SetActive(false);
             }
             else
             {
                 backButton.gameObject.SetActive(false);
+				backToMenuButton.gameObject.SetActive(true);
                 SetServerInfo("Offline", "Niemand");
                 _isMatchmaking = false;
             }
@@ -163,6 +168,13 @@ namespace Prototype.NetworkLobby
             backDelegate();
 			topPanel.isInGame = false;
         }
+
+		public void GoBackToMenuButton()
+		{
+			Destroy(gameObject);
+			SceneManager.LoadScene ("MainMenu");
+
+		}
 
         // ----------------- Server management
 
