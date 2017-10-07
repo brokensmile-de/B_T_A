@@ -60,7 +60,6 @@ namespace Prototype.NetworkLobby
             currentPanel = mainMenuPanel;
 
             backButton.gameObject.SetActive(false);
-			backToMenuButton.gameObject.SetActive(true);
             GetComponent<Canvas>().enabled = true;
 
             DontDestroyOnLoad(gameObject);
@@ -69,6 +68,7 @@ namespace Prototype.NetworkLobby
 
         public override void OnLobbyClientSceneChanged(NetworkConnection conn)
         {
+           
             if (SceneManager.GetSceneAt(0).name == lobbyScene)
             {
                 if (topPanel.isInGame)
@@ -108,7 +108,6 @@ namespace Prototype.NetworkLobby
             }
             else
             {
-                Debug.Log("fsaef");
                 ChangeTo(null);
 
                 Destroy(GameObject.Find("MainMenuUI(Clone)"));
@@ -137,12 +136,11 @@ namespace Prototype.NetworkLobby
             if (currentPanel != mainMenuPanel)
             {
                 backButton.gameObject.SetActive(true);
-				backToMenuButton.gameObject.SetActive(false);
+
             }
             else
             {
                 backButton.gameObject.SetActive(false);
-				backToMenuButton.gameObject.SetActive(true);
                 SetServerInfo("Offline", "Niemand");
                 _isMatchmaking = false;
             }

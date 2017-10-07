@@ -165,7 +165,7 @@ namespace Combat
 		[ClientRpc]
         void RpcFire(int i)
         {
-            audioSource.PlayOneShot(Weapons[i].Sound);
+            audioSource.PlayOneShot(Weapons[i].Sound,PersistenceManager.instance.effectVolume);
           
         }
 

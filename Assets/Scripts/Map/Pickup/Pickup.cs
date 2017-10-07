@@ -12,6 +12,7 @@ public abstract class Pickup : MonoBehaviour {
     public virtual void Start()
     {
         audioSrc = GetComponent<AudioSource>();
+        
     }
 
     void OnTriggerEnter(Collider other)
@@ -20,6 +21,7 @@ public abstract class Pickup : MonoBehaviour {
         {
             onCooldown = true; //Set Cooldown
             Mesh.gameObject.SetActive(false); //Deactivate mesh
+            audioSrc.volume = PersistenceManager.instance.effectVolume;
             audioSrc.Play();
             Use(other);
             Invoke("ReActivate", cooldown); //Re-enable after Cooldown

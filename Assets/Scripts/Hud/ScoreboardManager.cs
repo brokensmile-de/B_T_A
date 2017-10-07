@@ -10,6 +10,7 @@ public class ScoreboardManager : MonoBehaviour
 
     public GameObject scoreEntryPrefab;
     public GameObject scoreboard;       //Refferenz auf Scoreboard
+    public GameObject ammoHud;
     private GameObject playerlist;      //Refferenz auf scoreEntrys
 
     public GameObject[] players;

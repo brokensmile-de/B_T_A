@@ -14,6 +14,7 @@ public class Timer : NetworkBehaviour
     public GameObject TimerObject;
     public GameObject scoreBoard;
     public static Timer singleton;
+    [HideInInspector]
     public bool isGameOver = false;
 
     private void Awake()
@@ -64,6 +65,7 @@ public class Timer : NetworkBehaviour
         {
             isGameOver = true;
             scoreBoard.SetActive(true);
+            ScoreboardManager.s_Singleton.ammoHud.SetActive(false);
             ScoreboardManager.s_Singleton.GenerateScoreboard();
 
             HudObject.SetActive(false);

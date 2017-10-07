@@ -29,6 +29,7 @@ public class WeaponPickup : NetworkBehaviour {
     void RpcPickup(GameObject other)
     {
         mesh.SetActive(false);
+        sound.volume = PersistenceManager.instance.effectVolume;
         sound.Play();
         other.GetComponent<Combat.GunController>().PickGun(weaponId);
 
