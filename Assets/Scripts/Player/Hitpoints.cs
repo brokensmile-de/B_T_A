@@ -134,12 +134,15 @@ public class Hitpoints : NetworkBehaviour
             return;
 
         lastHitTimestamp = Time.time + timeTilShieldRestore;
-
-        Hitpoints inflicterHp = inflicter.GetComponent<Hitpoints>();
-        if (inflicterHp != null && inflicterHp.HasVampire)
+        if(inflicter)
         {
-            inflicterHp.Heal((int)(amount * 0.5f));
+            Hitpoints inflicterHp = inflicter.GetComponent<Hitpoints>();
+            if (inflicterHp != null && inflicterHp.HasVampire)
+            {
+                inflicterHp.Heal((int)(amount * 0.5f));
+            }
         }
+
         //Schild+damage abzugsberechnungen
         int differenz = shield - amount;
         if (differenz < 0)
@@ -170,8 +173,9 @@ public class Hitpoints : NetworkBehaviour
 
             shield = maxShield;
             deaths++;
-            
+            if(inflicter)
             inflicter.GetComponent<Hitpoints>().AddScore();
+
             // called on the Server, invoked on the Clients
             RpcRespawn();
 
