@@ -1,11 +1,14 @@
-﻿using System.Collections;
+﻿using Prototype.NetworkLobby;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
     public GameObject pauseMenu;
     public AudioSource closeSound;
-
+    public GameObject blackscreen;
 	// Use this for initialization
 	void Start () {
 		
@@ -42,5 +45,14 @@ public class PauseMenu : MonoBehaviour {
         }
 
         }
+
+
+    public void Disconnect()
+    {
+        blackscreen.SetActive(true);
+        LobbyManager.s_Singleton.GoBackButton();
     }
+}
+
+
 
