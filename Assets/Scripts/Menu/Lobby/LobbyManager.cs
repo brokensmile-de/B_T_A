@@ -104,6 +104,7 @@ namespace Prototype.NetworkLobby
                 
                 topPanel.ToggleVisibility(true);
                 rahmen.enabled = true;
+                Debug.Log("yo");
                 topPanel.isInGame = false;
             }
             else
@@ -129,6 +130,7 @@ namespace Prototype.NetworkLobby
             if (newPanel != null)
             {
                 newPanel.gameObject.SetActive(true);
+
             }
 
             currentPanel = newPanel;
@@ -143,6 +145,7 @@ namespace Prototype.NetworkLobby
                 backButton.gameObject.SetActive(false);
                 SetServerInfo("Offline", "Niemand");
                 _isMatchmaking = false;
+                rahmen.enabled = true;
             }
         }
 
@@ -233,10 +236,9 @@ namespace Prototype.NetworkLobby
 
 
 
-
         public void KickedMessageHandler(NetworkMessage netMsg)
         {
-            infoPanel.Display("Gekickt vom Server", "Schlieﬂen", null);
+            infoPanel.Display("Gekickt vom Server", "Ok", null);
             netMsg.conn.Disconnect();
         }
 
