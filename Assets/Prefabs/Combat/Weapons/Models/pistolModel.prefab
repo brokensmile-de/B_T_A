@@ -65,20 +65,20 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1295898320733116}
-  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.425, y: 0.148, z: 0}
+  m_LocalRotation: {x: 0, y: -0.7660445, z: 0, w: 0.64278764}
+  m_LocalPosition: {x: -0.7, y: 0.32, z: -0.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4447909539245042}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -100, z: 0}
 --- !u!4 &4447909539245042
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1126926761505830}
-  m_LocalRotation: {x: 0.30348927, y: -0.13186997, z: 0.09143846, w: 0.9392251}
+  m_LocalRotation: {x: 0.31582803, y: 0.06485084, z: 0.026820952, w: 0.9462176}
   m_LocalPosition: {x: 890.4513, y: 743.0152, z: -47.60488}
   m_LocalScale: {x: 1.1186687, y: 1.1186689, z: 1.1186689}
   m_Children:
@@ -86,20 +86,20 @@ Transform:
   - {fileID: 4163444033192228}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 36.456, y: -13.826, z: 6.548}
+  m_LocalEulerAnglesHint: {x: 36.456, y: 10, z: 6.548}
 --- !u!4 &4626457582692900
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1672066794174912}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.3064398, y: 0.048435483, z: -0.12987366}
+  m_LocalRotation: {x: 0.38961864, y: -0.16664065, z: 0.0038998576, w: 0.90576655}
+  m_LocalPosition: {x: 0.4, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4447909539245042}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 45, y: -25, z: -10}
 --- !u!23 &23978853007282338
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -169,5 +169,5 @@ MonoBehaviour:
     i13: 18
     i14: 114
     i15: 119
-  m_ServerOnly: 0
+  m_ServerOnly: 1
   m_LocalPlayerAuthority: 0
