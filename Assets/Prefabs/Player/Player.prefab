@@ -421,8 +421,6 @@ GameObject:
   - component: {fileID: 114109299415863898}
   - component: {fileID: 23080700914867958}
   - component: {fileID: 114658844503900538}
-  - component: {fileID: 114356758950705124}
-  - component: {fileID: 114578062955705244}
   - component: {fileID: 82181522207208632}
   m_Layer: 0
   m_Name: Player
@@ -1008,27 +1006,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   punchTime: 0.15
   player: {fileID: 114749088134993626}
---- !u!114 &114356758950705124
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866942754674226}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ccf9f3faa16a5e45b540cc85afa436e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 4881510300680966}
-  SendRate: 2
-  movementThreshold: 0.2
-  angleThreshold: 5
-  distanceBeforeSnap: 4
-  angleBeforeSnap: 40
-  movementInterpolation: 0.1
-  rotationInterpolation: 0.1
-  thresholdMovementPrediction: 0.2
-  thresholdRotationPrediction: 15
 --- !u!114 &114401764539454824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1072,19 +1049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 888d194d7fa69f943ad777d24b39d586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114578062955705244
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866942754674226}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a59dd8d9d41471041a6cc788d8f82dc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MyTransform: {fileID: 4881510300680966}
-  lerpRate: 10
 --- !u!114 &114658844503900538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1144,6 +1108,7 @@ MonoBehaviour:
   dashSpeed: 70
   maxDashes: 2
   dashChargeCooldown: 5
+  dashCooldown: 1
   dashParticleSystem: {fileID: 1391129630433898, guid: 29b44a43787c344bcb9e3090c000e278,
     type: 2}
   dashText: {fileID: 0}
@@ -1160,6 +1125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GunHolder: {fileID: 4272649985475212}
   audioSource: {fileID: 82181522207208632}
+  ammoText: {fileID: 0}
+  image: {fileID: 0}
   _weapons:
   - {fileID: 114241434366929358, guid: ba09f92533876374d8ca94003a71578e, type: 2}
   - {fileID: 114059091215519674, guid: 1329bb4c486d7bc438fb0c548aa7ddb3, type: 2}
@@ -1177,6 +1144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e373bfd919452fc488d124004e157663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxShield: 100
   timeTilShieldRestore: 5
   hitSound: {fileID: 0}
   hitpointsText: {fileID: 0}
