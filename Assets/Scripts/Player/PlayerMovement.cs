@@ -30,7 +30,6 @@ public class PlayerMovement : NetworkBehaviour
     private bool restoringDashes;       //Gibt an ob ein dash charge gerade am laden ist um doppelte aufladungen zu verhindern
 
     private CharacterController controller;
-    public GameObject dashParticleSystem;
 	//animation ----Esteban
 	static Animator anim;
 
