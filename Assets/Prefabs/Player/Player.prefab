@@ -418,7 +418,6 @@ GameObject:
   - component: {fileID: 114925144707682796}
   - component: {fileID: 114417892406157642}
   - component: {fileID: 114791026611075328}
-  - component: {fileID: 114109299415863898}
   - component: {fileID: 23080700914867958}
   - component: {fileID: 114658844503900538}
   - component: {fileID: 82181522207208632}
@@ -773,7 +772,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866942754674226}
   m_LocalRotation: {x: -0, y: -0.97108823, z: -0, w: 0.23872088}
-  m_LocalPosition: {x: 5.166129, y: -0.649014, z: -2.7409708}
+  m_LocalPosition: {x: 517.3996, y: 247.11194, z: -786.8001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4472572527854158}
@@ -993,19 +992,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114109299415863898
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1866942754674226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc9c26ee607884609855efb5ccce4cf6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  punchTime: 0.15
-  player: {fileID: 114749088134993626}
 --- !u!114 &114401764539454824
 MonoBehaviour:
   m_ObjectHideFlags: 1

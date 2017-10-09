@@ -202,16 +202,6 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
-	//animation -----Esteban
-	//hiermit wird die Melee-Animation angerufen
-	public void Punch(){
-		anim.SetBool ("isPunching", true);
-	}
-	//hiermit wird die Melle-Animation gestoppt
-	public void StopPunch(){
-		anim.SetBool ("isPunching", false);
-	}
-
 	//pistol Körperhaltung
 	public void HasPistolAnim(){
 		this.hasPistol = true;
