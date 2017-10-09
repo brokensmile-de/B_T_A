@@ -91,7 +91,7 @@ namespace Combat
 	        bc.Damage = currentGun.Damage;
             NetworkServer.Spawn(newBullet);
             RpcFire(currentGun.Id);
-            Destroy(newBullet, 3);
+            Destroy(newBullet, 1.5f);
         }
 
 
