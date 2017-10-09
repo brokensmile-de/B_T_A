@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 23080700914867958}
   - component: {fileID: 114658844503900538}
   - component: {fileID: 82181522207208632}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -773,7 +773,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1866942754674226}
   m_LocalRotation: {x: -0, y: -0.97108823, z: -0, w: 0.23872088}
-  m_LocalPosition: {x: 4.406955, y: 34.820534, z: -0.9297979}
+  m_LocalPosition: {x: 5.166129, y: -0.649014, z: -2.7409708}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4472572527854158}
@@ -1106,11 +1106,11 @@ MonoBehaviour:
   jumpSpeed: 25
   gravity: 90
   dashSpeed: 70
+  movementBlocked: 0
   maxDashes: 2
   dashChargeCooldown: 5
   dashCooldown: 1
-  dashParticleSystem: {fileID: 1391129630433898, guid: 29b44a43787c344bcb9e3090c000e278,
-    type: 2}
+  dashes: 0
   dashText: {fileID: 0}
 --- !u!114 &114791026611075328
 MonoBehaviour:
@@ -1124,6 +1124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GunHolder: {fileID: 4272649985475212}
+  movement: {fileID: 114749088134993626}
   audioSource: {fileID: 82181522207208632}
   ammoText: {fileID: 0}
   image: {fileID: 0}
@@ -1149,6 +1150,11 @@ MonoBehaviour:
   hitSound: {fileID: 0}
   hitpointsText: {fileID: 0}
   shieldText: {fileID: 0}
+  respawnTimerText: {fileID: 0}
+  respawnHud: {fileID: 0}
+  Mesh: {fileID: 1676305851925824}
+  Skeleton: {fileID: 1364143986777392}
+  ctrl: {fileID: 143517957678455204}
   hitpoints: 100
   shield: 100
   deaths: 0
