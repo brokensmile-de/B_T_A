@@ -18,10 +18,16 @@ public class Hitpoints : NetworkBehaviour
     public int maxShield = 100;
     public float timeTilShieldRestore;  //Zeit die man keinen damage bekommen darf bis das Schild sich wieder auflädt
     public AudioClip hitSound;
+    private bool dead = false;
 
     [Header("Refferenzen")]
     public Text hitpointsText;          //Hud Text Hp
     public Text shieldText;             //Hud Text Shield
+    public Text respawnTimerText;
+    public GameObject respawnHud;
+    public GameObject Mesh;
+    public GameObject Skeleton;
+    public CharacterController ctrl;
 
     private NetworkStartPosition[] spawnPoints;
     [SyncVar(hook = "OnChangeHealth")]
@@ -97,9 +103,13 @@ public class Hitpoints : NetworkBehaviour
             GameObject hudCanvas = GameObject.Find("HudCanvas");
             hitpointsText = hudCanvas.transform.Find("HealthUI/Hitpoints").GetComponent<Text>();
             shieldText = hudCanvas.transform.Find("HealthUI/Shield").GetComponent<Text>();
+            respawnTimerText = hudCanvas.transform.Find("DeathUI/bg/TimerText").GetComponent<Text>();
+            respawnHud = hudCanvas.transform.Find("DeathUI").gameObject;
+
         }
         hitpoints = maxHitpoints;
         shield = maxShield;
+
     }
 
     public void Update()
@@ -107,7 +117,7 @@ public class Hitpoints : NetworkBehaviour
         if (!isServer)
             return;
 
-        if (lastHitTimestamp < Time.time && shield < maxShield && !restoringShield)
+        if (lastHitTimestamp < Time.time && shield < maxShield && !restoringShield && !dead)
         {
             StartCoroutine(RestoreShield());
         }
@@ -130,7 +140,7 @@ public class Hitpoints : NetworkBehaviour
     }
     public void TakeDamage(int amount, GameObject inflicter)
     {
-        if (!isServer)
+        if (!isServer || dead)
             return;
 
         lastHitTimestamp = Time.time + timeTilShieldRestore;
@@ -165,18 +175,13 @@ public class Hitpoints : NetworkBehaviour
 
         if (hitpoints <= 0)
         {
-
-            GetComponent<PlayerMovement>().HasInfiniteDash = false;
+            dead = true;
             HasVampire = false;
             HasDoubleShield = false;
-            hitpoints = maxHitpoints;
-
-            shield = maxShield;
             deaths++;
             if(inflicter)
-            inflicter.GetComponent<Hitpoints>().AddScore();
+                inflicter.GetComponent<Hitpoints>().AddScore();
 
-            // called on the Server, invoked on the Clients
             RpcRespawn();
 
         }
@@ -189,28 +194,72 @@ public class Hitpoints : NetworkBehaviour
         score += 10;
     }
 
-
     [ClientRpc]
     private void RpcRespawn()
     {
+        Mesh.SetActive(false);
+        Skeleton.SetActive(false);
+        ctrl.detectCollisions = false;
         if (isLocalPlayer)
         {
-            ScoreboardManager.s_Singleton.GenerateScoreboard();
-            // Set the spawn point to origin as a default value
-            Vector3 spawnPoint = Vector3.zero;
-
-            // If there is a spawn point array and the array is not empty, pick one at random
-            if (spawnPoints != null && spawnPoints.Length > 0)
-            {
-                spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
-            }
-            GetComponent<Combat.GunController>().PickGun(0);
-
-            // Set the player’s position to the chosen spawn point
-            transform.position = spawnPoint;
+            PlayerMovement mov = GetComponent<PlayerMovement>();
+            mov.HasInfiniteDash = false;
+            mov.movementBlocked = true;
+            StartCoroutine(respawnTimer());
         }
     }
 
+    private IEnumerator respawnTimer()
+    {
+
+        int seconds = 0;
+        ScoreboardManager.s_Singleton.GenerateScoreboard();
+        // Set the spawn point to origin as a default value
+        Vector3 spawnPoint = Vector3.zero;
+
+        respawnHud.SetActive(true);
+        // If there is a spawn point array and the array is not empty, pick one at random
+        if (spawnPoints != null && spawnPoints.Length > 0)
+        {
+            spawnPoint = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Length)].transform.position;
+        }
+
+        while (seconds < 4)
+        {
+            seconds++;
+            if(seconds == 3)
+                transform.position = spawnPoint;
+            respawnTimerText.text = "Respawn in " + (4 - seconds);
+            yield return new WaitForSeconds(1);
+        }
+        CmdRespawned();
+        GetComponent<Combat.GunController>().PickGun(0);
+        // Set the player’s position to the chosen spawn point
+
+        CmdRespawned();
+        respawnHud.SetActive(false);
+        PlayerMovement mov = GetComponent<PlayerMovement>();
+        mov.movementBlocked = false;
+        mov.dashes = mov.maxDashes;
+        mov.UpdateDashText();
+    }
+
+    [Command]
+    public void CmdRespawned()
+    {
+        hitpoints = maxHitpoints;
+        shield = maxShield;
+        dead = false;
+        RpcRespawned();
+    }
+
+    [ClientRpc]
+    private void RpcRespawned()
+    {
+        Mesh.SetActive(true);
+        Skeleton.SetActive(true);
+        ctrl.detectCollisions = true;
+    }
 
     private void OnChangeHealth(int currentHealth)
     {
@@ -230,7 +279,7 @@ public class Hitpoints : NetworkBehaviour
     private IEnumerator RestoreShield()
     {
         restoringShield = true;
-        while (shield < maxShield && lastHitTimestamp < Time.time)
+        while (shield < maxShield && lastHitTimestamp < Time.time && !dead)
         {
             shield += 2;
 

@@ -7,6 +7,7 @@ namespace Combat
 	public class GunController : NetworkBehaviour
 	{
 		public Transform GunHolder;
+        public PlayerMovement movement;
         public AudioSource audioSource;
         public Text ammoText;
         public Image image;
@@ -57,14 +58,14 @@ namespace Combat
 	        {
 	            CurrentGun.Update();
 
-	            if (Input.GetMouseButton(0) && !Timer.singleton.isGameOver)
+	            if (Input.GetMouseButton(0) && !Timer.singleton.isGameOver && !movement.movementBlocked)
 	            {
 	                CurrentGun.Shoot(!Input.GetMouseButtonDown(0));
 	            }
 	        }
 
             if (!first)
-                Invoke("StartGun", 0.1f);
+                Invoke("StartGun", 0.3f);
             first = true;
 	    }
 
