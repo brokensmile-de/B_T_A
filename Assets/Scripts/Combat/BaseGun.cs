@@ -19,14 +19,14 @@ namespace Combat
             GunController = gc;
         }
 
-        public void Shoot(Boolean autofire)
+        public void Shoot(Boolean autofire, Vector3 bulletSpawnPoint)
         {
             if (_shotCounter <= 0 && (WeaponController.AutoFire || !autofire)) {
                 _shotCounter = WeaponController.Cooldown;
                 _needReset = true;
                 _resetCooldown = WeaponController.ResetCoolown;
 
-                Shoot();
+                Shoot(bulletSpawnPoint);
             }
         }
 
@@ -46,7 +46,7 @@ namespace Combat
             }
         }
 
-        protected abstract void Shoot();
+        protected abstract void Shoot(Vector3 bulletSpawnPoint);
 
         protected abstract void Reset();
 

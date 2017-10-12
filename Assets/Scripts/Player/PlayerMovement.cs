@@ -5,12 +5,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
-//Author:Adrian Zimmer
-//Description: Movementscript für Player bei dem die Kamera immer im gleichen winkel bleiben sollte und W/A/S/D kamera relativ funktionieren
-//Date Created: 27.03.2017
-//Last edited: 05.04.2017
-//Edited by: Adrian Zimmer
-
 public class PlayerMovement : NetworkBehaviour
 {
     [SyncVar]

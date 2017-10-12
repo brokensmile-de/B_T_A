@@ -18,11 +18,11 @@ namespace Combat
         {
             _ammo = WeaponController.AmmoPerPickUp;
         }
-        protected override void Shoot()
+        protected override void Shoot(Vector3 bulletSpawnPoint)
 	    {
            
             
-            GunController.CmdHitscan(WeaponController.MaxShotDistance);
+            GunController.CmdHitscan(WeaponController.MaxShotDistance, bulletSpawnPoint);
             _ammo--;
             GunController.ammoText.text = _ammo + "";
             

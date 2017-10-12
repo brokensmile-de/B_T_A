@@ -104,7 +104,6 @@ namespace Prototype.NetworkLobby
                 
                 topPanel.ToggleVisibility(true);
                 rahmen.enabled = true;
-                Debug.Log("yo");
                 topPanel.isInGame = false;
             }
             else

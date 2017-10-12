@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 198628876456214192}
   - component: {fileID: 199312488706332652}
   m_Layer: 0
-  m_Name: Particle System
+  m_Name: Particle System Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
