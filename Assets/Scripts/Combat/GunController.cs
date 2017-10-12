@@ -11,6 +11,8 @@ namespace Combat
         public AudioSource audioSource;
         public Text ammoText;
         public Image image;
+
+       
         
 
 		public Transform FirePoint
@@ -39,6 +41,7 @@ namespace Combat
             {
                 ammoText = GameObject.Find("HudCanvas").transform.Find("AmmoHud/Ammo").GetComponent<Text>();
                 image = GameObject.Find("HudCanvas").transform.Find("AmmoHud/Image").GetComponent<Image>();
+                
             }
 
         }
@@ -60,7 +63,7 @@ namespace Combat
 
 	            if (Input.GetMouseButton(0) && !Timer.singleton.isGameOver && !movement.movementBlocked)
 	            {
-	                CurrentGun.Shoot(!Input.GetMouseButtonDown(0));
+	                CurrentGun.Shoot(!Input.GetMouseButtonDown(0), FirePoint.position);    //_xyz
 	            }
 	        }
 
@@ -75,7 +78,7 @@ namespace Combat
         }
 
         [Command]
-        public void CmdProjectile(Quaternion rotation, float speed, float maxDistance)
+        public void CmdProjectile(Quaternion rotation, float speed, float maxDistance, Vector3 bulletSpawnPoint)   //_xyz
         {
 	        var fwd = GetForwardDirection();
 	        
@@ -83,7 +86,14 @@ namespace Combat
 
             var bullet = currentGun.Bullet.gameObject;
 
-            var newBullet = Instantiate(bullet, FirePoint.position, fwd * rotation);
+
+            
+
+            Debug.Log("local Firepoint: " + bulletSpawnPoint + " vs ServerFirepoint: " + FirePoint.position);
+
+            
+
+            var newBullet = Instantiate(bullet, bulletSpawnPoint , fwd * rotation);   //_xyz
 
             newBullet.GetComponent<Rigidbody>().velocity = newBullet.transform.forward * speed;
 	        var bc = newBullet.GetComponent<BulletController>();
@@ -109,8 +119,8 @@ namespace Combat
 
 
 		[Command]
-		public void CmdHitscan(float maxDistance)
-		{
+		public void CmdHitscan(float maxDistance, Vector3 bulletSpawnPoint)   //_xyz
+        {
 			var fwd = GetForwardDirection();
 	        
 			WeaponController currentGun = transform.root.gameObject.GetComponent<GunController>().CurrentGun.GetWeaponController();
@@ -123,8 +133,8 @@ namespace Combat
 		    
 			RaycastHit hit;
 			var distance = maxDistance;
-			if (Physics.Raycast(FirePoint.position, direction, out hit, maxDistance))
-			{
+			if (Physics.Raycast(bulletSpawnPoint, direction, out hit, maxDistance))    //_xyz
+            {
 				Hitpoints health = hit.transform.GetComponent<Hitpoints>();
 
 				if (health != null)
@@ -135,8 +145,8 @@ namespace Combat
 				distance = hit.distance;
 			}
 
-			var start = FirePoint.position;
-			var end = start + direction * distance;
+			var start = bulletSpawnPoint;            //_xyz
+            var end = start + direction * distance;
 			var width = 1f;
 			
 			var offset = end - start;

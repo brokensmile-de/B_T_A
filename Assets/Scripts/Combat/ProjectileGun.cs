@@ -24,7 +24,7 @@ namespace Combat
 			_ammo = WeaponController.AmmoPerPickUp;
 		}
 
-	    protected override void Shoot()
+	    protected override void Shoot(Vector3 bulletSpawnPoint)
 	    {
 			//ammo check
 
@@ -34,7 +34,7 @@ namespace Combat
 					var bulletDistance = _curSpread / WeaponController.BulletsPerShot;
 					var rotation = baseRotation * Quaternion.Euler (0f, -_curSpread / 2, 0f);
 					for (int i = 0; i < WeaponController.BulletsPerShot; i++) {
-						GunController.CmdProjectile (rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance);
+						GunController.CmdProjectile (rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance,bulletSpawnPoint);
 
 						rotation *= Quaternion.Euler (0f, bulletDistance, 0f);
                     
@@ -47,7 +47,7 @@ namespace Combat
 					var spread = Random.Range (-_curSpread / 2, _curSpread / 2);
 					var rotation = baseRotation * Quaternion.Euler (0f, spread, 0f);
 	            
-					GunController.CmdProjectile (rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance);
+					GunController.CmdProjectile (rotation, WeaponController.BulletSpeed, WeaponController.MaxShotDistance,  bulletSpawnPoint);
 					_ammo -= 1;
                     if (this.WeaponController.Id != 0)
                         GunController.ammoText.text = _ammo + "";
