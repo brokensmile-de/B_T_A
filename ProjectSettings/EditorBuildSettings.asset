@@ -12,5 +12,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Lobby.unity
     guid: f48f6f49cd2cf3e4d9c86e2ba3c7dd3a
   - enabled: 1
-    path: Assets/Scenes/Batte_Test_Arena_Level.unity
+    path: Assets/Scenes/BTA_Level.unity
     guid: bc907dfe30d8d744cb58abfc25305dbc
