@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bullet
+  - LocalHUD
+  - Gun
+  - AssaultRifle
+  - RailGun
+  - Pistol
+  - Shotgun
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -13,8 +21,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Projectiles
+  - Player
   - 
   - 
   - 

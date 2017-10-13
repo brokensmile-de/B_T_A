@@ -23,6 +23,7 @@ UnityVS.meta
 *.unityproj
 *.booproj
 *.apk
+
 # ============ #
 # OS generated #
 # ============ #
@@ -35,3 +36,14 @@ Icon?
 ehthumbs.db
 Thumbs.db
 build/
+
+# ======== #
+# Binaries #
+# ======== #
+/*.exe
+/*_data/
+
+# ============== #
+# IntelliJ/Rider #
+# ============== #
+.idea

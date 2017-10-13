@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1036476854471508}
+  m_IsPrefabParent: 1
+--- !u!1 &1036476854471508
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4059729919707936}
+  - component: {fileID: 114513456232034450}
+  m_Layer: 0
+  m_Name: Shotgun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4059729919707936
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1036476854471508}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114513456232034450
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1036476854471508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c91f391b60e54bc78150db4a9db58ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Id: 2
+  Cooldown: 0.5
+  Damage: 5
+  Sound: {fileID: 8300000, guid: 22bfd9dfb9b0b204f808cf5d31d0615c, type: 3}
+  Image: {fileID: 21300000, guid: 33da2c203a627a9428db37dd53f78f27, type: 3}
+  Color: {r: 0.7568628, g: 0, b: 0, a: 1}
+  MaxShotDistance: 25
+  AutoFire: 0
+  ResetCoolown: 0
+  BulletSpeed: 50
+  BulletsPerShot: 10
+  BulletBaseSpread: 60
+  BulletMaxSpread: 60
+  BulletSpreadIncrease: 0
+  Bullet: {fileID: 114319213370493246, guid: 903796b4dd2de48bfa321fad3f4937e2, type: 2}
+  Ray: {fileID: 0}
+  Model: {fileID: 4868711415212082, guid: b8d1e6df80bae45a18cc7e56c8279d06, type: 2}
+  WeaponType: 0
+  AmmoPerPickUp: 7
